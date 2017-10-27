@@ -1,0 +1,61 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Oct 25, 2017, 3:26:14 PM
+    Author     : Finn Bon
+*/
+.root {
+    -clr-prim: #EA282B;
+    -clr-sec: #F8BB23;
+    -clr-dark: #454545;
+    -clr-light: #EAEAEA;
+    -clr-lighter: #EEF0F2;
+}
+
+/* Begin pane styling */
+
+AnchorPane {
+    -fx-background-color: -clr-light;
+}
+
+.second-background {
+    -fx-background-color: derive(-clr-light, -5%);
+}
+
+/* End pane styling 
+Begin label styling */
+
+Label {
+    -fx-text-fill: -clr-dark;
+}
+
+/* End label styling
+Begin button styling */
+
+Button {
+    -fx-background-color: -clr-prim;
+}
+
+Button:hover {
+    -fx-background-color: derive(-clr-prim, 25%);
+}
+
+Button:pressed {
+    -fx-background-color: derive(-clr-prim, -15%);
+}
+
+/* End button styling
+Begin input styling */
+
+TextField, PasswordField {
+    -fx-background-color: transparent;
+    -fx-border-width: 0px 0px 1px 0px;
+    -fx-border-color: derive(-clr-light, -25%);
+    -fx-prompt-text-fill: derive(-clr-light, -25%);
+    -fx-text-fill: -clr-dark;
+}
+
+/* End input styling */
