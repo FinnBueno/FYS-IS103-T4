@@ -5,6 +5,8 @@
  */
 package me.is103t4.corendonluggagesystem.scenes.login;
 
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -12,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.text.TextAlignment;
 import me.is103t4.corendonluggagesystem.account.Account;
 import me.is103t4.corendonluggagesystem.database.tasks.LoginTask;
 import me.is103t4.corendonluggagesystem.scenes.Controller;
@@ -35,6 +38,11 @@ public class LoginController extends Controller {
     @FXML
     private Label errorLabel;
 
+    @Override
+    public void initialize(URL url, ResourceBundle bundle) {
+	errorLabel.setWrapText(true);
+    }
+    
     @FXML
     private void login() {
 	String usernameInput = usernameField.getText();
