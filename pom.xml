@@ -9,6 +9,17 @@
 
     <name>CorendonLuggageSystem</name>
 
+    <dependencies>
+        
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.6</version>
+        </dependency>
+
+    </dependencies>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <mainClass>me.is103t4.corendonluggagesystem.LugSysMain</mainClass>

@@ -27,6 +27,9 @@ public abstract class DBTask<T> extends Task {
 	setOnFailed(t -> {
 	    logger.log(Level.SEVERE, null, getException());
 	});
+	Thread th = new Thread(this);
+	th.setDaemon(true);
+	th.start();
     }
 
 }

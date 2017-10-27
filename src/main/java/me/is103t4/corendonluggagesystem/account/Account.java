@@ -25,6 +25,22 @@ public class Account {
 	currentUser = this;
     }
 
+    public int getCode() {
+	return code;
+    }
+
+    public String getUsername() {
+	return name;
+    }
+
+    public String getEmail() {
+	return email;
+    }
+
+    public AccountRole getRole() {
+	return role;
+    }
+
     public static Account getLoggedInUser() {
 	return currentUser;
     }

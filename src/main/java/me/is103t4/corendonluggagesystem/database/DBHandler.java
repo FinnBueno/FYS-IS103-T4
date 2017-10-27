@@ -44,7 +44,7 @@ public class DBHandler {
     public void open() {
 	try {
 	    Class.forName("com.mysql.jdbc.Driver");
-
+	    
 	    String url = "jdbc:mysql://" + host + ":" + port + "/" + db;
 	    connection = DriverManager.getConnection(url, username, password);
 	} catch (SQLException | ClassNotFoundException ex) {

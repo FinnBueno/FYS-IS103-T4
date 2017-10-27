@@ -31,6 +31,7 @@ public class LoginTask extends DBTask<Account> {
 
     @Override
     protected Account call() throws Exception {
+	
 	String query = "SELECT * FROM `accounts` WHERE code=? AND username=? AND password=md5(?)";
 	try (PreparedStatement preparedStatement = conn.
 		prepareStatement(query)) {
@@ -38,15 +39,17 @@ public class LoginTask extends DBTask<Account> {
 	    preparingStatement.setInt(1, code).
 		    setString(2, username).
 		    setString(3, password);
+	    
 	    ResultSet result = preparedStatement.executeQuery();
 
 	    return result.next() ? new Account(result.getInt("code"), result.
-		    getString("username"), AccountRole.valueOf(result.
-		    getString("role")), result.getString("email")) : null;
+		    getString("username"), AccountRole.fromId(result.
+		    getInt("role")), result.getString("email")) : null;
 	} catch (SQLException ex) {
 	    ex.printStackTrace();
 	}
 	return null;
+	
     }
 
 }

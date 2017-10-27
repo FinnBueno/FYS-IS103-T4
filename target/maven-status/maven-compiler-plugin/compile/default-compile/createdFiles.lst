@@ -1,4 +1,15 @@
 me\is103t4\corendonluggagesystem\LugSysMain.class
 me\is103t4\corendonluggagesystem\scenes\login\LoginController.class
+me\is103t4\corendonluggagesystem\database\DBHandler$PreparingStatement.class
+me\is103t4\corendonluggagesystem\lang\languages\English.class
 me\is103t4\corendonluggagesystem\scenes\Scenes.class
+me\is103t4\corendonluggagesystem\account\Account.class
+me\is103t4\corendonluggagesystem\account\AccountRole.class
+me\is103t4\corendonluggagesystem\lang\Lang.class
 me\is103t4\corendonluggagesystem\scenes\Controller.class
+me\is103t4\corendonluggagesystem\database\DBHandler.class
+me\is103t4\corendonluggagesystem\lang\Language.class
+me\is103t4\corendonluggagesystem\database\tasks\LoginTask.class
+me\is103t4\corendonluggagesystem\lang\languages\Dutch.class
+me\is103t4\corendonluggagesystem\database\DBTask.class
+me\is103t4\corendonluggagesystem\database\DBHandler$PlaceholderSetter.class

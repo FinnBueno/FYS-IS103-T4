@@ -11,4 +11,23 @@ package me.is103t4.corendonluggagesystem.account;
  */
 public enum AccountRole {
     
+    ADMIN(0), MANAGERS(1), EMPLOYEE(2), DEVELOPER(3);
+    
+    private final int id;
+    
+    private AccountRole(int i) {
+	id = i;
+    }
+
+    public int getId() {
+	return id;
+    }
+
+    public static AccountRole fromId(int id) {
+	for (AccountRole role : values())
+	    if (role.id == id)
+		return role;
+	return null;
+    }
+    
 }

@@ -6,11 +6,13 @@
 package me.is103t4.corendonluggagesystem.scenes.login;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import me.is103t4.corendonluggagesystem.database.DBHandler;
+import me.is103t4.corendonluggagesystem.account.Account;
 import me.is103t4.corendonluggagesystem.database.tasks.LoginTask;
 import me.is103t4.corendonluggagesystem.scenes.Controller;
 
@@ -35,17 +37,18 @@ public class LoginController extends Controller {
 
     @FXML
     private void login() {
-	DBHandler db = DBHandler.INSTANCE;
-
 	String usernameInput = usernameField.getText();
 	if (usernameInput.length() == 0 || passwordField.getText().
 		length() == 0) {
-	    // no input
+	    errorLabel.setText("You must enter a username and password!");
+	    errorLabel.setWrapText(true);
 	    return;
 	}
 
 	if (!usernameInput.contains("#") || usernameInput.length() != 9) {
-	    // incorrect format
+	    errorLabel.
+		    setText("A username must be formatted like 'tag#4-digit-code'");
+	    errorLabel.setWrapText(true);
 	    return;
 	}
 
@@ -55,13 +58,51 @@ public class LoginController extends Controller {
 	try {
 	    code = Integer.parseInt(split[1]);
 	} catch (NumberFormatException ex) {
-	    // incorrect format
+	    errorLabel.
+		    setText("A username must be formatted like 'tag#4-digit-code'");
+	    errorLabel.setWrapText(true);
 	    return;
 	}
 
 	LoginTask task = new LoginTask(code, name, passwordField.getText());
+	loginButton.setDisable(true);
+	task.setOnCancelled(event -> {
+	    loginButton.setDisable(false);
+	    Alert alert = new Alert(AlertType.WARNING);
+	    alert.setTitle("Dialog");
+	    alert.setHeaderText("An error has occured!");
+	    alert.
+		    setContentText("An unknown error has occured! Please notify the developers to make sure this error can be solved");
+	});
+	task.setOnFailed(event -> {
+	    loginButton.setDisable(false);
+	    Alert alert = new Alert(AlertType.WARNING);
+	    alert.setTitle("Dialog");
+	    alert.setHeaderText("An error has occured!");
+	    alert.
+		    setContentText("An unknown error has occured! Please notify the developers to make sure this error can be solved");
+	});
 	task.setOnSucceeded(event -> {
-	    
+	    Account account = (Account) task.getValue();
+	    Alert alert;
+	    if (account == null) {
+		alert = new Alert(AlertType.WARNING);
+		alert.setTitle("Dialog");
+		alert.setHeaderText(null);
+		alert.setContentText("Invalid credentials!");
+	    } else {
+		alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Dialog");
+		alert.setHeaderText("Logged in succesfully!");
+		alert.
+			setContentText("Code: " + account.getCode() + "\nUser: " + account.
+				getUsername() + "\nEmail: " + account.getEmail() + "\nRole: " + account.
+				getRole().
+				name());
+	    }
+
+	    alert.showAndWait();
+	    loginButton.setDisable(false);
 	});
     }
 

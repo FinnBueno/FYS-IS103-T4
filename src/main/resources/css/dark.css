@@ -32,6 +32,10 @@ Label {
     -fx-text-fill: -clr-dark;
 }
 
+.error {
+    -fx-text-fill: -clr-prim;
+}
+
 /* End label styling
 Begin button styling */
 
