@@ -27,7 +27,7 @@
                       <RowConstraints maxHeight="1.7976931348623157E308" minHeight="50.0" prefHeight="50.0" vgrow="NEVER" />
                       <RowConstraints maxHeight="1.7976931348623157E308" minHeight="35.0" prefHeight="35.0" vgrow="NEVER" />
                       <RowConstraints maxHeight="1.7976931348623157E308" minHeight="35.0" prefHeight="35.0" vgrow="NEVER" />
-                      <RowConstraints maxHeight="1.7976931348623157E308" minHeight="35.0" prefHeight="35.0" vgrow="NEVER" />
+                      <RowConstraints maxHeight="1.7976931348623157E308" minHeight="35.0" prefHeight="70.0" vgrow="NEVER" />
                   </rowConstraints>
                   <children>
                       <Label text="Login" textFill="#dadada" GridPane.columnSpan="2">
@@ -47,9 +47,9 @@
                       </Label>
                       <TextField fx:id="usernameField" promptText="Enter username" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                       <PasswordField fx:id="passwordField" promptText="Enter password" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                      <HBox alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="212.0" GridPane.columnSpan="2" GridPane.rowIndex="3">
+                      <HBox alignment="TOP_RIGHT" prefHeight="35.0" prefWidth="212.0" GridPane.columnSpan="2" GridPane.rowIndex="3">
                           <children>
-                        <Label fx:id="errorLabel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="150.0" styleClass="error" wrapText="true" />
+                        <Label fx:id="errorLabel" alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefWidth="150.0" styleClass="error" wrapText="true" />
                               <Button fx:id="loginButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#login" styleClass="red" text="Login" textAlignment="CENTER">
                                   <font>
                                       <Font name="System Bold" size="15.0" />
