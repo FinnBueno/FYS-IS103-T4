@@ -25,22 +25,42 @@ public class DBHandler {
 
     private final String host = "sql11.freemysqlhosting.net";
     private final int port = 3306;
-    private final String username = "sql11201346";
-    private final String password = "8XV2GiH2Ee";
-    private final String db = "sql11201346";
+    private final String username = "sql11202531";
+    private final String password = "MY6gDGml88";
+    private final String db = "sql11202531";
 
     private Connection connection;
     public static final Logger LOGGER = Logger.getLogger(DBHandler.class.
 	    getName());
 
-    public DBHandler() {
+    public void start() {
 	open();
+	create();
     }
 
     public Connection getConnection() {
 	return connection;
     }
 
+    public void create() {
+	String query = "CREATE TABLE IF NOT EXISTS accounts ("
+		+ "id INT UNIQUE KEY AUTO_INCREMENT,"
+		+ "username VARCHAR(4) NOT NULL,"
+		+ "code INT(4) NOT NULL,"
+		+ "password VARCHAR(128) NOT NULL,"
+		+ "email VARCHAR(128) NOT NULL,"
+		+ "role INT(1) NOT NULL)";
+	try (PreparedStatement preparedStatement = connection.
+		prepareStatement(query)) {
+	    PreparingStatement preparingStatement = new PreparingStatement(preparedStatement);
+
+	    preparingStatement.ps.executeUpdate();
+	} catch (SQLException ex) {
+	    Logger.getLogger(DBHandler.class.getName()).
+		    log(Level.SEVERE, null, ex);
+	}
+    }
+    
     public void open() {
 	try {
 	    Class.forName("com.mysql.jdbc.Driver");

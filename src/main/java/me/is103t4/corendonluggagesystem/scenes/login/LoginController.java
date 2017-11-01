@@ -14,10 +14,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.text.TextAlignment;
 import me.is103t4.corendonluggagesystem.account.Account;
 import me.is103t4.corendonluggagesystem.database.tasks.LoginTask;
 import me.is103t4.corendonluggagesystem.scenes.Controller;
+import me.is103t4.corendonluggagesystem.scenes.Scenes;
 
 /**
  * Controller class for the login interface
@@ -38,9 +38,9 @@ public class LoginController extends Controller {
     @FXML
     private Label errorLabel;
 
-    @Override
-    public void initialize(URL url, ResourceBundle bundle) {
-	errorLabel.setWrapText(true);
+    @FXML
+    private void goToRecover() {
+	Scenes.PASSWORD_RECOVERY.setToScene();
     }
     
     @FXML
@@ -49,26 +49,28 @@ public class LoginController extends Controller {
 	if (usernameInput.length() == 0 || passwordField.getText().
 		length() == 0) {
 	    errorLabel.setText("You must enter a username and password!");
-	    errorLabel.setWrapText(true);
 	    return;
 	}
 
 	if (!usernameInput.contains("#") || usernameInput.length() != 9) {
 	    errorLabel.
 		    setText("A username must be formatted like 'tag#4-digit-code'");
-	    errorLabel.setWrapText(true);
 	    return;
 	}
 
 	String[] split = usernameInput.split("#");
 	String name = split[0];
+	if (name.length() != 4 || split[1].length() != 4) {
+	    errorLabel.
+		    setText("A username must be formatted like 'tag#4-digit-code'");
+	    return;
+	}
 	int code;
 	try {
 	    code = Integer.parseInt(split[1]);
 	} catch (NumberFormatException ex) {
 	    errorLabel.
 		    setText("A username must be formatted like 'tag#4-digit-code'");
-	    errorLabel.setWrapText(true);
 	    return;
 	}
 
@@ -94,11 +96,13 @@ public class LoginController extends Controller {
 	    Account account = (Account) task.getValue();
 	    Alert alert;
 	    if (account == null) {
+		errorLabel.setText("Invalid login!");
 		alert = new Alert(AlertType.WARNING);
 		alert.setTitle("Dialog");
 		alert.setHeaderText(null);
 		alert.setContentText("Invalid credentials!");
 	    } else {
+		errorLabel.setText("");
 		alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Dialog");
 		alert.setHeaderText("Logged in succesfully!");

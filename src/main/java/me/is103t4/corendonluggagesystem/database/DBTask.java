@@ -20,7 +20,7 @@ public abstract class DBTask<T> extends Task {
 
     protected final Connection conn;
     protected final Logger logger;
-
+    
     public DBTask() {
 	this.logger = DBHandler.LOGGER;
 	this.conn = DBHandler.INSTANCE.getConnection();

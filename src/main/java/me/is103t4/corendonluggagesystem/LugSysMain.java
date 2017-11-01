@@ -9,6 +9,7 @@ import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import me.is103t4.corendonluggagesystem.database.DBHandler;
 import me.is103t4.corendonluggagesystem.scenes.Scenes;
 
 /**
@@ -24,10 +25,12 @@ public class LugSysMain extends Application {
     @Override
     public void start(Stage st) {
 	try {
+	    DBHandler.INSTANCE.start();
 	    stage = st;
 	    Scenes.initAll(this);
 
 	    Scene scene = new Scene(Scenes.LOGIN.getRoot(), 800, 600);
+	    Scenes.initScene(scene);
 
 	    stage.setScene(scene);
 	    stage.show();

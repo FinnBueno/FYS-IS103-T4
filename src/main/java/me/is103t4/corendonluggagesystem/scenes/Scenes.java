@@ -12,25 +12,25 @@ import javafx.scene.layout.Pane;
 import me.is103t4.corendonluggagesystem.LugSysMain;
 
 /**
- * An enum holding all the possible scenes that can be displayed on the primary
+ * An enumeration holding all the possible scenes that can be displayed on the primary
  * stage
  *
  * @author Finn Bon
  */
 public enum Scenes {
 
-    LOGIN("Login")/*,
-    PASSWORD_RECOVERY("PasswordRecovery", "psrecovery"),
-    RECOVERY_CONFIRMATION("RecoveryConfirm"),
-    MAIN("MainFrame", "main")*/;
+    LOGIN("Login"),
+    PASSWORD_RECOVERY("RecoverPassword"),
+    RECOVERY_CONFIRMATION("PasswordReset"),
+    /*MAIN("MainFrame", "main")*/;
 
     private Pane root;
     private Controller controller;
     private String fxmlURL;
-    private Scene scene;
 
     private Scenes(String name, String pckg) {
-	fxmlURL = "/fxml/" + name + "Interface.fxml";
+	fxmlURL = "/fxml/" + (pckg.length() == 0 ? "" : pckg + "/") + name + "Interface.fxml";
+	System.out.println(fxmlURL);
     }
 
     public boolean initialize(LugSysMain main) {
@@ -46,6 +46,7 @@ public enum Scenes {
 	    if (controller != null) {
 		controller.setScene(scene);
 		controller.setMain(main);
+		controller.postInit();
 	    }
 	    return true;
 	} catch (IOException exc) {
@@ -62,14 +63,20 @@ public enum Scenes {
 	return root;
     }
 
-    public void setToMainScene() {
+    public void setToScene() {
 	scene.setRoot(root);
     }
 
     private Scenes(String name) {
-	this(name, name.toLowerCase());
+	this(name, "");
     }
 
+    private static Scene scene;
+    
+    public static void initScene(Scene scene) {
+	Scenes.scene = scene;
+    }
+    
     public static void initAll(LugSysMain lugSysMain) {
 	for (Scenes scene : values()) {
 	    scene.initialize(lugSysMain);
