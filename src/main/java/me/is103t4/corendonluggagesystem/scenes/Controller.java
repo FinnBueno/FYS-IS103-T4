@@ -13,23 +13,27 @@ import me.is103t4.corendonluggagesystem.LugSysMain;
 
 /**
  * Abstract base class for every controller in the project
+ *
  * @author Finn Bon
  */
 public abstract class Controller implements Initializable {
 
-	protected Scene scene;
-	protected LugSysMain main;
+    protected Scene scene;
+    protected LugSysMain main;
 
-	public void setScene(Scene scene) {
-		this.scene = scene;
-	}
+    public void setScene(Scene scene) {
+	this.scene = scene;
+    }
 
-	public void setMain(LugSysMain main) {
-		this.main = main;
-	}
+    public void setMain(LugSysMain main) {
+	this.main = main;
+    }
 
-	@Override
-	public void initialize(URL url, ResourceBundle bundle) {
-	}
+    public void postInit() {
+    }
+    
+    @Override
+    public void initialize(URL url, ResourceBundle bundle) {
+    }
 
 }
