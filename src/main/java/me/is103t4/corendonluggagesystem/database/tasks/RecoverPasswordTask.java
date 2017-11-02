@@ -8,19 +8,13 @@ package me.is103t4.corendonluggagesystem.database.tasks;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Properties;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import me.is103t4.corendonluggagesystem.database.DBHandler.PreparingStatement;
 import me.is103t4.corendonluggagesystem.database.DBTask;
+import me.is103t4.corendonluggagesystem.email.Email;
+import me.is103t4.corendonluggagesystem.email.EmailSender;
 
 /**
  *
@@ -62,44 +56,16 @@ public class RecoverPasswordTask extends DBTask<Integer> {
 	    code += ThreadLocalRandom.current().
 		    nextInt(10);
 
-	try {
-	    final String username = "noreply.corendonluggage@gmail.com";
-	    final String password = "hboictis103t4";
+	Email email = new Email("Password Reset", true, address);
+	email.setContentFromURL(getClass().
+		getResource("/email/email.html"), true);
+	email.setContent(email.getContent().
+		replace("%%code%%", code));
+	
+	EmailSender.getInstance().
+		send(email);
 
-	    Properties props = new Properties();
-	    props.put("mail.smtp.auth", "true");
-	    props.put("mail.smtp.starttls.enable", "true");
-	    props.put("mail.smtp.host", "smtp.gmail.com");
-	    props.put("mail.smtp.port", "587");
-
-	    Session session;
-	    session = Session.getInstance(props,
-		    new javax.mail.Authenticator() {
-		@Override
-		protected PasswordAuthentication getPasswordAuthentication() {
-		    return new PasswordAuthentication(username, password);
-		}
-	    });
-
-	    Message message = new MimeMessage(session);
-	    message.setFrom(new InternetAddress(username));
-	    message.setRecipients(Message.RecipientType.TO,
-		    InternetAddress.parse(address));
-	    message.setSubject("Reset password");
-	    message.
-		    setText("Corendon Password Reset\n\nA password reset has "
-			    + "been requested for this account. Please enter the "
-			    + "following code in the code textfield in order to "
-			    + "reset your password.\n\nCode: " + code);
-
-	    Transport.send(message);
-
-	    return Integer.parseInt(code);
-	} catch (MessagingException ex) {
-	    Logger.getLogger(RecoverPasswordTask.class.getName()).
-		    log(Level.SEVERE, null, ex);
-	    return -1;
-	}
+	return Integer.parseInt(code);
     }
 
 }

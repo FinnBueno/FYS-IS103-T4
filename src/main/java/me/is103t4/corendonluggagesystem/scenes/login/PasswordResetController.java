@@ -5,8 +5,6 @@
  */
 package me.is103t4.corendonluggagesystem.scenes.login;
 
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
