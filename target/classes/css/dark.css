@@ -30,6 +30,7 @@ Begin label styling */
 
 Label {
     -fx-text-fill: -clr-dark;
+    -fx-font-weight: bold;
 }
 
 .errorLabel {
@@ -53,6 +54,7 @@ Button {
     -fx-font-size: 15px;
     -fx-font-weight: bold;
     -fx-background-color: -clr-prim;
+    -fx-background-radius: 0px;
 }
 
 Button:hover {
@@ -61,6 +63,19 @@ Button:hover {
 
 Button:pressed {
     -fx-background-color: derive(-clr-prim, -15%);
+}
+
+.secButton {
+    -fx-background-color: derive(-clr-light, -15%);
+    -fx-background-radius: 0px;
+}
+
+.secButton:hover {
+    -fx-background-color: derive(-clr-light, -10%);
+}
+
+.secButton:pressed {
+    -fx-background-color: derive(-clr-light, -30%);
 }
 
 .linkButton {
@@ -84,6 +99,54 @@ TextField, PasswordField {
     -fx-border-color: derive(-clr-light, -25%);
     -fx-prompt-text-fill: derive(-clr-light, -25%);
     -fx-text-fill: -clr-dark;
+}
+
+ComboBox {
+    -fx-background-color: derive(-clr-light, -15%);
+    -fx-background-radius: 0px;
+}
+
+ComboBox .list-view{
+    -fx-background-color: -clr-light;
+}
+
+ComboBox .list-view .list-cell {
+    -fx-font-weight: bold;
+    -fx-background-color: -clr-light;
+}
+
+ComboBox .list-view .list-cell:hover {
+    -fx-background-color: derive(-clr-light, -15%);
+}
+
+.scroll-bar .track {
+    -fx-background-color: -clr-light;
+}
+
+.scroll-bar .increment-button {
+    -fx-background-color: -clr-light;
+}
+
+.scroll-bar .increment-arrow {
+    -fx-background-color: derive(-clr-light, -15%);
+}
+
+.scroll-bar .decrement-button {
+    -fx-background-color: -clr-light;
+}
+
+.scroll-bar .decrement-arrow {
+    -fx-background-color: derive(-clr-light, -15%);
+}
+
+.scroll-bar .thumb {
+    -fx-background-radius: 0px;
+    -fx-background-color: derive(-clr-light, -15%);
+}
+
+ColorPicker {
+    -fx-background-color: derive(-clr-light, -15%);
+    -fx-background-radius: 0px;
 }
 
 /* End input styling */

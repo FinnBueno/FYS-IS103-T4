@@ -58,7 +58,7 @@ public class RecoverPasswordTask extends DBTask<Integer> {
 
 	Email email = new Email("Password Reset", true, address);
 	email.setContentFromURL(getClass().
-		getResource("/email/email.html"), true);
+		getResource("/email/passwordEmail.html"), true);
 	email.setContent(email.getContent().
 		replace("%%code%%", code));
 	

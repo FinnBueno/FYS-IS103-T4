@@ -2,10 +2,12 @@ C:\Users\finnb\Documents\FYS-IS103-T4\src\main\java\me\is103t4\corendonluggagesy
 C:\Users\finnb\Documents\FYS-IS103-T4\src\main\java\me\is103t4\corendonluggagesystem\lang\Lang.java
 C:\Users\finnb\Documents\FYS-IS103-T4\src\main\java\me\is103t4\corendonluggagesystem\scenes\login\PasswordResetController.java
 C:\Users\finnb\Documents\FYS-IS103-T4\src\main\java\me\is103t4\corendonluggagesystem\LugSysMain.java
+C:\Users\finnb\Documents\FYS-IS103-T4\src\main\java\me\is103t4\corendonluggagesystem\scenes\main\tabs\LostLuggageController.java
 C:\Users\finnb\Documents\FYS-IS103-T4\src\main\java\me\is103t4\corendonluggagesystem\database\DBTask.java
 C:\Users\finnb\Documents\FYS-IS103-T4\src\main\java\me\is103t4\corendonluggagesystem\lang\Language.java
 C:\Users\finnb\Documents\FYS-IS103-T4\src\main\java\me\is103t4\corendonluggagesystem\lang\languages\English.java
 C:\Users\finnb\Documents\FYS-IS103-T4\src\main\java\me\is103t4\corendonluggagesystem\scenes\login\LoginController.java
+C:\Users\finnb\Documents\FYS-IS103-T4\src\main\java\me\is103t4\corendonluggagesystem\scenes\main\Tabs.java
 C:\Users\finnb\Documents\FYS-IS103-T4\src\main\java\me\is103t4\corendonluggagesystem\account\Account.java
 C:\Users\finnb\Documents\FYS-IS103-T4\src\main\java\me\is103t4\corendonluggagesystem\database\DBHandler.java
 C:\Users\finnb\Documents\FYS-IS103-T4\src\main\java\me\is103t4\corendonluggagesystem\database\tasks\RecoverPasswordTask.java
@@ -16,4 +18,5 @@ C:\Users\finnb\Documents\FYS-IS103-T4\src\main\java\me\is103t4\corendonluggagesy
 C:\Users\finnb\Documents\FYS-IS103-T4\src\main\java\me\is103t4\corendonluggagesystem\account\AccountRole.java
 C:\Users\finnb\Documents\FYS-IS103-T4\src\main\java\me\is103t4\corendonluggagesystem\scenes\Controller.java
 C:\Users\finnb\Documents\FYS-IS103-T4\src\main\java\me\is103t4\corendonluggagesystem\database\tasks\ChangePasswordTask.java
+C:\Users\finnb\Documents\FYS-IS103-T4\src\main\java\me\is103t4\corendonluggagesystem\scenes\main\MainFrameController.java
 C:\Users\finnb\Documents\FYS-IS103-T4\src\main\java\me\is103t4\corendonluggagesystem\lang\languages\Dutch.java
