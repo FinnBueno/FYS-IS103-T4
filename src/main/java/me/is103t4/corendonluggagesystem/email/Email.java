@@ -6,9 +6,11 @@
 package me.is103t4.corendonluggagesystem.email;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
@@ -24,12 +26,28 @@ public class Email {
     private String subject;
     private String content;
     private boolean useHTML;
+    private List<File> attachments;
 
     public Email(String subject, String content, boolean useHTML, String... recipients) {
 	this.subject = subject;
 	this.content = content;
 	this.useHTML = useHTML;
 	this.recipients = Arrays.asList(recipients);
+	this.attachments = new ArrayList<>();
+    }
+
+    public List<File> getAttachments() {
+	return attachments;
+    }
+
+    public Email setAttachments(File... attachments) {
+	this.attachments = Arrays.asList(attachments);
+	return this;
+    }
+
+    public Email addAttachments(File... attachments) {
+	this.attachments.addAll(Arrays.asList(attachments));
+	return this;
     }
 
     public Email addRecipient(String address) {
@@ -56,8 +74,14 @@ public class Email {
 	return recipients;
     }
 
+    public Email setParameters(ParameterSetter ps) {
+	content = ps.run(content);
+	return this;
+    }
+
     public Email setContentFromURL(URL url, boolean clear) {
-	try (BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()))) {
+	try (BufferedReader br = new BufferedReader(new InputStreamReader(url.
+		openStream()))) {
 	    String line;
 	    content = "";
 	    while ((line = br.readLine()) != null) {
@@ -113,5 +137,9 @@ public class Email {
     public Email(String... recipients) {
 	this("", "", false, recipients);
     }
-
+    
+    public interface ParameterSetter {
+	String run(String txt);
+    }
+    
 }

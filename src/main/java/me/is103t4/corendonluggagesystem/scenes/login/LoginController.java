@@ -5,8 +5,7 @@
  */
 package me.is103t4.corendonluggagesystem.scenes.login;
 
-import java.net.URL;
-import java.util.ResourceBundle;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -18,6 +17,7 @@ import me.is103t4.corendonluggagesystem.account.Account;
 import me.is103t4.corendonluggagesystem.database.tasks.LoginTask;
 import me.is103t4.corendonluggagesystem.scenes.Controller;
 import me.is103t4.corendonluggagesystem.scenes.Scenes;
+import me.is103t4.corendonluggagesystem.scenes.main.MainFrameController;
 
 /**
  * Controller class for the login interface
@@ -42,7 +42,7 @@ public class LoginController extends Controller {
     private void goToRecover() {
 	Scenes.PASSWORD_RECOVERY.setToScene();
     }
-    
+
     @FXML
     private void login() {
 	String usernameInput = usernameField.getText();
@@ -92,7 +92,7 @@ public class LoginController extends Controller {
 	    alert.
 		    setContentText("An unknown error has occured! Please notify the developers to make sure this error can be solved");
 	});
-	task.setOnSucceeded(event -> {
+	task.setOnSucceeded((Event event) -> {
 	    Account account = (Account) task.getValue();
 	    Alert alert;
 	    if (account == null) {
@@ -103,14 +103,11 @@ public class LoginController extends Controller {
 		alert.setContentText("Invalid credentials!");
 	    } else {
 		errorLabel.setText("");
-		alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Dialog");
-		alert.setHeaderText("Logged in succesfully!");
-		alert.
-			setContentText("Code: " + account.getCode() + "\nUser: " + account.
-				getUsername() + "\nEmail: " + account.getEmail() + "\nRole: " + account.
-				getRole().
-				name());
+		MainFrameController mc = (MainFrameController) Scenes.MAIN.
+			getController();
+		mc.fillTabPane();
+		Scenes.MAIN.setToScene();
+		return;
 	    }
 
 	    alert.showAndWait();

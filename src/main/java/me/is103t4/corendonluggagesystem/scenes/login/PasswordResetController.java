@@ -5,6 +5,7 @@
  */
 package me.is103t4.corendonluggagesystem.scenes.login;
 
+import javafx.animation.FadeTransition;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -12,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
+import javafx.util.Duration;
 import me.is103t4.corendonluggagesystem.database.DBTask;
 import me.is103t4.corendonluggagesystem.database.tasks.ChangePasswordTask;
 import me.is103t4.corendonluggagesystem.scenes.Controller;
@@ -49,13 +51,92 @@ public class PasswordResetController extends Controller {
 	codeField.textProperty().
 		addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
 		    boolean disabled = !newValue.equals(String.valueOf(code));
-		    repasswordField.setDisable(disabled);
-		    passwordField.setDisable(disabled);
-		    confirmButton.setDisable(disabled);
+		    if (disabled) {
+			FadeTransition fadeOut = new FadeTransition(Duration.
+				millis(250), repasswordField);
+			fadeOut.setFromValue(1);
+			fadeOut.setToValue(0.1);
+			fadeOut.setOnFinished(value -> {
+			    repasswordField.setDisable(true);
+			    repasswordField.setText("");
+			});
+			fadeOut.play();
+
+			fadeOut = new FadeTransition(Duration.
+				millis(250), confirmButton);
+			fadeOut.setFromValue(1);
+			fadeOut.setToValue(0.1);
+			fadeOut.setOnFinished(value -> {
+			    confirmButton.setDisable(true);
+			});
+			fadeOut.play();
+
+			fadeOut = new FadeTransition(Duration.
+				millis(250), passwordField);
+			fadeOut.setFromValue(1);
+			fadeOut.setToValue(0.1);
+			fadeOut.setOnFinished(value -> {
+			    passwordField.setDisable(true);
+			    passwordField.setText("");
+			});
+			fadeOut.play();
+		    } else {
+			FadeTransition fadeOut = new FadeTransition(Duration.
+				millis(250), repasswordField);
+			fadeOut.setFromValue(0.1);
+			fadeOut.setToValue(1);
+			fadeOut.setOnFinished(value -> {
+			    repasswordField.setDisable(false);
+			});
+			fadeOut.play();
+
+			fadeOut = new FadeTransition(Duration.
+				millis(250), confirmButton);
+			fadeOut.setFromValue(0.1);
+			fadeOut.setToValue(1);
+			fadeOut.setOnFinished(value -> {
+			    confirmButton.setDisable(false);
+			});
+			fadeOut.play();
+			
+			fadeOut = new FadeTransition(Duration.
+				millis(250), passwordField);
+			fadeOut.setFromValue(0.1);
+			fadeOut.setToValue(1);
+			fadeOut.setOnFinished(value -> {
+			    passwordField.setDisable(false);
+			});
+			fadeOut.play();
+		    }
 		});
-	repasswordField.setDisable(true);
-	passwordField.setDisable(true);
-	confirmButton.setDisable(true);
+	FadeTransition fadeOut = new FadeTransition(Duration.
+		millis(250), repasswordField);
+	fadeOut.setFromValue(1);
+	fadeOut.setToValue(0.1);
+	fadeOut.setOnFinished(value -> {
+	    repasswordField.setDisable(true);
+	    repasswordField.setText("");
+	});
+	fadeOut.play();
+
+	fadeOut = new FadeTransition(Duration.
+		millis(250), confirmButton);
+	fadeOut.setFromValue(1);
+	fadeOut.setToValue(0.1);
+	fadeOut.setOnFinished(value -> {
+	    confirmButton.setDisable(true);
+	});
+	fadeOut.play();
+
+	fadeOut = new FadeTransition(Duration.
+		millis(250), passwordField);
+	fadeOut.setFromValue(1);
+	fadeOut.setToValue(0.1);
+	fadeOut.setOnFinished(value -> {
+	    passwordField.setDisable(true);
+	    passwordField.setText("");
+	});
+	fadeOut.play();
     }
 
     @FXML

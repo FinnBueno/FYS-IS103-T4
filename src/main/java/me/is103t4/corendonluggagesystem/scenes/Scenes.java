@@ -6,6 +6,8 @@
 package me.is103t4.corendonluggagesystem.scenes;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -22,14 +24,14 @@ public enum Scenes {
     LOGIN("Login"),
     PASSWORD_RECOVERY("RecoverPassword"),
     RECOVERY_CONFIRMATION("PasswordReset"),
-    /*MAIN("MainFrame", "main")*/;
+    MAIN("MainFrame");
 
     private Pane root;
     private Controller controller;
     private String fxmlURL;
 
-    private Scenes(String name, String pckg) {
-	fxmlURL = "/fxml/" + (pckg.length() == 0 ? "" : pckg + "/") + name + "Interface.fxml";
+    private Scenes(String name) {
+	fxmlURL = "/fxml/" + name + "Interface.fxml";
 	System.out.println(fxmlURL);
     }
 
@@ -49,8 +51,9 @@ public enum Scenes {
 		controller.postInit();
 	    }
 	    return true;
-	} catch (IOException exc) {
-	    exc.printStackTrace();
+	} catch (IOException ex) {
+	    Logger.getLogger(Scenes.class.getName()).
+		    log(Level.SEVERE, null, ex);
 	    return false;
 	}
     }
@@ -65,10 +68,6 @@ public enum Scenes {
 
     public void setToScene() {
 	scene.setRoot(root);
-    }
-
-    private Scenes(String name) {
-	this(name, "");
     }
 
     private static Scene scene;
