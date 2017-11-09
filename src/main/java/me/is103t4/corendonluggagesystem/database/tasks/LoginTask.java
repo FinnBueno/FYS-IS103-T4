@@ -18,7 +18,7 @@ import me.is103t4.corendonluggagesystem.database.DBTask;
  *
  * @author finnb
  */
-public class LoginTask extends DBTask {
+public class LoginTask extends DBTask<Account> {
 
     private final String username, password;
     private final int code;

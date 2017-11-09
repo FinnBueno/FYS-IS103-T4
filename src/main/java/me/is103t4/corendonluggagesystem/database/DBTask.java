@@ -16,7 +16,7 @@ import javafx.concurrent.Task;
  *
  * @author Finn Bon
  */
-public abstract class DBTask extends Task {
+public abstract class DBTask<T> extends Task {
 
     protected final Connection conn;
     protected final Logger logger;

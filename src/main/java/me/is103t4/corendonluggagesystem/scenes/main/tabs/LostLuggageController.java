@@ -6,21 +6,18 @@
 package me.is103t4.corendonluggagesystem.scenes.main.tabs;
 
 import java.io.File;
-import java.util.HashSet;
-import java.util.Set;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
+import me.is103t4.corendonluggagesystem.LugSysMain;
 import me.is103t4.corendonluggagesystem.email.Email;
 import me.is103t4.corendonluggagesystem.email.EmailSender;
 import me.is103t4.corendonluggagesystem.scenes.Controller;
@@ -323,9 +320,6 @@ public class LostLuggageController extends Controller {
     @FXML
     private File photo;
 
-    @FXML
-    private Label errorLabel;
-
     @Override
     public void postInit() {
 	// turn some textfields into numberfields
@@ -339,13 +333,13 @@ public class LostLuggageController extends Controller {
 
 	// fill combo boxes
 	depAirportBox.getItems().
-		addAll((Object[]) AIRPORTS);
+		addAll(AIRPORTS);
 
 	countryBox.getItems().
-		addAll((Object[]) COUNTRIES);
+		addAll(COUNTRIES);
 
 	destBox.getItems().
-		addAll((Object[]) AIRPORTS);
+		addAll(AIRPORTS);
 
 	typeBox.getItems().
 		addAll("Suitcase", "Handbag");
@@ -354,83 +348,8 @@ public class LostLuggageController extends Controller {
 		addAll("English", "Dutch");
     }
 
-    private boolean fieldCheck() {
-	Set<Node> nonFilledNodes = new HashSet<>();
-	boolean unfilled = false;
-	if (!unfilled && depAirportBox.getSelectionModel().
-		getSelectedItem() == null) {
-	    unfilled = true;
-	}
-
-	if (!unfilled && firstNameField.getText() == null || firstNameField.getText().
-		length() == 0) {
-	    unfilled = true;
-	}
-
-	if (!unfilled && lastNameField.getText() == null || lastNameField.getText().
-		length() == 0) {
-	    unfilled = true;
-	}
-
-	if (!unfilled && addressField.getText() == null || addressField.getText().
-		length() == 0) {
-	    unfilled = true;
-	}
-
-	if (!unfilled && cityField.getText() == null || cityField.getText().
-		length() == 0) {
-	    unfilled = true;
-	}
-
-	if (!unfilled && zipField.getText() == null || zipField.getText().
-		length() == 0) {
-	    unfilled = true;
-	}
-
-	if (!unfilled && countryBox.getSelectionModel().
-		getSelectedItem() == null) {
-	    unfilled = true;
-	}
-
-	if (!unfilled && phoneNumberField.getText() == null || phoneNumberField.getText().
-		length() == 0) {
-	    unfilled = true;
-	}
-
-	if (!unfilled && emailField.getText() == null || emailField.getText().
-		length() == 0) {
-	    unfilled = true;
-	}
-
-	if (!unfilled && flightNumberField.getText() == null || flightNumberField.getText().
-		length() == 0) {
-	    unfilled = true;
-	}
-
-	if (!unfilled && destBox.getSelectionModel().
-		getSelectedItem() == null) {
-	    unfilled = true;
-	}
-
-	if (!unfilled && typeBox.getSelectionModel().
-		getSelectedItem() == null) {
-	    unfilled = true;
-	}
-
-	if (!unfilled && langBox.getSelectionModel().
-		getSelectedItem() == null) {
-	    unfilled = true;
-	}
-	
-	errorLabel.setVisible(unfilled);
-	return !unfilled;
-    }
-
     @FXML
     private void registerLostLuggage() {
-	if (!fieldCheck()) {
-	    return;
-	}
 
 	Email email = new Email("Lost Luggage Confirmation", true, emailField.
 		getText());
@@ -450,7 +369,7 @@ public class LostLuggageController extends Controller {
 			    getSelectedItem());
 		    txt = txt.replace("%%phone%%", phoneNumberField.getText());
 		    txt = txt.replace("%%email%%", emailField.getText());
-		    txt = txt.replace("%%lugid%%", luggageIDField.getText().length() == 0 ? "Unknown" : luggageIDField.getText());
+		    txt = txt.replace("%%lugid%%", luggageIDField.getText());
 		    txt = txt.replace("%%flight%%", flightNumberField.getText());
 		    txt = txt.
 			    replace("%%dest%%", (String) destBox.

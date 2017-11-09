@@ -20,7 +20,7 @@ import me.is103t4.corendonluggagesystem.email.EmailSender;
  *
  * @author finnb
  */
-public class RecoverPasswordTask extends DBTask {
+public class RecoverPasswordTask extends DBTask<Integer> {
 
     private final String address;
 

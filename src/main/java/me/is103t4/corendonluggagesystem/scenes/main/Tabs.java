@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.Pane;
 import me.is103t4.corendonluggagesystem.LugSysMain;
@@ -18,15 +19,16 @@ import me.is103t4.corendonluggagesystem.account.AccountRole;
 import me.is103t4.corendonluggagesystem.scenes.Controller;
 
 /**
- *
- * TAB SIZE: WIDTH: 900 Height: 465
- *
+ * 
+ * TAB SIZE:
+ *   WIDTH:  900
+ *   Height: 465
+ * 
  * @author Finn Bon
  */
 public enum Tabs {
 
-    LOST_LUGGAGE("LostLuggage", AccountRole.EMPLOYEE),
-    FOUND_LUGGAGE("LostLuggage", AccountRole.EMPLOYEE);
+    LOST_LUGGAGE("LostLuggage", AccountRole.EMPLOYEE);
 
     private Pane root;
     private Controller controller;
@@ -34,7 +36,7 @@ public enum Tabs {
     private final String fxmlURL;
     private final String name;
     private final AccountRole role;
-
+    
     private Tabs(String name, AccountRole r) {
 	role = r;
 	fxmlURL = "/fxml/tabs/" + (this.name = name) + "Interface.fxml";
@@ -72,7 +74,7 @@ public enum Tabs {
     public Tab getTab() {
 	return tab;
     }
-
+    
     public Tab generateTab() {
 	String tabName = splitCamelCase(name);
 	Tab realTab = new Tab(tabName);
@@ -92,17 +94,14 @@ public enum Tabs {
     }
 
     public static Tabs[] getTabsForRole(AccountRole role) {
-	if (role == AccountRole.DEVELOPER) {
+	if (role == AccountRole.DEVELOPER)
 	    return values();
-	}
-
+	
 	List<Tabs> list = new ArrayList<>();
-	for (Tabs tab : values()) {
-	    if (tab.role == role) {
+	for (Tabs tab : values())
+	    if (tab.role == role)
 		list.add(tab);
-	    }
-	}
-	return list.toArray(new Tabs[list.size()]);
+    	return list.toArray(new Tabs[list.size()]);
     }
 
     public static void initAll(LugSysMain lugSysMain) {
