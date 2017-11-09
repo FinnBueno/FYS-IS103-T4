@@ -18,7 +18,6 @@ import me.is103t4.corendonluggagesystem.scenes.Scenes;
  * Main class and entry point of the application
  *
  * @author Finn Bon
- * @author Tim van Ekert
  */
 public class LugSysMain extends Application {
 
