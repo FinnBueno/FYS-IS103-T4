@@ -25,12 +25,51 @@ AnchorPane {
     -fx-background-color: derive(-clr-light, -5%);
 }
 
+.tab-pane:top .tab-header-background {
+    -fx-background-color: -clr-lighter;
+}
+
+.tab-pane:top .tab-header-area {
+    -fx-padding: 0px;
+}
+
+.tab-pane:top .tab-header-area .headers-region .tab {
+    -fx-background-color: -clr-lighter;
+    -fx-border-width: 0px 0px 2px 0px;
+    -fx-border-color: -clr-lighter;
+    -fx-margin: 0px;
+    -fx-padding: 10px 15px 10px 15px;
+}
+
+.tab-pane:top .tab-header-area .headers-region .tab:selected {
+    -fx-background-color: -clr-light;
+    -fx-border-width: 0px 0px 2px 0px;
+    -fx-border-color: -clr-light;
+}
+
+.tab-pane:top .tab-header-area .headers-region .tab:hover {
+    -fx-border-width: 0px 0px 2px 0px;
+    -fx-border-color: derive(-clr-light, -15%);
+}
+
+.tab-pane:top .tab-header-area .headers-region .tab:selected .focus-indicator {
+    -fx-border-width: 0;
+}
+
 /* End pane styling 
 Begin label styling */
 
 Label {
     -fx-text-fill: -clr-dark;
     -fx-font-weight: bold;
+}
+
+.headerLabel {
+    -fx-font-size: 28;
+}
+
+.titleLabel {
+    -fx-font-size: 36;
 }
 
 .errorLabel {
