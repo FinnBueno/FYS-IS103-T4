@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="465.0" prefWidth="900.0" styleClass="mainFxmlClass" stylesheets="@../../css/dark.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.is103t4.corendonluggagesystem.scenes.main.tabs.FoundLuggageController">
+   <children>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <left>
+            <ImageView fitHeight="402.0" fitWidth="542.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER_LEFT">
+               <BorderPane.margin>
+                  <Insets left="10.0" />
+               </BorderPane.margin>
+               <image>
+                  <Image url="@../../images/HomepageImg.png" />
+               </image>
+            </ImageView>
+         </left>
+         <center>
+            <Label prefHeight="331.0" prefWidth="301.0" text="Welkom bij het Corendon Luggage System. Dit is een programma die gebruikt gaat worden om gevonden, verloren en beschadigde bagage in te voeren. " wrapText="true" BorderPane.alignment="CENTER" />
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>
