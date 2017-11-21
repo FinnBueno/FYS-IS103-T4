@@ -27,7 +27,8 @@ import me.is103t4.corendonluggagesystem.scenes.Controller;
  * @author Finn Bon
  */
 public enum Tabs {
-
+    
+    HOME("Home", AccountRole.EMPLOYEE),
     LOST_LUGGAGE("LostLuggage", AccountRole.EMPLOYEE),
     FOUND_LUGGAGE("FoundLuggage", AccountRole.EMPLOYEE),
     ACCOUNTS("Accounts", AccountRole.ADMIN);
