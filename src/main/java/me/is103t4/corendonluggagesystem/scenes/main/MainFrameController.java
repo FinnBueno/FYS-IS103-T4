@@ -22,13 +22,24 @@ public class MainFrameController extends Controller {
     @Override
     public void postInit() {
 	Tabs.initAll(main);
+
+	tabPane.getSelectionModel().selectedItemProperty().addListener((ov, oldTab, newTab) -> {
+	    Tabs tab = Tabs.getTabById(newTab.getId());
+	    tab.setRoot(0);
+	    if (oldTab != null)
+		System.out.println("Changing from " + oldTab.getId() + " to " + newTab.getId());
+	});
     }
-    
+
     public void fillTabPane() {
-	tabPane.getTabs().clear();
-	Tabs[] tabs = Tabs.getTabsForRole(Account.getLoggedInUser().getRole());
-	for (Tabs tab : tabs)
-	    tabPane.getTabs().add(tab.getTab());
+	tabPane.getTabs().
+		clear();
+	Tabs[] tabs = Tabs.getTabsForRole(Account.getLoggedInUser().
+		getRole());
+	for (Tabs tab : tabs) {
+	    tabPane.getTabs().
+		    add(tab.getTab());
+	}
     }
 
 }

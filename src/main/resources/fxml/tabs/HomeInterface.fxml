@@ -6,22 +6,25 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="465.0" prefWidth="900.0" styleClass="mainFxmlClass" stylesheets="@../../css/dark.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.is103t4.corendonluggagesystem.scenes.main.tabs.FoundLuggageController">
+<AnchorPane id="AnchorPane" prefHeight="465.0" prefWidth="900.0" styleClass="mainFxmlClass" stylesheets="@../../css/dark.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.is103t4.corendonluggagesystem.scenes.main.tabs.FoundLuggageController">
    <children>
-      <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <left>
-            <ImageView fitHeight="402.0" fitWidth="542.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER_LEFT">
-               <BorderPane.margin>
-                  <Insets left="10.0" />
-               </BorderPane.margin>
-               <image>
-                  <Image url="@../../images/HomepageImg.png" />
-               </image>
-            </ImageView>
-         </left>
+      <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
-            <Label prefHeight="331.0" prefWidth="301.0" text="Welkom bij het Corendon Luggage System. Dit is een programma die gebruikt gaat worden om gevonden, verloren en beschadigde bagage in te voeren. " wrapText="true" BorderPane.alignment="CENTER" />
+            <HBox alignment="CENTER" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fx:id="img" fitHeight="402.0" fitWidth="542.0" pickOnBounds="true" smooth="false">
+                     <image>
+                        <Image url="@../../images/HomepageImg.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets right="25.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Label prefHeight="331.0" prefWidth="301.0" text="Welkom bij het Corendon Luggage System. Dit is een programma die gebruikt gaat worden om gevonden, verloren en beschadigde bagage in te voeren. " wrapText="true" />
+               </children>
+            </HBox>
          </center>
       </BorderPane>
    </children>

@@ -6,9 +6,8 @@ package me.is103t4.corendonluggagesystem.scenes.main.tabs;
  * and open the template in the editor.
  */
 
-import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.fxml.Initializable;
+import javafx.fxml.FXML;
+import javafx.scene.image.ImageView;
 import me.is103t4.corendonluggagesystem.scenes.Controller;
 
 /**
@@ -18,6 +17,14 @@ import me.is103t4.corendonluggagesystem.scenes.Controller;
  */
 public class HomeController extends Controller {
 
-   
+   @FXML
+   private ImageView img;
+
+    @Override
+    public void postInit() {
+	img.setPreserveRatio(true);
+	img.fitWidthProperty().bind(scene.widthProperty());
+	img.fitHeightProperty().bind(scene.heightProperty());
+    }
     
 }

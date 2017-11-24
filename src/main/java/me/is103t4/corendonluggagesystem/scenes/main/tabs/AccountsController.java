@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import me.is103t4.corendonluggagesystem.scenes.Controller;
+import me.is103t4.corendonluggagesystem.scenes.main.Tabs;
 
 /**
  *
@@ -29,7 +30,7 @@ public class AccountsController extends Controller {
 
     @FXML
     public void addAccount(ActionEvent event) {
-
+	Tabs.ACCOUNTS.setRoot(1);
     }
 
     @FXML

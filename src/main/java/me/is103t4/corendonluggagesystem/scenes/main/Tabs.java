@@ -8,10 +8,10 @@ package me.is103t4.corendonluggagesystem.scenes.main;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.Pane;
 import me.is103t4.corendonluggagesystem.LugSysMain;
@@ -19,70 +19,104 @@ import me.is103t4.corendonluggagesystem.account.AccountRole;
 import me.is103t4.corendonluggagesystem.scenes.Controller;
 
 /**
- * 
- * TAB SIZE:
- *   WIDTH:  900
- *   Height: 465
- * 
+ *
+ * TAB SIZE: WIDTH: 900 Height: 465
+ *
  * @author Finn Bon
  */
 public enum Tabs {
-    
-    HOME("Home", AccountRole.EMPLOYEE),
-    LOST_LUGGAGE("LostLuggage", AccountRole.EMPLOYEE),
-    FOUND_LUGGAGE("FoundLuggage", AccountRole.EMPLOYEE),
-    ACCOUNTS("Accounts", AccountRole.ADMIN);
-    
-    private Pane root;
-    private Controller controller;
+
+    HOME(AccountRole.EMPLOYEE, "Home"),
+    LOST_LUGGAGE(AccountRole.EMPLOYEE, "LostLuggage"),
+    FOUND_LUGGAGE(AccountRole.EMPLOYEE, "FoundLuggage"),
+    ACCOUNTS(AccountRole.ADMIN, "Accounts", "NewAccount");
+
     private Tab tab;
-    private final String fxmlURL;
+    private final Pane[] root;
+    private final Controller[] controller;
+    private final String[] fxmlURL;
     private final String name;
     private final AccountRole role;
-    
-    private Tabs(String name, AccountRole r) {
-	role = r;
-	fxmlURL = "/fxml/tabs/" + (this.name = name) + "Interface.fxml";
-	System.out.println(fxmlURL);
+
+    private Tabs(String... names) {
+	this(null, names);
     }
 
-    public boolean initialize(LugSysMain main) {
-	try {
-	    FXMLLoader loader = new FXMLLoader(getClass().
-		    getResource(fxmlURL));
-
-	    root = loader.load();
-	    controller = (Controller) loader.getController();
-	    if (controller != null) {
-		controller.setMain(main);
-		controller.postInit();
-	    }
-	    tab = generateTab();
-	    return true;
-	} catch (IOException ex) {
-	    Logger.getLogger(Tabs.class.getName()).
-		    log(Level.SEVERE, null, ex);
-	    return false;
+    private Tabs(AccountRole r, String... names) {
+	role = r;
+	int length = names.length;
+	controller = new Controller[length];
+	root = new Pane[length];
+	fxmlURL = new String[length];
+	name = names[0];
+	for (int i = 0; i < names.length; i++) {
+	    fxmlURL[i] = "/fxml/tabs/" + names[i] + "Interface.fxml";
 	}
     }
 
-    public Controller getController() {
-	return controller;
+    /**
+     * Initialize all tab entries
+     *
+     * @param main The main app class
+     * @return Whether initialization was successful or not
+     */
+    public boolean initialize(LugSysMain main) {
+	// generate a tab
+	tab = generateTab();
+
+	for (int i = 0; i < fxmlURL.length; i++) {
+	    String url = fxmlURL[i];
+	    try {
+		FXMLLoader loader = new FXMLLoader(getClass().
+			getResource(url));
+
+		root[i] = loader.load();
+		Controller cntrlr = (Controller) loader.getController();
+		if (cntrlr != null) {
+		    cntrlr.setMain(main);
+		    cntrlr.postInit();
+		}
+		controller[i] = cntrlr;
+
+	    } catch (IOException ex) {
+		Logger.getLogger(Tabs.class.getName()).
+			log(Level.SEVERE, null, ex);
+		return false;
+	    }
+	}
+	return true;
     }
 
+    @Deprecated
+    public Controller getController() {
+	return controller[0];
+    }
+
+    @Deprecated
     public Pane getRoot() {
-	return root;
+	return root[0];
+    }
+
+    public Controller getController(int i) {
+	return controller[i];
+    }
+
+    public Pane getRoot(int i) {
+	return root[i];
+    }
+
+    public void setRoot(int i) {
+	tab.setContent(root[i]);
     }
 
     public Tab getTab() {
 	return tab;
     }
-    
+
     public Tab generateTab() {
-	String tabName = splitCamelCase(name);
-	Tab realTab = new Tab(tabName);
-	realTab.setContent(root);
-	return realTab;
+	tab  = new Tab(splitCamelCase(name));
+	tab.setId(UUID.randomUUID().toString());
+	return tab;
     }
 
     private String splitCamelCase(String s) {
@@ -97,20 +131,33 @@ public enum Tabs {
     }
 
     public static Tabs[] getTabsForRole(AccountRole role) {
-	if (role == AccountRole.DEVELOPER)
+	if (role == AccountRole.DEVELOPER) {
 	    return values();
-	
+	}
+
 	List<Tabs> list = new ArrayList<>();
-	for (Tabs tab : values())
-	    if (tab.role == role)
+	for (Tabs tab : values()) {
+	    if (tab.role == role || tab.role == null) {
 		list.add(tab);
-    	return list.toArray(new Tabs[list.size()]);
+	    }
+	}
+	return list.toArray(new Tabs[list.size()]);
     }
 
     public static void initAll(LugSysMain lugSysMain) {
 	for (Tabs tab : values()) {
 	    tab.initialize(lugSysMain);
 	}
+    }
+
+    public static Tabs getTabById(String id) {
+	for (Tabs tab : values()) {
+	    if (id.equals(tab.getTab().
+		    getId())) {
+		return tab;
+	    }
+	}
+	return null;
     }
 
 }

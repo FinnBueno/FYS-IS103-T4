@@ -28,7 +28,7 @@ public enum Scenes {
 
     private Pane root;
     private Controller controller;
-    private String fxmlURL;
+    private final String fxmlURL;
 
     private Scenes(String name) {
 	fxmlURL = "/fxml/" + name + "Interface.fxml";
