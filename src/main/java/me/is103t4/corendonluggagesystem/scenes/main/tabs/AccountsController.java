@@ -13,7 +13,7 @@ import me.is103t4.corendonluggagesystem.scenes.main.Tabs;
 
 /**
  *
- * @author roy
+ * @author Roy Klein
  */
 public class AccountsController extends Controller {
 
