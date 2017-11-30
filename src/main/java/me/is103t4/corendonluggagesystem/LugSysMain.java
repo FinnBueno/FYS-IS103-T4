@@ -6,15 +6,12 @@
 package me.is103t4.corendonluggagesystem;
 
 import javafx.application.Application;
-import static javafx.application.Application.launch;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import me.is103t4.corendonluggagesystem.database.DBHandler;
 import me.is103t4.corendonluggagesystem.scenes.Scenes;
 
 /**
- *
  * Main class and entry point of the application
  *
  * @author Finn Bon
@@ -25,22 +22,26 @@ public class LugSysMain extends Application {
 
     @Override
     public void start(Stage st) {
-	DBHandler.INSTANCE.start();
-	stage = st;
-	Scenes.initAll(this);
+        DBHandler.INSTANCE.start();
+        stage = st;
+        Scenes.initAll(this);
 
-	Scene scene = new Scene(Scenes.LOGIN.getRoot(), 800, 600);
-	Scenes.initScene(scene);
+        Scene scene = new Scene(Scenes.LOGIN.getRoot(), 800, 600);
+        Scenes.initScene(scene);
 
-	stage.setScene(scene);
-	stage.show();
+        stage.setScene(scene);
+        stage.show();
+
+        stage.setOnCloseRequest(event -> {
+            DBHandler.INSTANCE.close();
+        });
     }
 
     public Stage getStage() {
-	return stage;
+        return stage;
     }
 
     public static void main(String[] args) {
-	launch(args);
+        launch(args);
     }
 }

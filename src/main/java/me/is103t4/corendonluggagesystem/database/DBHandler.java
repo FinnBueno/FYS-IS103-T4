@@ -1,5 +1,11 @@
 package me.is103t4.corendonluggagesystem.database;
 
+import me.is103t4.corendonluggagesystem.email.Email;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -8,11 +14,6 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
  * This class handles any interaction with the database. Any database
  * connections should be handled via this class ONLY
@@ -31,105 +32,147 @@ public class DBHandler {
 
     private Connection connection;
     public static final Logger LOGGER = Logger.getLogger(DBHandler.class.
-	    getName());
+            getName());
 
     public void start() {
-	open();
-	create();
+        try {
+            open();
+            // create();
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public Connection getConnection() {
-	return connection;
+        return connection;
     }
 
-    public void create() {
-	String query = "CREATE TABLE IF NOT EXISTS accounts ("
-		+ "id INT UNIQUE KEY AUTO_INCREMENT,"
-		+ "username VARCHAR(4) NOT NULL,"
-		+ "code INT(4) NOT NULL,"
-		+ "password VARCHAR(128) NOT NULL,"
-		+ "email VARCHAR(128) NOT NULL,"
-		+ "role INT(1) NOT NULL)";
-	try (PreparedStatement preparedStatement = connection.
-		prepareStatement(query)) {
-	    PreparingStatement preparingStatement = new PreparingStatement(preparedStatement);
+    /**
+     * Used to create the table structure in the database
+     */
+    private void create() throws SQLException {
+        // read createTables.sql
+        URL urlToFile = getClass().getResource("/sql/createTables.sql");
+        // read contents into StringBuilder with BufferedReader
+        StringBuilder sb = null;
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(urlToFile.
+                openStream()))) {
+            String line;
+            sb = new StringBuilder();
+            while ((line = br.readLine()) != null) {
+                sb.append(line);
+                sb.append("\n");
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(Email.class.getName()).
+                    log(Level.SEVERE, null, ex);
+        }
 
-	    preparingStatement.ps.executeUpdate();
-	} catch (SQLException ex) {
-	    Logger.getLogger(DBHandler.class.getName()).
-		    log(Level.SEVERE, null, ex);
-	}
-    }
-    
-    public void open() {
-	try {
-	    Class.forName("com.mysql.jdbc.Driver");
-	    
-	    String url = "jdbc:mysql://" + host + ":" + port + "/" + db;
-	    connection = DriverManager.getConnection(url, username, password);
-	} catch (SQLException | ClassNotFoundException ex) {
-	    LOGGER.log(Level.SEVERE, null, ex);
-	}
+        if (sb == null) {
+            throw new SQLException("Could not create databases! Application will not work properly!");
+        }
+
+        // execute query to create all tables if they don't exist already
+        try (PreparedStatement preparedStatement = connection.
+                prepareStatement(sb.toString().replaceAll("mydb", db))) {
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBHandler.class.getName()).
+                    log(Level.SEVERE, null, ex);
+        }
+
     }
 
+    /**
+     * Starts the connection to the database
+     * @throws ClassNotFoundException If the {@link com.mysql.jdbc.Driver} could not be found
+     * @throws SQLException If the connection could not be started
+     */
+    public void open() throws ClassNotFoundException, SQLException {
+        Class.forName("com.mysql.jdbc.Driver");
+
+        String url = "jdbc:mysql://" + host + ":" + port + "/" + db;
+        connection = DriverManager.getConnection(url, username, password);
+    }
+
+    /**
+     * Close the connection to the database
+     */
+    public void close() {
+        try {
+            connection.close();
+        } catch (SQLException ex) {
+            LOGGER.log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /**
+     * Wrapper class used to set the parameters used in {@link PreparedStatement}
+     */
     public static class PreparingStatement {
 
-	private PreparedStatement ps;
+        private PreparedStatement ps;
 
-	public PreparingStatement(PreparedStatement ps) {
-	    this.ps = ps;
-	}
+        public PreparingStatement(PreparedStatement ps) {
+            this.ps = ps;
+        }
 
-	public PreparingStatement setString(int i, String msg) {
-	    try {
-		ps.setString(i, msg);
-	    } catch (SQLException ex) {
-		LOGGER.log(Level.SEVERE, null, ex);
-	    }
-	    return this;
-	}
+        public PreparingStatement setString(int i, String msg) {
+            try {
+                ps.setString(i, msg);
+            } catch (SQLException ex) {
+                LOGGER.log(Level.SEVERE, null, ex);
+            }
+            return this;
+        }
 
-	public PreparingStatement setDate(int i, Date date) {
-	    try {
-		ps.setDate(i, date);
-	    } catch (SQLException ex) {
-		LOGGER.log(Level.SEVERE, null, ex);
-	    }
-	    return this;
-	}
+        public PreparingStatement setDate(int i, Date date) {
+            try {
+                ps.setDate(i, date);
+            } catch (SQLException ex) {
+                LOGGER.log(Level.SEVERE, null, ex);
+            }
+            return this;
+        }
 
-	public PreparingStatement setFloat(int i, float f) {
-	    try {
-		ps.setFloat(i, f);
-	    } catch (SQLException ex) {
-		LOGGER.log(Level.SEVERE, null, ex);
-	    }
-	    return this;
-	}
+        public PreparingStatement setFloat(int i, float f) {
+            try {
+                ps.setFloat(i, f);
+            } catch (SQLException ex) {
+                LOGGER.log(Level.SEVERE, null, ex);
+            }
+            return this;
+        }
 
-	public PreparingStatement setInt(int i, int j) {
-	    try {
-		ps.setInt(i, j);
-	    } catch (SQLException ex) {
-		LOGGER.log(Level.SEVERE, null, ex);
-	    }
-	    return this;
-	}
+        public PreparingStatement setInt(int i, int j) {
+            try {
+                ps.setInt(i, j);
+            } catch (SQLException ex) {
+                LOGGER.log(Level.SEVERE, null, ex);
+            }
+            return this;
+        }
 
-	public PreparingStatement setLong(int i, long l) {
-	    try {
-		ps.setLong(i, l);
-	    } catch (SQLException ex) {
-		LOGGER.log(Level.SEVERE, null, ex);
-	    }
-	    return this;
-	}
+        public PreparingStatement setLong(int i, long l) {
+            try {
+                ps.setLong(i, l);
+            } catch (SQLException ex) {
+                LOGGER.log(Level.SEVERE, null, ex);
+            }
+            return this;
+        }
 
-    }
+        public PreparingStatement setBytes(int i , byte[] b) {
+            try {
+                ps.setBytes(i, b);
+            } catch (SQLException ex) {
+                LOGGER.log(Level.SEVERE, null, ex);
+            }
+            return this;
+        }
 
-    public static interface PlaceholderSetter {
-
-	void replace(PreparingStatement ps);
     }
 
 }

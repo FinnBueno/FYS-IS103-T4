@@ -8,6 +8,7 @@ package me.is103t4.corendonluggagesystem.database;
 import java.sql.Connection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javafx.concurrent.Task;
 
 /**
@@ -20,16 +21,16 @@ public abstract class DBTask<T> extends Task {
 
     protected final Connection conn;
     protected final Logger logger;
-    
+
     public DBTask() {
-	this.logger = DBHandler.LOGGER;
-	this.conn = DBHandler.INSTANCE.getConnection();
-	setOnFailed(t -> {
-	    logger.log(Level.SEVERE, null, getException());
-	});
-	Thread th = new Thread(this);
-	th.setDaemon(true);
-	th.start();
+        this.logger = DBHandler.LOGGER;
+        this.conn = DBHandler.INSTANCE.getConnection();
+        setOnFailed(t -> {
+            logger.log(Level.SEVERE, null, getException());
+        });
+        Thread th = new Thread(this);
+        th.setDaemon(true);
+        th.start();
     }
 
 }
