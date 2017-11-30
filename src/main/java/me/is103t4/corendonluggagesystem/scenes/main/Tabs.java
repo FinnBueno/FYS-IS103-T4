@@ -29,7 +29,8 @@ public enum Tabs {
     HOME(AccountRole.EMPLOYEE, "Home"),
     LOST_LUGGAGE(AccountRole.EMPLOYEE, "LostLuggage"),
     FOUND_LUGGAGE(AccountRole.EMPLOYEE, "FoundLuggage"),
-    ACCOUNTS(AccountRole.ADMIN, "Accounts", "NewAccount");
+    ACCOUNTS(AccountRole.ADMIN, "Accounts", "NewAccount"),
+    DAMAGED_LUGGAGE(AccountRole.EMPLOYEE, "DamagedLuggage");
 
     private Tab tab;
     private final Pane[] root;
