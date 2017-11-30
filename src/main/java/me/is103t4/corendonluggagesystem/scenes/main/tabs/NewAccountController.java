@@ -8,8 +8,8 @@ package me.is103t4.corendonluggagesystem.scenes.main.tabs;
 import me.is103t4.corendonluggagesystem.scenes.Controller;
 
 /**
- *
- * @author finnb
+ * 
+ * @author Roy Klein
  */
 public class NewAccountController extends Controller {
     
