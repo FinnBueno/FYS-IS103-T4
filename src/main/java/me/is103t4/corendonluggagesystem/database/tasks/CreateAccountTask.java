@@ -8,8 +8,10 @@ import me.is103t4.corendonluggagesystem.database.PasswordAuthentication;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import me.is103t4.corendonluggagesystem.database.DBHandler.PreparingStatement;
 
 public class CreateAccountTask extends DBTask<Account> {
 
@@ -57,9 +59,28 @@ public class CreateAccountTask extends DBTask<Account> {
 
     @Override
     protected Account call() throws Exception {
-
+        
+        //Write query 
+        String query = "SELECT * FROM accounts WHERE code = ? AND username = ?";
+        //Created prepared statement
+        try(PreparedStatement ps = DBHandler.INSTANCE.getConnection().prepareStatement(query)){
+        
+            //Populate statement
+            PreparingStatement preparing = new PreparingStatement(ps);
+            preparing.setString(1, tag);
+            preparing.setString(2, username);
+            ResultSet set = ps.executeQuery();
+            
+            //Test return
+            if (!set.next())
+                return null;
+            
+        }catch(SQLException ex) {
+            ex.printStackTrace();
+        }
+        
         // create query
-        String query = "INSERT INTO accounts (username, code, password, email, role, salt, last_name, first_name, phone_number, birth) " +
+        query = "INSERT INTO accounts (username, code, password, email, role, salt, last_name, first_name, phone_number, birth) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         // create PreparedStatement
         try (PreparedStatement ps = DBHandler.INSTANCE.getConnection().prepareStatement(query)) {
