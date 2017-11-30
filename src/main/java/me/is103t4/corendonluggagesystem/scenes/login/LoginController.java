@@ -19,6 +19,8 @@ import me.is103t4.corendonluggagesystem.scenes.Controller;
 import me.is103t4.corendonluggagesystem.scenes.Scenes;
 import me.is103t4.corendonluggagesystem.scenes.main.MainFrameController;
 
+import java.util.regex.Matcher;
+
 /**
  * Controller class for the login interface
  *
@@ -40,79 +42,72 @@ public class LoginController extends Controller {
 
     @FXML
     private void goToRecover() {
-	Scenes.PASSWORD_RECOVERY.setToScene();
+        Scenes.PASSWORD_RECOVERY.setToScene();
     }
 
     @FXML
     private void login() {
-	String usernameInput = usernameField.getText();
-	if (usernameInput.length() == 0 || passwordField.getText().
-		length() == 0) {
-	    errorLabel.setText("You must enter a username and password!");
-	    return;
-	}
+        String usernameInput = usernameField.getText();
+        if (usernameInput.length() == 0 || passwordField.getText().
+                length() == 0) {
+            errorLabel.setText("You must enter a username and password!");
+            return;
+        }
 
-	if (!usernameInput.contains("#") || usernameInput.length() != 9) {
-	    errorLabel.
-		    setText("A username must be formatted like 'tag#4-digit-code'");
-	    return;
-	}
+        if (!usernameInput.contains("#") || usernameInput.length() != 9) {
+            errorLabel.
+                    setText("A username must be formatted like 'tag#4-digit-code'");
+            return;
+        }
 
-	String[] split = usernameInput.split("#");
-	String name = split[0];
-	if (name.length() != 4 || split[1].length() != 4) {
-	    errorLabel.
-		    setText("A username must be formatted like 'tag#4-digit-code'");
-	    return;
-	}
-	int code;
-	try {
-	    code = Integer.parseInt(split[1]);
-	} catch (NumberFormatException ex) {
-	    errorLabel.
-		    setText("A username must be formatted like 'tag#4-digit-code'");
-	    return;
-	}
+        String[] split = usernameInput.split("#");
+        if (split[0].length() != 4 || split[0].matches("\\d+") || split[1].length() != 4 || !split[1].matches("\\d+")) {
+            errorLabel.setText("A username must be formatted like 'tag#4-digit-code'");
+            return;
+        }
+        String name = split[0];
+        String code = split[1];
 
-	LoginTask task = new LoginTask(code, name, passwordField.getText());
-	loginButton.setDisable(true);
-	task.setOnCancelled(event -> {
-	    loginButton.setDisable(false);
-	    Alert alert = new Alert(AlertType.WARNING);
-	    alert.setTitle("Dialog");
-	    alert.setHeaderText("An error has occured!");
-	    alert.
-		    setContentText("An unknown error has occured! Please notify the developers to make sure this error can be solved");
-	});
-	task.setOnFailed(event -> {
-	    loginButton.setDisable(false);
-	    Alert alert = new Alert(AlertType.WARNING);
-	    alert.setTitle("Dialog");
-	    alert.setHeaderText("An error has occured!");
-	    alert.
-		    setContentText("An unknown error has occured! Please notify the developers to make sure this error can be solved");
-	});
-	task.setOnSucceeded((Event event) -> {
-	    Account account = (Account) task.getValue();
-	    Alert alert;
-	    if (account == null) {
-		errorLabel.setText("Invalid login!");
-		alert = new Alert(AlertType.WARNING);
-		alert.setTitle("Dialog");
-		alert.setHeaderText(null);
-		alert.setContentText("Invalid credentials!");
-	    } else {
-		errorLabel.setText("");
-		MainFrameController mc = (MainFrameController) Scenes.MAIN.
-			getController();
-		mc.fillTabPane();
-		Scenes.MAIN.setToScene();
-		return;
-	    }
+        LoginTask task = new LoginTask(code, name, passwordField.getText());
+        loginButton.setDisable(true);
+        task.setOnCancelled(event -> {
+            loginButton.setDisable(false);
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Dialog");
+            alert.setHeaderText("An error has occured!");
+            alert.
+                    setContentText("An unknown error has occured! Please notify the developers to make sure this error can be solved");
+        });
+        task.setOnFailed(event -> {
+            loginButton.setDisable(false);
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Dialog");
+            alert.setHeaderText("An error has occured!");
+            alert.
+                    setContentText("An unknown error has occured! Please notify the developers to make sure this error can be solved");
+        });
+        task.setOnSucceeded((Event event) -> {
+            Account account = (Account) task.getValue();
+            Alert alert;
+            if (account == null) {
+                errorLabel.setText("Invalid login!");
+                alert = new Alert(AlertType.WARNING);
+                alert.setTitle("Dialog");
+                alert.setHeaderText(null);
+                alert.setContentText("Invalid credentials!");
+            } else {
+                account.login();
+                errorLabel.setText("");
+                MainFrameController mc = (MainFrameController) Scenes.MAIN.
+                        getController();
+                mc.fillTabPane();
+                Scenes.MAIN.setToScene();
+                return;
+            }
 
-	    alert.showAndWait();
-	    loginButton.setDisable(false);
-	});
+            alert.showAndWait();
+            loginButton.setDisable(false);
+        });
     }
 
 }

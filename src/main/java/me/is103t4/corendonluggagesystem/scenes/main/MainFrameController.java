@@ -11,8 +11,9 @@ import me.is103t4.corendonluggagesystem.account.Account;
 import me.is103t4.corendonluggagesystem.scenes.Controller;
 
 /**
+ * The controller for the main frame interface
  *
- * @author finnb
+ * @author Finn Bon
  */
 public class MainFrameController extends Controller {
 
@@ -21,25 +22,25 @@ public class MainFrameController extends Controller {
 
     @Override
     public void postInit() {
-	Tabs.initAll(main);
+        Tabs.initAll(main);
 
-	tabPane.getSelectionModel().selectedItemProperty().addListener((ov, oldTab, newTab) -> {
-	    Tabs tab = Tabs.getTabById(newTab.getId());
-	    tab.setRoot(0);
-	    if (oldTab != null)
-		System.out.println("Changing from " + oldTab.getId() + " to " + newTab.getId());
-	});
+        tabPane.getSelectionModel().selectedItemProperty().addListener((ov, oldTab, newTab) -> {
+            Tabs tab = Tabs.getTabById(newTab.getId());
+            if (tab == null)
+                return;
+            tab.setRoot(0);
+        });
     }
 
     public void fillTabPane() {
-	tabPane.getTabs().
-		clear();
-	Tabs[] tabs = Tabs.getTabsForRole(Account.getLoggedInUser().
-		getRole());
-	for (Tabs tab : tabs) {
-	    tabPane.getTabs().
-		    add(tab.getTab());
-	}
+        tabPane.getTabs().
+                clear();
+        Tabs[] tabs = Tabs.getTabsForRole(Account.getLoggedInUser().
+                getRole());
+        for (Tabs tab : tabs) {
+            tabPane.getTabs().
+                    add(tab.getTab());
+        }
     }
 
 }
