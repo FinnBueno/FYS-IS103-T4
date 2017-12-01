@@ -45,7 +45,7 @@ public class EmailSender {
         return INSTANCE;
     }
 
-    private static final String SENDGRID_API_KEY = "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";
+    private static final String SENDGRID_API_KEY = "<insert key>";
     private static final SendGrid SENDGRID = new SendGrid(SENDGRID_API_KEY);
     private static final String EMAIL_ADDRESS = "noreply@corendonluggage.com";
 
@@ -80,7 +80,8 @@ public class EmailSender {
                 try {
                     String imageDataString = x.encodeAsString(Files.readAllBytes(file.toPath()));
                     attachments.setContent(imageDataString);
-                    String[] split = file.getName().split(".");
+                    String[] split = file.getAbsolutePath().split("\\.");
+                    System.out.println(file.getAbsolutePath());
                     String extension = split[split.length - 1];
                     attachments.setType("image/" + extension);
                     attachments.setFilename("luggage." + extension);
