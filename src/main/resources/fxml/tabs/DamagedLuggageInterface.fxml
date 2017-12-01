@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane id="AnchorPane" prefHeight="465.0" prefWidth="900.0" stylesheets="@../../css/dark.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.is103t4.corendonluggagesystem.scenes.main.tabs.DamagedLuggageController">
+<AnchorPane id="AnchorPane" prefHeight="465.0" prefWidth="900.0" stylesheets="@../../css/dark.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.is103t4.corendonluggagesystem.scenes.main.tabs.DamagedLuggageController">
    <children>
       <BorderPane prefHeight="465.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
@@ -48,7 +48,7 @@
                   <Label text="Damage description:" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                   <Label text="Photos:" GridPane.columnIndex="3" GridPane.rowIndex="3" />
                   <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#selectPhoto" styleClass="secButton" text="Upload " GridPane.columnIndex="4" GridPane.rowIndex="3" />
-                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#registerDamagedLuggage" prefHeight="51.0" text="Register" GridPane.columnSpan="2147483647" GridPane.rowIndex="6" />
+                  <Button fx:id="registerButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#registerDamagedLuggage" prefHeight="51.0" text="Register" GridPane.columnSpan="2147483647" GridPane.rowIndex="6" />
                   <Label text="E-mail*:" GridPane.rowIndex="4" />
                   <TextField fx:id="emailField" layoutX="160.0" layoutY="225.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                </children>

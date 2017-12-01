@@ -316,6 +316,9 @@ public class LostLuggageController extends Controller {
 
     @Override
     public void postInit() {
+        // set enter action
+        setEnterButton(registerButton);
+
         // turn some textfields into numberfields
         phoneNumberField.textProperty().
                 addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
@@ -350,6 +353,8 @@ public class LostLuggageController extends Controller {
         email.setContentFromURL(getClass().
                 getResource("/email/lostRegisteredEmail.html"), true).
                 setParameters(txt -> {
+                    if (txt == null)
+                        System.out.println("Nani");
                     txt = txt.replace("%%dep%%", (String) depAirportBox.
                             getSelectionModel().
                             getSelectedItem());

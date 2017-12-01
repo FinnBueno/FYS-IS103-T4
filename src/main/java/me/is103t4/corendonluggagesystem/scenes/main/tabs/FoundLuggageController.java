@@ -65,7 +65,13 @@ public class FoundLuggageController extends Controller {
     
     @FXML
     private Button registerButton;
-    
+
+    @Override
+    public void postInit() {
+        // set enter button
+        setEnterButton(registerButton);
+    }
+
     @FXML
     private void registerFoundLuggage(){
     
