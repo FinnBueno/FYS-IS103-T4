@@ -21,7 +21,9 @@ import java.util.logging.Logger;
  *
  * @author Finn Bon
  */
-public class Email {
+public class IEmail {
+
+    private static final String SENDGRID_API_KEY = "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";
 
     private List<String> recipients;
     private String subject;
@@ -29,7 +31,7 @@ public class Email {
     private boolean useHTML;
     private List<File> attachments;
 
-    public Email(String subject, String content, boolean useHTML, String... recipients) {
+    public IEmail(String subject, String content, boolean useHTML, String... recipients) {
         this.subject = subject;
         this.content = content;
         this.useHTML = useHTML;
@@ -41,32 +43,32 @@ public class Email {
         return attachments;
     }
 
-    public Email setAttachments(File... attachments) {
+    public IEmail setAttachments(File... attachments) {
         this.attachments = Arrays.asList(attachments);
         return this;
     }
 
-    public Email addAttachments(File... attachments) {
+    public IEmail addAttachments(File... attachments) {
         this.attachments.addAll(Arrays.asList(attachments));
         return this;
     }
 
-    public Email addRecipient(String address) {
+    public IEmail addRecipient(String address) {
         recipients.add(address);
         return this;
     }
 
-    public Email removeRecipient(String address) {
+    public IEmail removeRecipient(String address) {
         recipients.remove(address);
         return this;
     }
 
-    public Email setRecipients(String... recipients) {
+    public IEmail setRecipients(String... recipients) {
         this.recipients = Arrays.asList(recipients);
         return this;
     }
 
-    public Email clearRecipients() {
+    public IEmail clearRecipients() {
         recipients.clear();
         return this;
     }
@@ -80,7 +82,7 @@ public class Email {
      * @param ps An implementation of {@link ParameterSetter}
      * @return The email instance
      */
-    public Email setParameters(ParameterSetter ps) {
+    public IEmail setParameters(ParameterSetter ps) {
         content = ps.run(content);
         return this;
     }
@@ -91,7 +93,7 @@ public class Email {
      * @param clear Whether to clear the previous content or not
      * @return The email instance
      */
-    public Email setContentFromURL(URL url, boolean clear) {
+    public IEmail setContentFromURL(URL url, boolean clear) {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(url.
                 openStream()))) {
             String line;
@@ -100,18 +102,18 @@ public class Email {
                 content += line + "\n";
             }
         } catch (IOException ex) {
-            Logger.getLogger(Email.class.getName()).
+            Logger.getLogger(IEmail.class.getName()).
                     log(Level.SEVERE, null, ex);
         }
         return this;
     }
 
-    public Email addLine(String line) {
+    public IEmail addLine(String line) {
         content += "\nline";
         return this;
     }
 
-    public Email setContent(String content) {
+    public IEmail setContent(String content) {
         this.content = content;
         return this;
     }
@@ -120,7 +122,7 @@ public class Email {
         return content;
     }
 
-    public Email setSubject(String subject) {
+    public IEmail setSubject(String subject) {
         this.subject = subject;
         return this;
     }
@@ -129,7 +131,7 @@ public class Email {
         return subject;
     }
 
-    public Email setUseHTML(boolean useHTML) {
+    public IEmail setUseHTML(boolean useHTML) {
         this.useHTML = useHTML;
         return this;
     }
@@ -138,15 +140,15 @@ public class Email {
         return useHTML;
     }
 
-    public Email(String subject, boolean useHTML, String... recipients) {
+    public IEmail(String subject, boolean useHTML, String... recipients) {
         this(subject, "", useHTML, recipients);
     }
 
-    public Email(String subject, String... recipients) {
+    public IEmail(String subject, String... recipients) {
         this(subject, "", false, recipients);
     }
 
-    public Email(String... recipients) {
+    public IEmail(String... recipients) {
         this("", "", false, recipients);
     }
 

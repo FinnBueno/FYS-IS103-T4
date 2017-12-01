@@ -1,4 +1,4 @@
-package me.is103t4.corendonluggagesystem.database.tasks;
+package me.is103t4.corendonluggagesystem.database.tasks.accounts;
 
 import me.is103t4.corendonluggagesystem.account.Account;
 import me.is103t4.corendonluggagesystem.account.AccountRole;
@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+
 import me.is103t4.corendonluggagesystem.database.DBHandler.PreparingStatement;
 
 public class CreateAccountTask extends DBTask<Account> {
@@ -27,14 +28,15 @@ public class CreateAccountTask extends DBTask<Account> {
 
     /**
      * The main constructor to create this task
-     * @param firstName The user's first name
-     * @param lastName The user's last name
-     * @param email The user's email address
+     *
+     * @param firstName   The user's first name
+     * @param lastName    The user's last name
+     * @param email       The user's email address
      * @param phoneNumber The user's phone number
-     * @param password The user's password
-     * @param tag The user's tag
+     * @param password    The user's password
+     * @param tag         The user's tag
      * @param dateOfBirth The user's date of birth
-     * @param role The user's role
+     * @param role        The user's role
      */
     public CreateAccountTask(String firstName, String lastName, String email, String phoneNumber, String password, String tag, LocalDate dateOfBirth, AccountRole role) {
         this.firstName = firstName;
@@ -59,26 +61,26 @@ public class CreateAccountTask extends DBTask<Account> {
 
     @Override
     protected Account call() throws Exception {
-        
+
         //Write query 
         String query = "SELECT * FROM accounts WHERE code = ? AND username = ?";
         //Created prepared statement
-        try(PreparedStatement ps = DBHandler.INSTANCE.getConnection().prepareStatement(query)){
-        
+        try (PreparedStatement ps = DBHandler.INSTANCE.getConnection().prepareStatement(query)) {
+
             //Populate statement
             PreparingStatement preparing = new PreparingStatement(ps);
             preparing.setString(1, tag);
             preparing.setString(2, username);
             ResultSet set = ps.executeQuery();
-            
+
             //Test return
             if (!set.next())
                 return null;
-            
-        }catch(SQLException ex) {
+
+        } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        
+
         // create query
         query = "INSERT INTO accounts (username, code, password, email, role, salt, last_name, first_name, phone_number, birth) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";

@@ -15,7 +15,7 @@ import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.util.Duration;
 import me.is103t4.corendonluggagesystem.database.DBTask;
-import me.is103t4.corendonluggagesystem.database.tasks.ChangePasswordTask;
+import me.is103t4.corendonluggagesystem.database.tasks.accounts.ChangePasswordTask;
 import me.is103t4.corendonluggagesystem.scenes.Controller;
 import me.is103t4.corendonluggagesystem.scenes.Scenes;
 
