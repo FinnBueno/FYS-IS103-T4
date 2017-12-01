@@ -9,7 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import me.is103t4.corendonluggagesystem.database.tasks.RecoverPasswordTask;
+import me.is103t4.corendonluggagesystem.database.tasks.accounts.RecoverPasswordTask;
 import me.is103t4.corendonluggagesystem.scenes.Controller;
 import me.is103t4.corendonluggagesystem.scenes.Scenes;
 

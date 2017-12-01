@@ -32,9 +32,7 @@ public class LugSysMain extends Application {
         stage.setScene(scene);
         stage.show();
 
-        stage.setOnCloseRequest(event -> {
-            DBHandler.INSTANCE.close();
-        });
+        stage.setOnCloseRequest(event -> DBHandler.INSTANCE.close());
     }
 
     public Stage getStage() {

@@ -1,16 +1,12 @@
 package me.is103t4.corendonluggagesystem.database;
 
-import me.is103t4.corendonluggagesystem.email.Email;
+import me.is103t4.corendonluggagesystem.email.IEmail;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -31,7 +27,7 @@ public class DBHandler {
     private final String db = "sql11202531";
 
     private Connection connection;
-    public static final Logger LOGGER = Logger.getLogger(DBHandler.class.
+    static final Logger LOGGER = Logger.getLogger(DBHandler.class.
             getName());
 
     public void start() {
@@ -65,7 +61,7 @@ public class DBHandler {
                 sb.append("\n");
             }
         } catch (IOException ex) {
-            Logger.getLogger(Email.class.getName()).
+            Logger.getLogger(IEmail.class.getName()).
                     log(Level.SEVERE, null, ex);
         }
 

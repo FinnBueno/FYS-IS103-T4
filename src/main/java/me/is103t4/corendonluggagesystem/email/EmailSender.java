@@ -5,7 +5,13 @@
  */
 package me.is103t4.corendonluggagesystem.email;
 
+import com.sendgrid.*;
+import org.apache.commons.codec.binary.Base64;
+import sun.misc.IOUtils;
+
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -39,70 +45,67 @@ public class EmailSender {
         return INSTANCE;
     }
 
+    private static final String SENDGRID_API_KEY = "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";
+    private static final SendGrid SENDGRID = new SendGrid(SENDGRID_API_KEY);
+    private static final String EMAIL_ADDRESS = "noreply@corendonluggage.com";
+
     private EmailSender() {
     }
 
-    public void send(Email email) {
-        Properties props = new Properties();
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", HOST);
-        props.put("mail.smtp.port", "25");
+    public void send(IEmail iEmail) {
 
-        Session session = Session.getDefaultInstance(props,
-                new Authenticator() {
-                    @Override
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(FROM, "hboictis103t4");
-                    }
-                });
+        // create email instance
+        Mail mail = new Mail();
 
-        try {
-            // Create a default MimeMessage object.
-            MimeMessage message = new MimeMessage(session);
-            // Set From: header field of the header.
-            message.setFrom(new InternetAddress(FROM));
-            // Set To: header field of the header.
-            for (String rec : email.getRecipients()) {
-                message.
-                        addRecipient(Message.RecipientType.TO, new InternetAddress(rec));
+        // set from
+        mail.setFrom(new Email(EMAIL_ADDRESS));
+
+        // set recipients
+        Personalization personalization = new Personalization();
+        iEmail.getRecipients().forEach(to -> personalization.addTo(new Email(to, "Receiver")));
+        mail.addPersonalization(personalization);
+
+        // set content (html) and subject
+        Content content = new Content();
+        content.setType("text/html");
+        content.setValue(iEmail.getContent());
+        mail.addContent(content);
+        mail.setSubject(iEmail.getSubject());
+
+        if (iEmail.getAttachments().size() > 0) {
+            // set attachments (if there are any)
+            Attachments attachments = new Attachments();
+            Base64 x = new Base64();
+            for (File file : iEmail.getAttachments()) {
+                try {
+                    String imageDataString = x.encodeAsString(Files.readAllBytes(file.toPath()));
+                    attachments.setContent(imageDataString);
+                    String[] split = file.getName().split(".");
+                    String extension = split[split.length - 1];
+                    attachments.setType("image/" + extension);
+                    attachments.setFilename("luggage." + extension);
+                    attachments.setDisposition("attachment");
+                    attachments.setContentId("Luggage");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-
-            // Set Subject: header field
-            message.setSubject(email.getSubject());
-
-            // body
-            BodyPart body = new MimeBodyPart();
-            if (email.usesHTML()) {
-                body.setContent(email.getContent(), "text/html");
-            } else {
-                body.setText(email.getContent());
-            }
-
-            Multipart multi = new MimeMultipart();
-            multi.addBodyPart(body);
-
-            // attachments
-            for (File file : email.getAttachments()) {
-                MimeBodyPart secBody = new MimeBodyPart();
-                DataSource src = new FileDataSource(file);
-
-                secBody.setDataHandler(new DataHandler(src));
-                secBody.setHeader("Content-ID", "<image>");
-
-                multi.addBodyPart(secBody);
-            }
-
-            message.setContent(multi);
-
-            // Send message
-            Transport.send(message);
-        } catch (MessagingException ex) {
-            Logger.getLogger(EmailSender.class.getName()).
-                    log(Level.WARNING, "'hMailServer' doesn't seem to be running. This program must be started in order for the luggage system to send emails!");
-            Logger.getLogger(EmailSender.class.getName()).
-                    log(Level.SEVERE, null, ex);
+            mail.addAttachments(attachments);
         }
+
+        Request request = new Request();
+        try {
+            request.setMethod(Method.POST);
+            request.setEndpoint("mail/send");
+            request.setBody(mail.build());
+            Response response = SENDGRID.api(request);
+            System.out.println(response.getStatusCode());
+            System.out.println(response.getBody());
+            System.out.println(response.getHeaders());
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
     }
 
 }
