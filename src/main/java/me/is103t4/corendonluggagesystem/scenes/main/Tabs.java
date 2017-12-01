@@ -30,6 +30,7 @@ public enum Tabs {
     LOST_LUGGAGE(AccountRole.EMPLOYEE, "LostLuggage"),
     FOUND_LUGGAGE(AccountRole.EMPLOYEE, "FoundLuggage"),
     DAMAGED_LUGGAGE(AccountRole.EMPLOYEE, "DamagedLuggage"),
+    STATISTICS(AccountRole.ADMIN, "Statistics"),
     ACCOUNTS(AccountRole.ADMIN, "Accounts", "NewAccount");
 
     private Tab tab;
