@@ -44,7 +44,16 @@ public class DamagedLuggageController extends Controller {
    
     @FXML
     private File photo;
-    
+
+    @FXML
+    private Button registerButton;
+
+    @Override
+    public void postInit() {
+        // set enter button
+        setEnterButton(registerButton);
+    }
+
     @FXML
     private void registerDamagedLuggage(){
     

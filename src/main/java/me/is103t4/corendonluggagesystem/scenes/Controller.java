@@ -9,6 +9,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.input.KeyCode;
 import me.is103t4.corendonluggagesystem.LugSysMain;
 
 /**
@@ -20,6 +22,7 @@ public abstract class Controller implements Initializable {
 
     protected Scene scene;
     protected LugSysMain main;
+    private Button clickButton;
 
     public void setScene(Scene scene) {
 	this.scene = scene;
@@ -34,6 +37,14 @@ public abstract class Controller implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle bundle) {
+        scene.setOnKeyTyped(value -> {
+            if (value.getCode() == KeyCode.ENTER)
+                clickButton.fire();
+        });
+    }
+
+    protected void setEnterButton(Button button) {
+        clickButton = button;
     }
 
 }
