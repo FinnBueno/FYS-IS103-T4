@@ -26,11 +26,13 @@ import me.is103t4.corendonluggagesystem.scenes.Controller;
  */
 public enum Tabs {
 
-    HOME(AccountRole.EMPLOYEE, "Home"),
+    HOME("Home"),
     LOST_LUGGAGE(AccountRole.EMPLOYEE, "LostLuggage"),
     FOUND_LUGGAGE(AccountRole.EMPLOYEE, "FoundLuggage"),
     DAMAGED_LUGGAGE(AccountRole.EMPLOYEE, "DamagedLuggage"),
-    ACCOUNTS(AccountRole.ADMIN, "Accounts", "NewAccount", "FilterAccount");
+    STATISTICS(AccountRole.ADMIN, "Statistics"),
+    ACCOUNTS(AccountRole.ADMIN, "Accounts", "NewAccount", "FilterAccount")
+    CONFIGURATIONS("Configurations");
 
     private Tab tab;
     private final Pane[] root;
@@ -50,9 +52,8 @@ public enum Tabs {
 	root = new Pane[length];
 	fxmlURL = new String[length];
 	name = names[0];
-	for (int i = 0; i < names.length; i++) {
+	for (int i = 0; i < names.length; i++)
 	    fxmlURL[i] = "/fxml/tabs/" + names[i] + "Interface.fxml";
-	}
     }
 
     /**
