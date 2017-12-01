@@ -89,6 +89,14 @@ Button:pressed {
 .linkButton:pressed {
     -fx-text-fill: purple;
 }
+.header {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.saveButton {
+    -fx-background-color: #e60000;
+}
 
 /* End button styling
 Begin input styling */
@@ -148,5 +156,6 @@ ColorPicker {
     -fx-background-color: derive(-clr-light, -15%);
     -fx-background-radius: 0px;
 }
+
 
 /* End input styling */
