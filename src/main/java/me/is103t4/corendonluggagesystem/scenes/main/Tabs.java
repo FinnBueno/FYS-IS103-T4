@@ -26,11 +26,12 @@ import me.is103t4.corendonluggagesystem.scenes.Controller;
  */
 public enum Tabs {
 
-    HOME(AccountRole.EMPLOYEE, "Home"),
+    HOME("Home"),
     LOST_LUGGAGE(AccountRole.EMPLOYEE, "LostLuggage"),
     FOUND_LUGGAGE(AccountRole.EMPLOYEE, "FoundLuggage"),
     DAMAGED_LUGGAGE(AccountRole.EMPLOYEE, "DamagedLuggage"),
-    ACCOUNTS(AccountRole.ADMIN, "Accounts", "NewAccount");
+    ACCOUNTS(AccountRole.ADMIN, "Accounts", "NewAccount"),
+    CONFIGURATIONS("Configurations");
 
     private Tab tab;
     private final Pane[] root;
