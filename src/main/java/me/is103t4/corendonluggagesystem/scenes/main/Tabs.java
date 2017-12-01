@@ -51,9 +51,8 @@ public enum Tabs {
 	root = new Pane[length];
 	fxmlURL = new String[length];
 	name = names[0];
-	for (int i = 0; i < names.length; i++) {
+	for (int i = 0; i < names.length; i++)
 	    fxmlURL[i] = "/fxml/tabs/" + names[i] + "Interface.fxml";
-	}
     }
 
     /**
