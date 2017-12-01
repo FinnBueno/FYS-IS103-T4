@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package me.is103t4.corendonluggagesystem.database.tasks;
+package me.is103t4.corendonluggagesystem.database.tasks.accounts;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
