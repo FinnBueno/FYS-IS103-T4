@@ -31,7 +31,7 @@ public enum Tabs {
     FOUND_LUGGAGE(AccountRole.EMPLOYEE, "FoundLuggage"),
     DAMAGED_LUGGAGE(AccountRole.EMPLOYEE, "DamagedLuggage"),
     STATISTICS(AccountRole.ADMIN, "Statistics"),
-    ACCOUNTS(AccountRole.ADMIN, "Accounts", "NewAccount"),
+    ACCOUNTS(AccountRole.ADMIN, "Accounts", "NewAccount", "FilterAccount")
     CONFIGURATIONS("Configurations");
 
     private Tab tab;
@@ -63,6 +63,7 @@ public enum Tabs {
      * @return Whether initialization was successful or not
      */
     public boolean initialize(LugSysMain main) {
+        System.out.println(name);
 	// generate a tab
 	tab = generateTab();
 
