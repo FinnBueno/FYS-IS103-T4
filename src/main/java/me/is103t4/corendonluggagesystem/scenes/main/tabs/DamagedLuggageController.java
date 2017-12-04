@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import me.is103t4.corendonluggagesystem.scenes.Controller;
+import me.is103t4.corendonluggagesystem.scenes.main.Tabs;
 
 /**
  * DamagedLuggage
@@ -47,6 +48,11 @@ public class DamagedLuggageController extends Controller {
 
     @FXML
     private Button registerButton;
+
+    @Override
+    public boolean isOpen() {
+        return Tabs.DAMAGED_LUGGAGE.isOpen(0);
+    }
 
     @Override
     public void postInit() {

@@ -19,6 +19,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import me.is103t4.corendonluggagesystem.scenes.Controller;
+import me.is103t4.corendonluggagesystem.scenes.main.Tabs;
 
 /**
  * FXML Controller class
@@ -65,6 +66,11 @@ public class FoundLuggageController extends Controller {
     
     @FXML
     private Button registerButton;
+
+    @Override
+    public boolean isOpen() {
+        return Tabs.FOUND_LUGGAGE.isOpen(0);
+    }
 
     @Override
     public void postInit() {

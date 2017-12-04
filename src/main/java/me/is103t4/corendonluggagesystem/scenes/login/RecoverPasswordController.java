@@ -78,4 +78,8 @@ public class RecoverPasswordController extends Controller {
         return address.contains("@") && address.contains(".");
     }
 
+    @Override
+    public boolean isOpen() {
+        return Scenes.PASSWORD_RECOVERY.isOpen();
+    }
 }

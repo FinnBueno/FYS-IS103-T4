@@ -14,11 +14,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane id="AnchorPane" prefHeight="465.0" prefWidth="900.0" stylesheets="@../../css/dark.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.is103t4.corendonluggagesystem.scenes.main.tabs.FoundLuggageController">
+<AnchorPane id="AnchorPane" prefHeight="465.0" prefWidth="900.0" stylesheets="@../../css/dark.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.is103t4.corendonluggagesystem.scenes.main.tabs.FoundLuggageController">
    <children>
-      <BorderPane prefHeight="465.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
-            <GridPane hgap="10.0" vgap="10.0" BorderPane.alignment="CENTER">
+            <GridPane alignment="CENTER" hgap="10.0" vgap="10.0" BorderPane.alignment="CENTER">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
@@ -34,30 +34,30 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="-Infinity" minHeight="5.0" prefHeight="5.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="45.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <BorderPane.margin>
                   <Insets bottom="15.0" left="50.0" right="50.0" top="15.0" />
                </BorderPane.margin>
                <children>
-                  <Label prefHeight="17.0" prefWidth="120.0" text="Departure Airport:" />
+                  <Label prefHeight="17.0" prefWidth="120.0" text="Departure Airport* :" />
                   <ComboBox fx:id="depAirportBox" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" />
-                  <Label text="First Name:" GridPane.rowIndex="1" />
+                  <Label text="First Name* :" GridPane.rowIndex="1" />
                   <TextField fx:id="firstNameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Label text="Last Name:" GridPane.rowIndex="2" />
+                  <Label text="Last Name* :" GridPane.rowIndex="2" />
                   <TextField fx:id="lastNameField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <Label text="Luggage ID:" GridPane.rowIndex="3" />
                   <TextField fx:id="luggageIDField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <Label text="Flight Number*:" GridPane.rowIndex="4" />
+                  <Label text="Flight Number* :" GridPane.rowIndex="4" />
                   <TextField fx:id="flightNumberField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <Label text="Destination*:" GridPane.rowIndex="5" />
+                  <Label text="Destination* :" GridPane.rowIndex="5" />
                   <ComboBox fx:id="destBox" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <Button fx:id="registerButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#registerFoundLuggage" text="Register" GridPane.columnSpan="2147483647" GridPane.rowIndex="7" />
-                  <Label text="Type*:" GridPane.columnIndex="3" />
+                  <Label text="Type* :" GridPane.columnIndex="3" />
                   <ComboBox fx:id="typeBox" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="4" />
-                  <Label text="Brand*:" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                  <Label text="Brand* :" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                   <TextField fx:id="brandField" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-                  <Label text="Colour*:" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                  <Label text="Colour* :" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
                      <children>
                         <ColorPicker fx:id="colorPicker" prefHeight="27.0" prefWidth="128.0" />
@@ -68,9 +68,9 @@
                         </CheckBox>
                      </children>
                   </HBox>
-                  <Label text="Characteristics:" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                  <Label text="Characteristics* :" GridPane.columnIndex="3" GridPane.rowIndex="3" />
                   <TextField fx:id="characsField" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-                  <Label text="Photos:" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                  <Label text="Photo :" GridPane.columnIndex="3" GridPane.rowIndex="4" />
                   <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#selectPhoto" styleClass="secButton" text="Upload" GridPane.columnIndex="4" GridPane.rowIndex="4" />
                </children>
             </GridPane>

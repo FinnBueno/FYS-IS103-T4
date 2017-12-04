@@ -6,6 +6,7 @@
 package me.is103t4.corendonluggagesystem.scenes.main.tabs;
 
 import me.is103t4.corendonluggagesystem.scenes.Controller;
+import me.is103t4.corendonluggagesystem.scenes.main.Tabs;
 
 /**
  * FXML Controller class
@@ -13,6 +14,11 @@ import me.is103t4.corendonluggagesystem.scenes.Controller;
  * @author roy
  */
 public class FilterAccountController extends Controller {
+
+    @Override
+    public boolean isOpen() {
+        return Tabs.ACCOUNTS.isOpen(2);
+    }
     
 }
 

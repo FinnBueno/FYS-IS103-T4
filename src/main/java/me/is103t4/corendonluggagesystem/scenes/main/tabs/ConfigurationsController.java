@@ -11,25 +11,21 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import me.is103t4.corendonluggagesystem.scenes.Controller;
+import me.is103t4.corendonluggagesystem.scenes.main.Tabs;
 
 /**
  *
  * @author Sebastiaan Wezenberg
  */
-public class ConfigurationsController implements Initializable {
+public class ConfigurationsController extends Controller {
     
     @FXML
     private Label label;
-    
-    @FXML
-    private void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
-        label.setText("Hello World!");
-    }
-    
+
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
+    public boolean isOpen() {
+        return Tabs.CONFIGURATIONS.isOpen(0);
+    }
     
 }

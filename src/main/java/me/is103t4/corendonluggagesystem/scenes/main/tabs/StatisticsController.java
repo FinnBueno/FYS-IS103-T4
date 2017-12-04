@@ -13,9 +13,10 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import me.is103t4.corendonluggagesystem.scenes.Controller;
+import me.is103t4.corendonluggagesystem.scenes.main.Tabs;
 
-
-public class StatisticsController implements Initializable {
+public class StatisticsController extends Controller {
     
     @FXML
     private BarChart<?, ?> SalaryChart;
@@ -25,7 +26,12 @@ public class StatisticsController implements Initializable {
 
     @FXML
     private NumberAxis y;
-    
+
+    @Override
+    public boolean isOpen() {
+        return Tabs.STATISTICS.isOpen(0);
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         XYChart.Series set1 = new XYChart.Series<>();

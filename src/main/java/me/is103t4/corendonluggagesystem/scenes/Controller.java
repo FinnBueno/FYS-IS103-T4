@@ -7,10 +7,12 @@ package me.is103t4.corendonluggagesystem.scenes;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import me.is103t4.corendonluggagesystem.LugSysMain;
 
 /**
@@ -24,23 +26,31 @@ public abstract class Controller implements Initializable {
     protected LugSysMain main;
     private Button clickButton;
 
+    public abstract boolean isOpen();
+
     public void setScene(Scene scene) {
-	this.scene = scene;
+        this.scene = scene;
     }
 
     public void setMain(LugSysMain main) {
-	this.main = main;
+        this.main = main;
+    }
+
+    public void init() {
+        scene.addEventFilter(KeyEvent.KEY_PRESSED,
+                event -> {
+                    if (event.getCode() == KeyCode.ENTER && clickButton != null && isOpen())
+                        clickButton.fire();
+                });
+
+        postInit();
     }
 
     public void postInit() {
     }
-    
+
     @Override
-    public void initialize(URL url, ResourceBundle bundle) {
-        scene.setOnKeyTyped(value -> {
-            if (value.getCode() == KeyCode.ENTER)
-                clickButton.fire();
-        });
+    public void initialize(URL location, ResourceBundle resources) {
     }
 
     protected void setEnterButton(Button button) {
