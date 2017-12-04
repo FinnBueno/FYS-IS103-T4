@@ -14,12 +14,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import me.is103t4.corendonluggagesystem.account.Account;
-import me.is103t4.corendonluggagesystem.database.tasks.LoginTask;
+import me.is103t4.corendonluggagesystem.database.tasks.accounts.LoginTask;
 import me.is103t4.corendonluggagesystem.scenes.Controller;
 import me.is103t4.corendonluggagesystem.scenes.Scenes;
 import me.is103t4.corendonluggagesystem.scenes.main.MainFrameController;
-
-import java.util.regex.Matcher;
 
 /**
  * Controller class for the login interface

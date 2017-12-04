@@ -35,7 +35,7 @@ public class AccountsController extends Controller {
 
     @FXML
     public void editAccount(ActionEvent event) {
-
+        Tabs.ACCOUNTS.setRoot(2);
     }
 
     @FXML
