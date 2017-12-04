@@ -28,6 +28,11 @@ public class AccountsController extends Controller {
     @FXML
     private TableColumn statuscolumn;
 
+    @Override
+    public boolean isOpen() {
+        return Tabs.ACCOUNTS.isOpen(0);
+    }
+
     @FXML
     public void addAccount(ActionEvent event) {
 	Tabs.ACCOUNTS.setRoot(1);

@@ -9,21 +9,17 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="465.0" prefWidth="900.0" stylesheets="@../../css/dark.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.is103t4.corendonluggagesystem.scenes.main.tabs.FoundLuggageController">
+<AnchorPane id="AnchorPane" prefHeight="465.0" prefWidth="900.0" stylesheets="@../../css/dark.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.is103t4.corendonluggagesystem.scenes.main.tabs.FoundLuggageController">
    <children>
       <BorderPane prefHeight="465.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
-            <GridPane hgap="10.0" vgap="10.0" BorderPane.alignment="CENTER">
+            <GridPane alignment="CENTER" hgap="10.0" vgap="10.0" BorderPane.alignment="CENTER">
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="120.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -39,34 +35,22 @@
                   <Insets bottom="15.0" left="50.0" right="50.0" top="15.0" />
                </BorderPane.margin>
                <children>
-                  <Label maxWidth="-Infinity" prefHeight="25.0" prefWidth="130.0" styleClass="header" text="Account settings" GridPane.columnSpan="2147483647">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font></Label>
-                  <Label text="Tag" GridPane.rowIndex="1" />
-                  <TextField fx:id="firstNameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Label text="Password" GridPane.rowIndex="2" />
-                  <TextField fx:id="lastNameField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Button fx:id="saveButton" maxHeight="1.7976931348623157E308" maxWidth="500.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="340.0" styleClass="saveButton" stylesheets="@../../../FYS-IS103-T4/src/main/resources/css/dark.css" text="Save changes" GridPane.columnIndex="3" GridPane.columnSpan="2147483647" GridPane.hgrow="NEVER" GridPane.rowIndex="7" />
-                  <Label text="First name" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                  <TextField fx:id="brandField" prefHeight="25.0" prefWidth="225.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-                  <Label text="Last name" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
-                     <children>
-                        <TextField fx:id="brandField1" prefHeight="25.0" prefWidth="245.0" />
-                     </children>
-                  </HBox>
-                  <Label text="Phone number" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                  <TextField fx:id="characsField" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-                  <Label text="E-mail" GridPane.columnIndex="3" GridPane.rowIndex="4" />
-                  <Label prefHeight="25.0" prefWidth="165.0" styleClass="header" text="Personal information" GridPane.columnIndex="3" GridPane.columnSpan="2147483647">
+                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" stylesheets="@../../../FYS-IS103-T4/src/main/resources/css/dark.css" text="Save changes" GridPane.columnSpan="2147483647" GridPane.hgrow="NEVER" GridPane.rowIndex="7" />
+                  <Label text="First name" GridPane.rowIndex="1" />
+                  <TextField fx:id="brandField" prefHeight="25.0" prefWidth="225.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label text="Last name" GridPane.rowIndex="2" />
+                  <TextField fx:id="brandField1" prefHeight="25.0" prefWidth="245.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label text="Phone number" GridPane.rowIndex="3" />
+                  <TextField fx:id="characsField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label text="E-mail" GridPane.rowIndex="4" />
+                  <Label prefHeight="25.0" prefWidth="165.0" styleClass="header" text="Personal information" GridPane.columnSpan="2147483647">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <Label layoutX="420.0" layoutY="274.0" text="Date of birth" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-                  <TextField fx:id="characsField1" GridPane.columnIndex="4" GridPane.rowIndex="4" />
-                  <DatePicker prefHeight="25.0" prefWidth="110.0" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+                  <Label layoutX="420.0" layoutY="274.0" text="Date of birth" GridPane.rowIndex="5" />
+                  <TextField fx:id="characsField1" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <DatePicker prefHeight="25.0" prefWidth="110.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                </children>
             </GridPane>
          </center>

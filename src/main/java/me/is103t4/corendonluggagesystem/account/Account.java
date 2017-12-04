@@ -5,6 +5,8 @@
  */
 package me.is103t4.corendonluggagesystem.account;
 
+import me.is103t4.corendonluggagesystem.scenes.Scenes;
+
 /**
  * @author finnb
  */
@@ -59,6 +61,18 @@ public class Account {
 
     public static Account getLoggedInUser() {
         return currentUser;
+    }
+
+    public void logout() {
+        phoneNumber = null;
+        firstName = null;
+        lastName = null;
+        code = null;
+        name = null;
+        email = null;
+        role = null;
+        currentUser = null;
+        Scenes.LOGIN.setToScene();
     }
 
 }

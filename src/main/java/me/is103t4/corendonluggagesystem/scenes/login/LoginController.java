@@ -38,6 +38,16 @@ public class LoginController extends Controller {
     @FXML
     private Label errorLabel;
 
+    @Override
+    public boolean isOpen() {
+        return Scenes.LOGIN.isOpen();
+    }
+
+    @Override
+    public void postInit() {
+        setEnterButton(loginButton);
+    }
+
     @FXML
     private void goToRecover() {
         Scenes.PASSWORD_RECOVERY.setToScene();
@@ -69,20 +79,10 @@ public class LoginController extends Controller {
         LoginTask task = new LoginTask(code, name, passwordField.getText());
         loginButton.setDisable(true);
         task.setOnCancelled(event -> {
-            loginButton.setDisable(false);
-            Alert alert = new Alert(AlertType.WARNING);
-            alert.setTitle("Dialog");
-            alert.setHeaderText("An error has occured!");
-            alert.
-                    setContentText("An unknown error has occured! Please notify the developers to make sure this error can be solved");
+            displayErrorAlert();
         });
         task.setOnFailed(event -> {
-            loginButton.setDisable(false);
-            Alert alert = new Alert(AlertType.WARNING);
-            alert.setTitle("Dialog");
-            alert.setHeaderText("An error has occured!");
-            alert.
-                    setContentText("An unknown error has occured! Please notify the developers to make sure this error can be solved");
+            displayErrorAlert();
         });
         task.setOnSucceeded((Event event) -> {
             Account account = (Account) task.getValue();
@@ -93,6 +93,7 @@ public class LoginController extends Controller {
                 alert.setTitle("Dialog");
                 alert.setHeaderText(null);
                 alert.setContentText("Invalid credentials!");
+                alert.showAndWait();
             } else {
                 account.login();
                 errorLabel.setText("");
@@ -100,12 +101,21 @@ public class LoginController extends Controller {
                         getController();
                 mc.fillTabPane();
                 Scenes.MAIN.setToScene();
-                return;
             }
+            usernameField.setText("");
+            passwordField.setText("");
 
-            alert.showAndWait();
             loginButton.setDisable(false);
         });
+    }
+
+    private void displayErrorAlert() {
+        loginButton.setDisable(false);
+        Alert alert = new Alert(AlertType.WARNING);
+        alert.setTitle("Error");
+        alert.setHeaderText("An error has occurred!");
+        alert.
+                setContentText("An unknown error has occurred! Please notify the developers to make sure this error can be solved");
     }
 
 }
