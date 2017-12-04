@@ -6,30 +6,11 @@
 package me.is103t4.corendonluggagesystem.email;
 
 import com.sendgrid.*;
-import org.apache.commons.codec.binary.Base64;
-import sun.misc.IOUtils;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
-import javax.mail.Authenticator;
-import javax.mail.BodyPart;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Multipart;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
+import java.util.Base64;
 
 /**
  * @author Finn Bon
@@ -46,8 +27,16 @@ public class EmailSender {
     }
 
     private static final String SENDGRID_API_KEY = "<insert key>";
-    private static final SendGrid SENDGRID = new SendGrid(SENDGRID_API_KEY);
+    private static SendGrid SENDGRID;
     private static final String EMAIL_ADDRESS = "noreply@corendonluggage.com";
+
+    static {
+        try {
+            SENDGRID = new SendGrid(SENDGRID_API_KEY);
+        } catch (Exception exc) {
+            System.err.println("SendGrid API key is invalid!");
+        }
+    }
 
     private EmailSender() {
     }
@@ -72,13 +61,12 @@ public class EmailSender {
         mail.addContent(content);
         mail.setSubject(iEmail.getSubject());
 
+        // set attachments (if there are any)
         if (iEmail.getAttachments().size() > 0) {
-            // set attachments (if there are any)
             Attachments attachments = new Attachments();
-            Base64 x = new Base64();
-            for (File file : iEmail.getAttachments()) {
+            for (File file : iEmail.getAttachments())
                 try {
-                    String imageDataString = x.encodeAsString(Files.readAllBytes(file.toPath()));
+                    String imageDataString = Base64.getEncoder().encodeToString(Files.readAllBytes(file.toPath()));
                     attachments.setContent(imageDataString);
                     String[] split = file.getAbsolutePath().split("\\.");
                     System.out.println(file.getAbsolutePath());
@@ -90,7 +78,6 @@ public class EmailSender {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }
             mail.addAttachments(attachments);
         }
 
