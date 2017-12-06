@@ -14,6 +14,7 @@ import javafx.stage.FileChooser;
 import me.is103t4.corendonluggagesystem.email.EmailSender;
 import me.is103t4.corendonluggagesystem.email.IEmail;
 import me.is103t4.corendonluggagesystem.scenes.Controller;
+import me.is103t4.corendonluggagesystem.scenes.main.Tabs;
 
 import java.io.File;
 
@@ -313,6 +314,11 @@ public class LostLuggageController extends Controller {
 
     @FXML
     private File photo;
+
+    @Override
+    public boolean isOpen() {
+        return Tabs.LOST_LUGGAGE.isOpen(0);
+    }
 
     @Override
     public void postInit() {

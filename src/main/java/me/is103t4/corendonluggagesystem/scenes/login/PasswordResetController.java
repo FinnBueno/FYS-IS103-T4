@@ -47,6 +47,11 @@ public class PasswordResetController extends Controller {
     private Button confirmButton;
 
     @Override
+    public boolean isOpen() {
+        return Scenes.RECOVERY_CONFIRMATION.isOpen();
+    }
+
+    @Override
     public void postInit() {
         codeField.textProperty().
                 addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
