@@ -12,7 +12,6 @@ import me.is103t4.corendonluggagesystem.scenes.Controller;
 import me.is103t4.corendonluggagesystem.scenes.main.Tabs;
 
 /**
- *
  * @author Roy Klein
  */
 public class AccountsController extends Controller {
@@ -35,21 +34,21 @@ public class AccountsController extends Controller {
 
     @FXML
     public void addAccount(ActionEvent event) {
-	Tabs.ACCOUNTS.setRoot(1);
+        Tabs.ACCOUNTS.setRoot(1);
     }
 
     @FXML
     public void editAccount(ActionEvent event) {
-        Tabs.ACCOUNTS.setRoot(2);
     }
 
     @FXML
     public void changeFilter(ActionEvent event) {
-
+        Tabs.ACCOUNTS.setRoot(2);
     }
 
     @FXML
     public void clearFilter(ActionEvent event) {
 
     }
+
 }

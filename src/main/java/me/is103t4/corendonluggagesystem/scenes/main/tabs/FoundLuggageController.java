@@ -8,6 +8,7 @@ package me.is103t4.corendonluggagesystem.scenes.main.tabs;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -27,16 +28,16 @@ import me.is103t4.corendonluggagesystem.scenes.main.Tabs;
  * @author timvanekert
  */
 public class FoundLuggageController extends Controller {
-    
+
     @FXML
     private ComboBox depAirportBox;
-    
+
     @FXML
     private TextField firstNameField;
 
     @FXML
     private TextField lastNameField;
-    
+
     @FXML
     private TextField luggageIDField;
 
@@ -45,8 +46,8 @@ public class FoundLuggageController extends Controller {
 
     @FXML
     private ComboBox destBox;
-    
-     @FXML
+
+    @FXML
     private ComboBox<String> typeBox;
 
     @FXML
@@ -60,10 +61,10 @@ public class FoundLuggageController extends Controller {
 
     @FXML
     private TextField characsField;
-    
+
     @FXML
     private File photo;
-    
+
     @FXML
     private Button registerButton;
 
@@ -79,33 +80,33 @@ public class FoundLuggageController extends Controller {
     }
 
     @FXML
-    private void registerFoundLuggage(){
-    
+    private void registerFoundLuggage() {
+
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Success");
         alert.setHeaderText("Successfully registered found luggage!");
-        
+
         alert.showAndWait();
-}
-    
-    
+    }
+
+
     @FXML
     private void selectPhoto() {
-	FileChooser fileChooser = new FileChooser();
-	fileChooser.setTitle("Select Photo File");
-	fileChooser.setInitialDirectory(
-		new File(System.getProperty("user.home"))
-	);
-	fileChooser.getExtensionFilters().
-		addAll(
-			new FileChooser.ExtensionFilter("All Files", "*.*"),
-			new FileChooser.ExtensionFilter("JPG", "*.jpg", "*.jpeg"),
-			new FileChooser.ExtensionFilter("PNG", "*.png")
-		);
-	File file = fileChooser.showOpenDialog(main.getStage());
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select Photo File");
+        fileChooser.setInitialDirectory(
+                new File(System.getProperty("user.home"))
+        );
+        fileChooser.getExtensionFilters().
+                addAll(
+                        new FileChooser.ExtensionFilter("All Files", "*.*"),
+                        new FileChooser.ExtensionFilter("JPG", "*.jpg", "*.jpeg"),
+                        new FileChooser.ExtensionFilter("PNG", "*.png")
+                );
+        File file = fileChooser.showOpenDialog(main.getStage());
 
-	if (file != null && file.exists()) {
-	    photo = file;
-	}
+        if (file != null && file.exists()) {
+            photo = file;
+        }
     }
 }
