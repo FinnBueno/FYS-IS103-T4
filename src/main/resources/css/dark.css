@@ -7,22 +7,28 @@ and open the template in the editor.
     Created on : Oct 25, 2017, 3:26:14 PM
     Author     : Finn Bon
 */
+
 .root {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+
     -clr-prim: #EA282B;
     -clr-sec: #F8BB23;
     -clr-dark: #454545;
     -clr-light: #E5E5E5;
     -clr-lighter: #EEF0F2;
+
+    -fx-background-color: white;
 }
 
 /* Begin pane styling */
 
 AnchorPane {
-    -fx-background-color: -clr-light;
+    -fx-background-color: -clr-lighter;
 }
 
 .second-background {
-    -fx-background-color: derive(-clr-light, -5%);
+    -fx-background-color: -clr-lighter;
 }
 
 /* End pane styling 
@@ -37,7 +43,7 @@ Label {
     -fx-background-color: -clr-prim;
     -fx-border-width: 3px;
     -fx-border-style: solid;
-    -fx-border-radius: 7.5px;
+    -fx-border-radius: 7px;
     -fx-background-radius: 15px;
     -fx-border-color: derive(-clr-prim, -15%);
     -fx-padding: 5 10 5 10;
@@ -52,22 +58,29 @@ Begin button styling */
 
 Button {
     -fx-font-size: 15px;
-    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-border-color: -clr-prim;
+    -fx-border-radius: 0px;
+    -fx-border-width: 3px;
     -fx-background-color: -clr-prim;
     -fx-background-radius: 0px;
 }
 
 Button:hover {
     -fx-background-color: derive(-clr-prim, 25%);
+    -fx-border-color: derive(-clr-prim, 25%);
 }
 
 Button:pressed {
-    -fx-background-color: derive(-clr-prim, -15%);
+    -fx-background-color: transparent;
+    -fx-text-fill: -clr-prim;
 }
 
 .secButton {
     -fx-background-color: derive(-clr-light, -15%);
     -fx-background-radius: 0px;
+    -fx-border-width: 0px;
+    -fx-text-fill: white;
 }
 
 .secButton:hover {
@@ -84,11 +97,13 @@ Button:pressed {
     -fx-background-color: transparent;
     -fx-underline: true;
     -fx-text-fill: blue;
+    -fx-border-width: 0px;
 }
 
 .linkButton:pressed {
     -fx-text-fill: purple;
 }
+
 .header {
     -fx-font-size: 16px;
     -fx-font-weight: bold;
@@ -101,6 +116,23 @@ Button:pressed {
 /* End button styling
 Begin input styling */
 
+.slider .thumb {
+    -fx-background-color: -clr-prim;
+}
+
+.slider .track,
+.slider .axis:bottom .axis-tick-mark {
+    -fx-background-color: -clr-light;
+}
+
+.check-box:determinate .box {
+    -fx-background-color: -clr-light;
+}
+
+.check-box:determinate .text {
+    -fx-font-weight: bold;
+}
+
 TextField, PasswordField {
     -fx-background-color: transparent;
     -fx-border-width: 0px 0px 1px 0px;
@@ -109,13 +141,25 @@ TextField, PasswordField {
     -fx-text-fill: -clr-dark;
 }
 
+TextField:focused, PasswordField:focused {
+    -fx-border-color: -clr-prim;
+}
+
 ComboBox {
-    -fx-background-color: derive(-clr-light, -15%);
+    /*-fx-background-color: derive(-clr-light, -15%);*/
+    -fx-background-color: transparent;
+    -fx-border-color: -clr-prim;
+    -fx-border-width: 2px;
+    -fx-border-style: solid;
     -fx-background-radius: 0px;
 }
 
-ComboBox .list-view{
-    -fx-background-color: -clr-light;
+ComboBox .arrow-button .arrow {
+    -fx-background-color: -clr-prim;
+}
+
+ComboBox .list-view {
+    -fx-background-color: white;
 }
 
 ComboBox .list-view .list-cell {
@@ -153,9 +197,76 @@ ComboBox .list-view .list-cell:hover {
 }
 
 ColorPicker {
-    -fx-background-color: derive(-clr-light, -15%);
+    -fx-background-color: -clr-light;
     -fx-background-radius: 0px;
 }
 
+/* table styling */
+.table-view {
+    -fx-background-color: transparent;
+}
+
+.table-view .placeholder {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header-background .nested-column-header {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header-background .nested-column-header .table-column {
+    -fx-background-color: transparent;
+}
+
+.table-view .filler {
+    -fx-background-color: transparent;
+}
+
+.table-column {
+    -fx-background-color: transparent;
+
+}
+
+.table-view {
+    -fx-padding: 0px    ;
+}
+
+.table-view:row-selection .column-header-background,
+.table-view:row-selection .column-header-background .show-hide-columns-button {
+    -fx-background-color: -clr-light;
+    -fx-border-width: 2px;
+    -fx-border-color: -clr-light;
+    -fx-padding: 5px;
+}
+
+.table-view:row-selection .column-header-background {
+    -fx-padding: -1px;
+}
+
+.table-view:row-selection .column-header-background .nested-column-header .table-column,
+.table-view:row-selection .column-header-background .show-hide-columns-button {
+    -fx-background-color: -clr-light;
+    -fx-border-color: derive(-clr-light, -15%);
+    -fx-border-width: 0px 1px 0px 1px;
+}
+
+/* tab(pane) styling */
+.tab-pane:top .tab-header-area .tab-header-background {
+    -fx-background-color: white;
+}
+
+.tab-pane:top .tab-header-area .headers-region .tab:top {
+    -fx-background-color: white;
+    -fx-border-color: white;
+    -fx-border-width: 2px;
+    -fx-border-style: solid;
+}
+
+.tab-pane:top .tab-header-area .headers-region .tab:selected:top {
+    -fx-background-color: -clr-lighter;
+    -fx-border-color: -clr-lighter;
+    -fx-border-width: 2px;
+    -fx-border-style: solid;
+}
 
 /* End input styling */
