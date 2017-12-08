@@ -43,8 +43,8 @@
                         <ComboBox fx:id = "roleBox" maxWidth = "1.7976931348623157E308" prefWidth = "150.0" GridPane.columnIndex = "1" GridPane.rowIndex = "3"/>
                         <PasswordField fx:id = "passwordField" GridPane.columnIndex = "4"/>
                         <PasswordField fx:id = "repasswordField" GridPane.columnIndex = "4" GridPane.rowIndex = "1"/>
-                        <TextField fx:id = "emailField" maxWidth = "1.7976931348623157E308" GridPane.columnIndex = "4" GridPane.rowIndex = "3"/>
                         <TextField fx:id = "phoneNumberField" maxWidth = "1.7976931348623157E308" prefHeight = "24.0" prefWidth = "151.0" GridPane.columnIndex = "4" GridPane.rowIndex = "2"/>
+                        <TextField fx:id = "emailField" maxWidth = "1.7976931348623157E308" GridPane.columnIndex = "4" GridPane.rowIndex = "3"/>
                         <Button maxHeight = "1.7976931348623157E308" maxWidth = "1.7976931348623157E308" mnemonicParsing = "false" onAction = "#createAccount" text = "Register" GridPane.columnSpan = "2147483647" GridPane.rowIndex = "6"/>
 
                         <Label text = "First Name:"/>

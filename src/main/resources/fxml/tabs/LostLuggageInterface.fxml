@@ -37,7 +37,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="5.0" prefHeight="5.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="45.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
                         <Label maxWidth="1.7976931348623157E308" text="Departure Airport* :" />
@@ -58,21 +58,20 @@
                         <Label maxWidth="1.7976931348623157E308" text="Characteristics :" GridPane.columnIndex="3" GridPane.rowIndex="6" />
                         <Label maxWidth="1.7976931348623157E308" text="Photo :" GridPane.columnIndex="3" GridPane.rowIndex="7" />
                         <Label maxWidth="1.7976931348623157E308" text="Language* :" GridPane.columnIndex="3" GridPane.rowIndex="8" />
+
                         <ComboBox fx:id="depAirportBox" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" />
                         <TextField fx:id="firstNameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <TextField fx:id="lastNameField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <TextField fx:id="addressField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <TextField fx:id="cityField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <TextField fx:id="zipField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <ComboBox fx:id="countryBox" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                         <TextField fx:id="phoneNumberField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                         <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                         <TextField fx:id="luggageIDField" GridPane.columnIndex="4" />
-                        <TextField fx:id="flightNumberField" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                        <ComboBox fx:id="destBox" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
                         <ComboBox fx:id="typeBox" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="4" GridPane.rowIndex="3" />
                         <TextField fx:id="brandField" GridPane.columnIndex="4" GridPane.rowIndex="4" />
-                        <TextField fx:id="characsField" GridPane.columnIndex="4" GridPane.rowIndex="6" />
-                        <ComboBox fx:id="langBox" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="4" GridPane.rowIndex="8" />
-                        <Button fx:id="photoButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#selectPhoto" styleClass="secButton" text="Upload" GridPane.columnIndex="4" GridPane.rowIndex="7" />
                         <HBox alignment="CENTER_LEFT" GridPane.columnIndex="4" GridPane.rowIndex="5">
                             <children>
                                 <ColorPicker fx:id="colorPicker" />
@@ -83,9 +82,12 @@
                                 </CheckBox>
                             </children>
                         </HBox>
-                        <ComboBox fx:id="countryBox" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                        <ComboBox fx:id="destBox" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                        <TextField fx:id="characsField" GridPane.columnIndex="4" GridPane.rowIndex="6" />
+                        <Button fx:id="photoButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#selectPhoto" styleClass="secButton" text="Upload" GridPane.columnIndex="4" GridPane.rowIndex="7" />
+                        <ComboBox fx:id="langBox" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="4" GridPane.rowIndex="8" />
+
                         <Button fx:id="registerButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#registerLostLuggage" text="Register" GridPane.columnSpan="2147483647" GridPane.rowIndex="10" />
+                  <ComboBox fx:id="flightNumberBox" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
                     </children>
                     <BorderPane.margin>
                         <Insets bottom="15.0" left="50.0" right="50.0" top="15.0" />

@@ -37,6 +37,8 @@ public class MainFrameController extends Controller {
     @Override
     public void postInit() {
         tabPane.getSelectionModel().selectedItemProperty().addListener((ov, oldTab, newTab) -> {
+            if (newTab == null)
+                return;
             Tabs tab = Tabs.getTabById(newTab.getId());
             if (tab == null)
                 return;
@@ -52,6 +54,7 @@ public class MainFrameController extends Controller {
         langBox.getItems().addAll(options);
         langBox.setCellFactory(c -> new StringImageCell());
         langBox.setButtonCell(new StringImageCell());
+        langBox.getSelectionModel().select(1);
 
         Tabs.initAll(main);
     }

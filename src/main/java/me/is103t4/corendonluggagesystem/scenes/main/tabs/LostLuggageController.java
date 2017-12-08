@@ -8,15 +8,26 @@ package me.is103t4.corendonluggagesystem.scenes.main.tabs;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.paint.Color;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
+import me.is103t4.corendonluggagesystem.account.Account;
+import me.is103t4.corendonluggagesystem.database.LuggageType;
+import me.is103t4.corendonluggagesystem.database.RegisterType;
+import me.is103t4.corendonluggagesystem.database.tasks.luggage.RegisterLuggageTask;
+import me.is103t4.corendonluggagesystem.database.tasks.util.FetchAirlinesTask;
+import me.is103t4.corendonluggagesystem.database.tasks.util.FetchAirportsTask;
+import me.is103t4.corendonluggagesystem.database.tasks.util.FetchCountriesTask;
 import me.is103t4.corendonluggagesystem.email.EmailSender;
 import me.is103t4.corendonluggagesystem.email.IEmail;
 import me.is103t4.corendonluggagesystem.scenes.Controller;
 import me.is103t4.corendonluggagesystem.scenes.main.Tabs;
+import me.is103t4.corendonluggagesystem.util.AlertBuilder;
 
 import java.io.File;
+import java.util.List;
+import java.util.Locale;
+import java.util.Optional;
 
 /**
  * @author Finn Bon
@@ -56,204 +67,8 @@ public class LostLuggageController extends Controller {
             "Sicily (Catania)"
     };
 
-    private static final String[] COUNTRIES = new String[]{
-            "Afghanistan",
-            "Albania",
-            "Algeria",
-            "Andorra",
-            "Angola",
-            "Antigua and Barbuda",
-            "Argentina",
-            "Armenia",
-            "Australia",
-            "Austria",
-            "Azerbaijan",
-            "Bahamas",
-            "Bahrain",
-            "Bangladesh",
-            "Barbados",
-            "Belarus",
-            "Belgium",
-            "Belize",
-            "Benin",
-            "Bhutan",
-            "Bolivia",
-            "Bosnia and Herzegovina",
-            "Botswana",
-            "Brazil",
-            "Brunei Darussalam",
-            "Bulgaria",
-            "Burkina Faso",
-            "Burundi",
-            "Cabo Verde",
-            "Cambodia",
-            "Cameroon",
-            "Canada",
-            "Central African Republic",
-            "Chad",
-            "Chile",
-            "China",
-            "Colombia",
-            "Comoros",
-            "Congo",
-            "Costa Rica",
-            "Côte d'Ivoire",
-            "Croatia",
-            "Cuba",
-            "Cyprus",
-            "Czech Republic",
-            "Democratic People's Republic of Korea (North Korea)",
-            "Democratic Republic of the Cong",
-            "Denmark",
-            "Djibouti",
-            "Dominica",
-            "Dominican Republic",
-            "Ecuador",
-            "Egypt",
-            "El Salvador",
-            "Equatorial Guinea",
-            "Eritrea",
-            "Estonia",
-            "Ethiopia",
-            "Fiji",
-            "Finland",
-            "France",
-            "Gabon",
-            "Gambia",
-            "Georgia",
-            "Germany",
-            "Ghana",
-            "Greece",
-            "Grenada",
-            "Guatemala",
-            "Guinea",
-            "Guinea-Bissau",
-            "Guyana",
-            "Haiti",
-            "Honduras",
-            "Hungary",
-            "Iceland",
-            "India",
-            "Indonesia",
-            "Iran",
-            "Iraq",
-            "Ireland",
-            "Israel",
-            "Italy",
-            "Jamaica",
-            "Japan",
-            "Jordan",
-            "Kazakhstan",
-            "Kenya",
-            "Kiribati",
-            "Kuwait",
-            "Kyrgyzstan",
-            "Lao People's Democratic Republic (Laos)",
-            "Latvia",
-            "Lebanon",
-            "Lesotho",
-            "Liberia",
-            "Libya",
-            "Liechtenstein",
-            "Lithuania",
-            "Luxembourg",
-            "Macedonia",
-            "Madagascar",
-            "Malawi",
-            "Malaysia",
-            "Maldives",
-            "Mali",
-            "Malta",
-            "Marshall Islands",
-            "Mauritania",
-            "Mauritius",
-            "Mexico",
-            "Micronesia (Federated States of)",
-            "Monaco",
-            "Mongolia",
-            "Montenegro",
-            "Morocco",
-            "Mozambique",
-            "Myanmar",
-            "Namibia",
-            "Nauru",
-            "Nepal",
-            "Netherlands",
-            "New Zealand",
-            "Nicaragua",
-            "Niger",
-            "Nigeria",
-            "Norway",
-            "Oman",
-            "Pakistan",
-            "Palau",
-            "Panama",
-            "Papua New Guinea",
-            "Paraguay",
-            "Peru",
-            "Philippines",
-            "Poland",
-            "Portugal",
-            "Qatar",
-            "Republic of Korea (South Korea)",
-            "Republic of Moldova",
-            "Romania",
-            "Russian Federation",
-            "Rwanda",
-            "Saint Kitts and Nevis",
-            "Saint Lucia",
-            "Saint Vincent and the Grenadines",
-            "Samoa",
-            "San Marino",
-            "Sao Tome and Principe",
-            "Saudi Arabia",
-            "Senegal",
-            "Serbia",
-            "Seychelles",
-            "Sierra Leone",
-            "Singapore",
-            "Slovakia",
-            "Slovenia",
-            "Solomon Islands",
-            "Somalia",
-            "South Africa",
-            "South Sudan",
-            "Spain",
-            "Sri Lanka",
-            "Sudan",
-            "Suriname",
-            "Swaziland",
-            "Sweden",
-            "Switzerland",
-            "Syrian Arab Republic",
-            "Tajikistan",
-            "Thailand",
-            "Timor-Leste",
-            "Togo",
-            "Tonga",
-            "Trinidad and Tobago",
-            "Tunisia",
-            "Turkey",
-            "Turkmenistan",
-            "Tuvalu",
-            "Uganda",
-            "Ukraine",
-            "United Arab Emirates",
-            "United Kingdom of Great Britain and Northern Ireland",
-            "United Republic of Tanzania",
-            "United States of America",
-            "Uruguay",
-            "Uzbekistan",
-            "Vanuatu",
-            "Venezuela",
-            "Vietnam",
-            "Yemen",
-            "Zambia",
-            "Zimbabwe"
-    };
-
     @FXML
-    private ComboBox depAirportBox;
+    private ComboBox<String> depAirportBox;
 
     @FXML
     private TextField firstNameField;
@@ -271,7 +86,7 @@ public class LostLuggageController extends Controller {
     private TextField zipField;
 
     @FXML
-    private ComboBox countryBox;
+    private ComboBox<String> countryBox;
 
     @FXML
     private TextField phoneNumberField;
@@ -283,10 +98,10 @@ public class LostLuggageController extends Controller {
     private TextField luggageIDField;
 
     @FXML
-    private TextField flightNumberField;
+    private ComboBox<String> flightNumberBox;
 
     @FXML
-    private ComboBox destBox;
+    private ComboBox<String> destBox;
 
     @FXML
     private ComboBox<String> typeBox;
@@ -307,13 +122,15 @@ public class LostLuggageController extends Controller {
     private Button photoButton;
 
     @FXML
-    private ComboBox langBox;
+    private ComboBox<String> langBox;
 
     @FXML
     private Button registerButton;
 
     @FXML
     private File photo;
+
+    private List<String> airlines;
 
     @Override
     public boolean isOpen() {
@@ -335,17 +152,21 @@ public class LostLuggageController extends Controller {
                 });
 
         // fill combo boxes
-        depAirportBox.getItems().
-                addAll(AIRPORTS);
+        FetchAirportsTask airportTask = new FetchAirportsTask();
+        airportTask.setOnSucceeded(v -> {
+            destBox.getItems().addAll((List<String>) airportTask.getValue());
+            depAirportBox.getItems().addAll((List<String>) airportTask.getValue());
+        });
 
-        countryBox.getItems().
-                addAll(COUNTRIES);
+        FetchCountriesTask countryTask = new FetchCountriesTask();
+        countryTask.setOnSucceeded(v -> countryBox.getItems().addAll((List<String>) countryTask.getValue()));
 
-        destBox.getItems().
-                addAll(AIRPORTS);
+        FetchAirlinesTask airlinesTask = new FetchAirlinesTask();
+        airlinesTask.setOnSucceeded(v -> flightNumberBox.getItems().addAll((List<String>) airlinesTask.getValue()));
+
 
         typeBox.getItems().
-                addAll("Suitcase", "Handbag");
+                addAll(LuggageType.values(Locale.ENGLISH));
 
         langBox.getItems().
                 addAll("English", "Dutch");
@@ -354,57 +175,132 @@ public class LostLuggageController extends Controller {
     @FXML
     private void registerLostLuggage() {
 
-        IEmail email = new IEmail("Lost Luggage Confirmation", true, emailField.
-                getText());
-        email.setContentFromURL(getClass().
-                getResource("/email/lostRegisteredEmail.html"), true).
-                setParameters(txt -> {
-                    if (txt == null)
-                        System.out.println("Nani");
-                    txt = txt.replace("%%dep%%", (String) depAirportBox.
-                            getSelectionModel().
-                            getSelectedItem());
-                    txt = txt.replace("%%first%%", firstNameField.getText());
-                    txt = txt.replace("%%last%%", lastNameField.getText());
-                    txt = txt.replace("%%address%%", addressField.getText());
-                    txt = txt.replace("%%city%%", cityField.getText());
-                    txt = txt.replace("%%zip%%", zipField.getText());
-                    txt = txt.replace("%%country%%", (String) countryBox.
-                            getSelectionModel().
-                            getSelectedItem());
-                    txt = txt.replace("%%phone%%", phoneNumberField.getText());
-                    txt = txt.replace("%%email%%", emailField.getText());
-                    txt = txt.replace("%%lugid%%", luggageIDField.getText());
-                    txt = txt.replace("%%flight%%", flightNumberField.getText());
-                    txt = txt.
-                            replace("%%dest%%", (String) destBox.
-                                    getSelectionModel().
-                                    getSelectedItem());
-                    txt = txt.
-                            replace("%%type%%", (String) typeBox.
-                                    getSelectionModel().
-                                    getSelectedItem());
-                    txt = txt.replace("%%brand%%", brandField.getText());
-                    txt = txt.
-                            replace("%%colour%%", colorUnknownCheckbox.
-                                    isSelected() ? "Unknown" : "<span style=\"color: " + toHex(colorPicker.
-                                    getValue()) + "; background-color: " + toHex(colorPicker.
-                                    getValue()) + "\">|______________|</span>");
-                    txt = txt.replace("%%characs%%", characsField.getText());
-                    return txt;
-                });
-        email.setAttachments(photo);
+        if (checkEmptyFields())
+            return;
 
-        EmailSender.getInstance().
-                send(email);
+        RegisterLuggageTask registerLuggageTask = new RegisterLuggageTask(RegisterType.LOST, firstNameField.getText()
+                , lastNameField.getText(), addressField.getText(), cityField.getText(), zipField.getText(),
+                phoneNumberField.getText(), emailField.getText(), langBox.getSelectionModel().getSelectedItem(),
+                LuggageType.viaLocale(typeBox
+                        .getSelectionModel().getSelectedItem(), Locale.ENGLISH), luggageIDField.getText(), brandField
+                .getText
+                        (), colorUnknownCheckbox.isSelected() ? null : colorPicker.getValue()
+                , characsField.getText(), photo, flightNumberBox.getSelectionModel().getSelectedItem(), Account.getLoggedInUser());
 
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("Success");
-        alert.setHeaderText("Successfully sent email to passenger!");
-        alert.
-                setContentText("An email has been sent to the passenger regarding their lost luggage.");
+        registerButton.setDisable(true);
+        registerLuggageTask.setOnSucceeded(v -> {
+            registerButton.setDisable(false);
+            IEmail email = new IEmail("Lost Luggage Confirmation", true, emailField.
+                    getText());
+            email.setContentFromURL(getClass().
+                    getResource("/email/lostRegisteredEmail.html"), true).
+                    setParameters(txt -> {
+                        txt = txt.replace("%%dep%%", depAirportBox.
+                                getSelectionModel().
+                                getSelectedItem());
+                        txt = txt.replace("%%first%%", firstNameField.getText());
+                        txt = txt.replace("%%last%%", lastNameField.getText());
+                        txt = txt.replace("%%address%%", addressField.getText());
+                        txt = txt.replace("%%city%%", cityField.getText());
+                        txt = txt.replace("%%zip%%", zipField.getText());
+                        txt = txt.replace("%%country%%", countryBox.
+                                getSelectionModel().
+                                getSelectedItem());
+                        txt = txt.replace("%%phone%%", phoneNumberField.getText());
+                        txt = txt.replace("%%email%%", emailField.getText());
+                        txt = txt.replace("%%lugid%%", luggageIDField.getText());
+                        txt = txt.replace("%%flight%%", flightNumberBox.getSelectionModel().getSelectedItem());
+                        txt = txt.
+                                replace("%%dest%%", destBox.
+                                        getSelectionModel().
+                                        getSelectedItem());
+                        txt = txt.
+                                replace("%%type%%", (String) typeBox.
+                                        getSelectionModel().
+                                        getSelectedItem());
+                        txt = txt.replace("%%brand%%", brandField.getText());
+                        txt = txt.
+                                replace("%%colour%%", colorUnknownCheckbox.
+                                        isSelected() ? "Unknown" : "<span style=\"color: " + toHex(colorPicker.
+                                        getValue()) + "; background-color: " + toHex(colorPicker.
+                                        getValue()) + "\">|______________|</span>");
+                        txt = txt.replace("%%characs%%", characsField.getText());
+                        return txt;
+                    });
+            email.setAttachments(photo);
 
-        alert.showAndWait();
+            EmailSender.getInstance().
+                    send(email);
+
+            promptForPDFCreation();
+
+            Optional<ButtonType> optional = AlertBuilder.REGISTERED_LUGGAGE.showAndWait();
+            if (!optional.isPresent())
+                return;
+
+            ButtonType type = optional.get();
+            if (type.getText().equals("Search for matches")) {
+                // TODO: Find match
+                AlertBuilder.ERROR_OCCURED.showAndWait();
+            }
+        });
+    }
+
+    private boolean checkEmptyFields() {
+        if (firstNameField.getText() == null || firstNameField.getText().length() == 0) {
+            alert("First name cannot be empty!");
+            return true;
+        }
+        if (lastNameField.getText() == null || lastNameField.getText().length() == 0) {
+            alert("Last name cannot be empty!");
+            return true;
+        }
+        if (addressField.getText() == null || addressField.getText().length() == 0) {
+            alert("Address cannot be empty!");
+            return true;
+        }
+        if (cityField.getText() == null || cityField.getText().length() == 0) {
+            alert("City cannot be empty!");
+            return true;
+        }
+        if (zipField.getText() == null || zipField.getText().length() == 0) {
+            alert("ZIP code cannot be empty!");
+            return true;
+        }
+        if (phoneNumberField.getText() == null || zipField.getText().length() == 0 || !phoneNumberField.getText().matches("\\d*")) {
+            alert("Phone number is invalid!");
+            return true;
+        }
+        if (emailField.getText() == null || emailField.getText().length() == 0) {
+            alert("Email cannot be empty!");
+            return true;
+        }
+        if (langBox.getSelectionModel().getSelectedItem() == null) {
+            alert("A language must be selected!");
+            return true;
+        }
+        if (typeBox.getSelectionModel().getSelectedItem() == null) {
+            alert("Luggage type must be selected!");
+            return true;
+        }
+        if (flightNumberBox.getSelectionModel().getSelectedItem() == null) {
+            alert("Flight ID cannot be empty!");
+            return true;
+        }
+        return false;
+    }
+
+    private void promptForPDFCreation() {
+        DirectoryChooser fileChooser = new DirectoryChooser();
+        fileChooser.setTitle("Select PDF Location");
+        fileChooser.setInitialDirectory(
+                new File(System.getProperty("user.home"))
+        );
+        File file = fileChooser.showDialog(main.getStage());
+
+        if (file != null && file.exists()) {
+            // TODO: Create PDF
+        }
     }
 
     private String toHex(Color color) {
@@ -416,18 +312,11 @@ public class LostLuggageController extends Controller {
 
     @FXML
     private void selectPhoto() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Select Photo File");
-        fileChooser.setInitialDirectory(
-                new File(System.getProperty("user.home"))
+        File file = openFileSelectPrompt(
+                new FileChooser.ExtensionFilter("All Files", "*.*"),
+                new FileChooser.ExtensionFilter("JPG", "*.jpg", "*.jpeg"),
+                new FileChooser.ExtensionFilter("PNG", "*.png")
         );
-        fileChooser.getExtensionFilters().
-                addAll(
-                        new FileChooser.ExtensionFilter("All Files", "*.*"),
-                        new FileChooser.ExtensionFilter("JPG", "*.jpg", "*.jpeg"),
-                        new FileChooser.ExtensionFilter("PNG", "*.png")
-                );
-        File file = fileChooser.showOpenDialog(main.getStage());
 
         if (file != null && file.exists()) {
             photo = file;
