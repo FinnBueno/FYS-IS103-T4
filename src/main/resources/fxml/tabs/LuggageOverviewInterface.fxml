@@ -10,46 +10,45 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
 <AnchorPane maxWidth="-Infinity" prefHeight="465.0" prefWidth="900.0" stylesheets="@../../css/dark.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml.tabs.LuggageOverviewInterface">
-   <children>
-      <BorderPane layoutX="186.0" layoutY="92.0" prefHeight="465.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <right>
-            <GridPane BorderPane.alignment="CENTER">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Edit luggage entry" GridPane.rowIndex="2" />
-                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Find match" />
-                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Filter" GridPane.rowIndex="3" />
-                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Clear filters" GridPane.rowIndex="4" />
-                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="View luggage entry" GridPane.rowIndex="1" />
-               </children>
-               <BorderPane.margin>
-                  <Insets bottom="100.0" left="20.0" right="20.0" top="100.0" />
-               </BorderPane.margin>
-            </GridPane>
-         </right>
-         <center>
-            <TableView maxWidth="1.7976931348623157E308" prefHeight="466.0" prefWidth="681.0" tableMenuButtonVisible="true" BorderPane.alignment="CENTER">
-              <columns>
-                <TableColumn maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="116.0" text="First name" />
-                <TableColumn maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="116.0" text="Last name" />
-                  <TableColumn prefWidth="116.0" text="E-mail" />
-                  <TableColumn prefWidth="116.0" text="Type" />
-                  <TableColumn prefWidth="116.0" text="Luggage tag" />
-                  <TableColumn prefWidth="116.0" text="Column X" />
-              </columns>
-            </TableView>
-         </center>
-      </BorderPane>
-   </children>
+    <children>
+        <BorderPane layoutX="186.0" layoutY="92.0" prefHeight="465.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <right>
+                <GridPane BorderPane.alignment="CENTER">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Edit luggage entry" GridPane.rowIndex="2" />
+                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Find match" />
+                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Filter" GridPane.rowIndex="3" />
+                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Clear filters" GridPane.rowIndex="4" />
+                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="View luggage entry" GridPane.rowIndex="1" />
+                    </children>
+                    <BorderPane.margin>
+                        <Insets bottom="100.0" left="20.0" right="20.0" top="100.0" />
+                    </BorderPane.margin>
+                </GridPane>
+            </right>
+            <center>
+                <TableView maxWidth="1.7976931348623157E308" prefHeight="466.0" prefWidth="681.0" tableMenuButtonVisible="true" BorderPane.alignment="CENTER">
+                    <columns>
+                        <TableColumn prefWidth="116.0" text="Type" />
+                        <TableColumn prefWidth="116.0" text="Luggage tag" />
+                        <TableColumn prefWidth="116.0" text="Color" />
+                        <TableColumn maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="116.0" text="First name" />
+                        <TableColumn maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="116.0" text="Last name" />
+                        <TableColumn prefWidth="116.0" text="E-mail" />
+                    </columns>
+                </TableView>
+            </center>
+        </BorderPane>
+    </children>
 </AnchorPane>

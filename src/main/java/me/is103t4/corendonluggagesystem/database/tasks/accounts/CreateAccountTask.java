@@ -74,7 +74,7 @@ public class CreateAccountTask extends DBTask<Account> {
             ResultSet set = ps.executeQuery();
 
             //Test return
-            if (!set.next())
+            if (set.getFetchSize() != 0)
                 return null;
 
         } catch (SQLException ex) {
