@@ -32,6 +32,8 @@ public class RecoverPasswordTask extends DBTask<Integer> {
      */
     public RecoverPasswordTask(String address) {
         this.address = address;
+
+        start();
     }
 
     @Override

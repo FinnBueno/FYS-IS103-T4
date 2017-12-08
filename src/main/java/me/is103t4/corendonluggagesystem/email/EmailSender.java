@@ -17,16 +17,13 @@ import java.util.Base64;
  */
 public class EmailSender {
 
-    private final static String FROM = "noreply@corendon.com";
-    private final static String HOST = "localhost";
-
     private static final EmailSender INSTANCE = new EmailSender();
 
     public static EmailSender getInstance() {
         return INSTANCE;
     }
 
-    private static final String SENDGRID_API_KEY = "<insert key>";
+    private static final String SENDGRID_API_KEY = "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";
     private static SendGrid SENDGRID;
     private static final String EMAIL_ADDRESS = "noreply@corendonluggage.com";
 

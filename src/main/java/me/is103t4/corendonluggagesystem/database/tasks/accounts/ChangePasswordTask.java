@@ -29,6 +29,8 @@ public class ChangePasswordTask extends DBTask {
     public ChangePasswordTask(String email, String password) {
         this.email = email;
         this.password = password;
+
+        start();
     }
 
     @Override
