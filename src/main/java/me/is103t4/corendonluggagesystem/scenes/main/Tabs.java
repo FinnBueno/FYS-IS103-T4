@@ -7,6 +7,7 @@ package me.is103t4.corendonluggagesystem.scenes.main;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.logging.Level;
@@ -32,7 +33,8 @@ public enum Tabs {
     LOST_LUGGAGE(AccountRole.EMPLOYEE, "LostLuggage"),
     FOUND_LUGGAGE(AccountRole.EMPLOYEE, "FoundLuggage"),
     DAMAGED_LUGGAGE(AccountRole.EMPLOYEE, "DamagedLuggage"),
-    STATISTICS(AccountRole.ADMIN, "Statistics"),
+    OVERVIEW(AccountRole.EMPLOYEE, "LuggageOverview"),
+    STATISTICS(new AccountRole[] {AccountRole.ADMIN, AccountRole.MANAGERS }, "Statistics"),
     ACCOUNTS(AccountRole.ADMIN, "Accounts", "NewAccount", "FilterAccount"),
     CONFIGURATIONS("Configurations");
 
@@ -41,15 +43,19 @@ public enum Tabs {
     private final Controller[] controller;
     private final String[] fxmlURL;
     private final String name;
-    private final AccountRole role;
+    private final List<AccountRole> roles;
     private int activeRoot;
 
     Tabs(String... names) {
-        this(null, names);
+        this(AccountRole.values(), names);
     }
 
     Tabs(AccountRole r, String... names) {
-        role = r;
+        this(new AccountRole[] {r}, names);
+    }
+
+    Tabs(AccountRole[] r, String... names) {
+        roles = Arrays.asList(r);
         int length = names.length;
         controller = new Controller[length];
         root = new Pane[length];
@@ -145,11 +151,9 @@ public enum Tabs {
         }
 
         List<Tabs> list = new ArrayList<>();
-        for (Tabs tab : values()) {
-            if (tab.role == role || tab.role == null) {
+        for (Tabs tab : values())
+            if (tab.roles.contains(role))
                 list.add(tab);
-            }
-        }
         return list.toArray(new Tabs[list.size()]);
     }
 
@@ -160,6 +164,8 @@ public enum Tabs {
     }
 
     public static Tabs getTabById(String id) {
+        if (id == null)
+            return null;
         for (Tabs tab : values()) {
             if (id.equals(tab.getTab().
                     getId())) {

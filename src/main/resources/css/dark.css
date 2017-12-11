@@ -9,8 +9,6 @@ and open the template in the editor.
 */
 
 .root {
-    -fx-focus-color: transparent;
-    -fx-faint-focus-color: transparent;
 
     -clr-prim: #EA282B;
     -clr-sec: #F8BB23;
@@ -19,6 +17,14 @@ and open the template in the editor.
     -clr-lighter: #EEF0F2;
 
     -fx-background-color: white;
+
+    -fx-focus-color: -clr-prim;
+    -fx-faint-focus-color: transparent;
+}
+
+.tab-pane:top .tab-header-area .headers-region .tab:top {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
 }
 
 /* Begin pane styling */

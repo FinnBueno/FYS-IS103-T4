@@ -35,6 +35,8 @@ public class LoginTask extends DBTask<Account> {
         this.code = code;
         this.username = username;
         this.password = password.toCharArray();
+
+        start();
     }
 
     @Override

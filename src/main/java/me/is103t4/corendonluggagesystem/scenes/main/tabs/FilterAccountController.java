@@ -11,7 +11,7 @@ import me.is103t4.corendonluggagesystem.scenes.main.Tabs;
 /**
  * FXML Controller class
  *
- * @author roy
+ * @author Roy
  */
 public class FilterAccountController extends Controller {
 
