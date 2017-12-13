@@ -6,28 +6,31 @@
 package me.is103t4.corendonluggagesystem.account;
 
 /**
- *
  * @author finnb
  */
 public enum AccountRole {
-    
+
     ADMIN(0), MANAGERS(1), EMPLOYEE(2), DEVELOPER(3);
-    
+
     private final int id;
-    
-    private AccountRole(int i) {
-	id = i;
+
+    AccountRole(int i) {
+        id = i;
     }
 
     public int getId() {
-	return id;
+        return id;
     }
 
     public static AccountRole fromId(int id) {
-	for (AccountRole role : values())
-	    if (role.id == id)
-		return role;
-	return null;
+        for (AccountRole role : values())
+            if (role.id == id)
+                return role;
+        return null;
     }
-    
+
+    public String toString() {
+        return name().toCharArray()[0] + name().toLowerCase().substring(1);
+    }
+
 }

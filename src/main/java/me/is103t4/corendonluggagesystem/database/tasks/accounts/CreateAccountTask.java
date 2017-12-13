@@ -3,6 +3,7 @@ package me.is103t4.corendonluggagesystem.database.tasks.accounts;
 import me.is103t4.corendonluggagesystem.account.Account;
 import me.is103t4.corendonluggagesystem.account.AccountRole;
 import me.is103t4.corendonluggagesystem.database.DBHandler;
+import me.is103t4.corendonluggagesystem.database.DBHandler.PreparingStatement;
 import me.is103t4.corendonluggagesystem.database.DBTask;
 import me.is103t4.corendonluggagesystem.database.PasswordAuthentication;
 
@@ -10,9 +11,6 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-
-import me.is103t4.corendonluggagesystem.database.DBHandler.PreparingStatement;
 
 public class CreateAccountTask extends DBTask<Account> {
 
@@ -23,7 +21,6 @@ public class CreateAccountTask extends DBTask<Account> {
     private final String phoneNumber;
     private final char[] password;
     private final String tag;
-    private final LocalDate dateOfBirth;
     private final AccountRole role;
 
     /**
@@ -35,19 +32,19 @@ public class CreateAccountTask extends DBTask<Account> {
      * @param phoneNumber The user's phone number
      * @param password    The user's password
      * @param tag         The user's tag
-     * @param dateOfBirth The user's date of birth
      * @param role        The user's role
      */
-    public CreateAccountTask(String firstName, String lastName, String email, String phoneNumber, String password, String tag, LocalDate dateOfBirth, AccountRole role) {
+    public CreateAccountTask(String firstName, String lastName, String email, String phoneNumber, String password, String tag, AccountRole role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.password = password.toCharArray();
         this.tag = tag;
-        this.dateOfBirth = dateOfBirth;
         this.role = role;
         this.username = generateUsername();
+
+        start();
     }
 
     /**
@@ -74,7 +71,7 @@ public class CreateAccountTask extends DBTask<Account> {
             ResultSet set = ps.executeQuery();
 
             //Test return
-            if (!set.next())
+            if (set.getFetchSize() != 0)
                 return null;
 
         } catch (SQLException ex) {
@@ -82,8 +79,8 @@ public class CreateAccountTask extends DBTask<Account> {
         }
 
         // create query
-        query = "INSERT INTO accounts (username, code, password, email, role, salt, last_name, first_name, phone_number, birth) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        query = "INSERT INTO accounts (username, code, password, email, role, salt, last_name, first_name, phone_number) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         // create PreparedStatement
         try (PreparedStatement ps = DBHandler.INSTANCE.getConnection().prepareStatement(query)) {
 
@@ -99,7 +96,6 @@ public class CreateAccountTask extends DBTask<Account> {
             preparing.setString(7, lastName);
             preparing.setString(8, firstName);
             preparing.setString(9, phoneNumber);
-            preparing.setDate(10, Date.valueOf(dateOfBirth));
 
             // execute
             ps.executeUpdate();

@@ -11,50 +11,51 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane id="AnchorPane" prefHeight="465.0" prefWidth="900.0" styleClass="mainFxmlClass" stylesheets="@../../css/dark.css" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.is103t4.corendonluggagesystem.scenes.main.tabs.FilterAccountController">
-   <children>
-      <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <center>
-            <GridPane alignment="CENTER" BorderPane.alignment="CENTER">
-              <columnConstraints>
-                  <ColumnConstraints />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="50.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <TextField maxWidth="1.7976931348623157E308" GridPane.columnIndex="2" />
-                  <TextField maxWidth="1.7976931348623157E308" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                  <TextField maxWidth="1.7976931348623157E308" GridPane.columnIndex="5" GridPane.rowIndex="2" />
-                  <Label text="Activated" GridPane.columnIndex="4" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
-                  <Label text="E-mail" GridPane.columnIndex="4" GridPane.halignment="LEFT" GridPane.rowIndex="2" />
-                  <Label text="Username" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
-                  <Label text="Tag" GridPane.columnIndex="1" GridPane.halignment="LEFT" />
-                  <Label text="Role" GridPane.columnIndex="4" GridPane.halignment="LEFT" />
-                  <ComboBox maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="5" GridPane.rowIndex="1" />
-                  <ComboBox maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="5" />
-                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Filter" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="4" />
-                  <TextField maxWidth="1.7976931348623157E308" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                  <Label text="First name" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Label text="Last name" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <TextField maxWidth="1.7976931348623157E308" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                  <Label text="Phone number" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-                  <TextField maxWidth="1.7976931348623157E308" GridPane.columnIndex="5" GridPane.rowIndex="3" />
-               </children>
-               <BorderPane.margin>
-                  <Insets bottom="15.0" left="50.0" right="50.0" top="15.0" />
-               </BorderPane.margin>
-            </GridPane>
-         </center>
-      </BorderPane>
-   </children>
+<AnchorPane id="AnchorPane" prefHeight="465.0" prefWidth="900.0" styleClass="mainFxmlClass" stylesheets="@../../css/dark.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.is103t4.corendonluggagesystem.scenes.main.tabs.FilterAccountController">
+    <children>
+        <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <center>
+                <GridPane alignment="CENTER" BorderPane.alignment="CENTER">
+                    <columnConstraints>
+                        <ColumnConstraints />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="50.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="5.0" minHeight="5.0" prefHeight="5.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="45.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <TextField maxWidth="1.7976931348623157E308" GridPane.columnIndex="2" />
+                        <TextField maxWidth="1.7976931348623157E308" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <TextField maxWidth="1.7976931348623157E308" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+                        <Label text="Activated" GridPane.columnIndex="4" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
+                        <Label text="E-mail" GridPane.columnIndex="4" GridPane.halignment="LEFT" GridPane.rowIndex="2" />
+                        <Label text="Username" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
+                        <Label text="Tag" GridPane.columnIndex="1" GridPane.halignment="LEFT" />
+                        <Label text="Role" GridPane.columnIndex="4" GridPane.halignment="LEFT" />
+                        <ComboBox maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                        <ComboBox maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="5" />
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Filter" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="5" />
+                        <TextField maxWidth="1.7976931348623157E308" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                        <Label text="First name" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label text="Last name" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField maxWidth="1.7976931348623157E308" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                        <Label text="Phone number" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+                        <TextField maxWidth="1.7976931348623157E308" GridPane.columnIndex="5" GridPane.rowIndex="3" />
+                    </children>
+                    <BorderPane.margin>
+                        <Insets bottom="15.0" left="50.0" right="50.0" top="15.0" />
+                    </BorderPane.margin>
+                </GridPane>
+            </center>
+        </BorderPane>
+    </children>
 </AnchorPane>

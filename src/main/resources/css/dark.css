@@ -9,8 +9,6 @@ and open the template in the editor.
 */
 
 .root {
-    -fx-focus-color: transparent;
-    -fx-faint-focus-color: transparent;
 
     -clr-prim: #EA282B;
     -clr-sec: #F8BB23;
@@ -19,6 +17,14 @@ and open the template in the editor.
     -clr-lighter: #EEF0F2;
 
     -fx-background-color: white;
+
+    -fx-focus-color: -clr-prim;
+    -fx-faint-focus-color: transparent;
+}
+
+.tab-pane:top .tab-header-area .headers-region .tab:top {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
 }
 
 /* Begin pane styling */
@@ -116,12 +122,33 @@ Button:pressed {
 /* End button styling
 Begin input styling */
 
+.slider .thumb {
+    -fx-background-color: -clr-prim;
+}
+
+.slider .track,
+.slider .axis:bottom .axis-tick-mark {
+    -fx-background-color: -clr-light;
+}
+
+.check-box:determinate .box {
+    -fx-background-color: -clr-light;
+}
+
+.check-box:determinate .text {
+    -fx-font-weight: bold;
+}
+
 TextField, PasswordField {
     -fx-background-color: transparent;
     -fx-border-width: 0px 0px 1px 0px;
     -fx-border-color: derive(-clr-light, -25%);
     -fx-prompt-text-fill: derive(-clr-light, -25%);
     -fx-text-fill: -clr-dark;
+}
+
+TextField:focused, PasswordField:focused {
+    -fx-border-color: -clr-prim;
 }
 
 ComboBox {
@@ -176,7 +203,7 @@ ComboBox .list-view .list-cell:hover {
 }
 
 ColorPicker {
-    -fx-background-color: derive(-clr-light, -15%);
+    -fx-background-color: -clr-light;
     -fx-background-radius: 0px;
 }
 
@@ -199,6 +226,34 @@ ColorPicker {
 
 .table-view .filler {
     -fx-background-color: transparent;
+}
+
+.table-column {
+    -fx-background-color: transparent;
+
+}
+
+.table-view {
+    -fx-padding: 0px    ;
+}
+
+.table-view:row-selection .column-header-background,
+.table-view:row-selection .column-header-background .show-hide-columns-button {
+    -fx-background-color: -clr-light;
+    -fx-border-width: 2px;
+    -fx-border-color: -clr-light;
+    -fx-padding: 5px;
+}
+
+.table-view:row-selection .column-header-background {
+    -fx-padding: -1px;
+}
+
+.table-view:row-selection .column-header-background .nested-column-header .table-column,
+.table-view:row-selection .column-header-background .show-hide-columns-button {
+    -fx-background-color: -clr-light;
+    -fx-border-color: derive(-clr-light, -15%);
+    -fx-border-width: 0px 1px 0px 1px;
 }
 
 /* tab(pane) styling */

@@ -1,31 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
 <AnchorPane id="AnchorPane" prefHeight="465.0" prefWidth="900.0" styleClass="mainFxmlClass" stylesheets="@../../css/dark.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.is103t4.corendonluggagesystem.scenes.main.tabs.FoundLuggageController">
    <children>
-      <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <center>
-            <HBox alignment="CENTER" BorderPane.alignment="CENTER">
-               <children>
-                  <ImageView fx:id="img" fitHeight="402.0" fitWidth="542.0" pickOnBounds="true" smooth="false">
-                     <image>
-                        <Image url="@../../images/HomepageImg.png" />
-                     </image>
-                     <HBox.margin>
-                        <Insets right="25.0" />
-                     </HBox.margin>
-                  </ImageView>
-                  <Label prefHeight="331.0" prefWidth="301.0" text="Welkom bij het Corendon Luggage System. Dit is een programma die gebruikt gaat worden om gevonden, verloren en beschadigde bagage in te voeren. " wrapText="true" />
-               </children>
-            </HBox>
-         </center>
-      </BorderPane>
+      <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ImageView fitHeight="300.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/CorendonLogo.png" />
+               </image>
+               <viewport>
+                  <Rectangle2D />
+               </viewport>
+            </ImageView>
+            <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" prefWidth="300.0" text="Welcome to the Corendon Luggage System! This program exists in order to help passengers get back their lost luggage, report found luggage, or report their damaged luggage. If you have any questions regarding the use of this program, please refer to the manual. If you do not have a manual, please contact your superior." textAlignment="JUSTIFY" wrapText="true" />
+         </children>
+      </VBox>
    </children>
 </AnchorPane>

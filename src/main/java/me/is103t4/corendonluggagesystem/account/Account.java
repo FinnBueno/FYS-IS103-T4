@@ -5,38 +5,47 @@
  */
 package me.is103t4.corendonluggagesystem.account;
 
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 import me.is103t4.corendonluggagesystem.scenes.Scenes;
 
 /**
- * @author finnb
+ * @author Finn Bon
  */
 public class Account {
 
     private static Account currentUser;
 
-    private String name, email, firstName, lastName, phoneNumber, code;
-    private AccountRole role;
+    private SimpleStringProperty username, email, firstName, lastName, phoneNumber, code;
+    private SimpleObjectProperty<AccountRole> role;
+    private SimpleBooleanProperty activated;
 
     public Account(String code, String username, String firstName, String lastName, String phoneNumber, AccountRole role, String email) {
-        this.name = username;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.code = code;
-        this.role = role;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
+        this.username = new SimpleStringProperty(username);
+        this.firstName = new SimpleStringProperty(firstName);
+        this.lastName = new SimpleStringProperty(lastName);
+        this.code = new SimpleStringProperty(code);
+        this.role = new SimpleObjectProperty<>(role);
+        this.email = new SimpleStringProperty(email);
+        this.phoneNumber = new SimpleStringProperty(phoneNumber);
+        this.activated = new SimpleBooleanProperty(true);
+    }
+
+    public boolean isActivated() {
+        return activated.get();
     }
 
     public String getPhoneNumber() {
-        return phoneNumber;
+        return phoneNumber.get();
     }
 
     public String getFirstName() {
-        return firstName;
+        return firstName.get();
     }
 
     public String getLastName() {
-        return lastName;
+        return lastName.get();
     }
 
     public void login() {
@@ -44,19 +53,19 @@ public class Account {
     }
 
     public String getCode() {
-        return code;
+        return code.get();
     }
 
     public String getUsername() {
-        return name;
+        return username.get();
     }
 
     public String getEmail() {
-        return email;
+        return email.get();
     }
 
     public AccountRole getRole() {
-        return role;
+        return role.get();
     }
 
     public static Account getLoggedInUser() {
@@ -68,7 +77,7 @@ public class Account {
         firstName = null;
         lastName = null;
         code = null;
-        name = null;
+        username = null;
         email = null;
         role = null;
         currentUser = null;
