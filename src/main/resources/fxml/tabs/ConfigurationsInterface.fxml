@@ -35,22 +35,22 @@
                   <Insets bottom="15.0" left="50.0" right="50.0" top="15.0" />
                </BorderPane.margin>
                <children>
-                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" stylesheets="@../../../FYS-IS103-T4/src/main/resources/css/dark.css" text="Save changes" GridPane.columnSpan="2147483647" GridPane.hgrow="NEVER" GridPane.rowIndex="7" />
+                  <Button fx:id="saveButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" stylesheets="@../../../FYS-IS103-T4/src/main/resources/css/dark.css" text="Save changes" GridPane.columnSpan="2147483647" GridPane.hgrow="NEVER" GridPane.rowIndex="7" />
                   <Label text="First name" GridPane.rowIndex="1" />
-                  <TextField fx:id="brandField" prefHeight="25.0" prefWidth="225.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="firstNameField" prefHeight="25.0" prefWidth="225.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Label text="Last name" GridPane.rowIndex="2" />
-                  <TextField fx:id="brandField1" prefHeight="25.0" prefWidth="245.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="lastNameField" prefHeight="25.0" prefWidth="245.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <Label text="Phone number" GridPane.rowIndex="3" />
-                  <TextField fx:id="characsField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="phoneNumberField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <Label text="E-mail" GridPane.rowIndex="4" />
                   <Label prefHeight="25.0" prefWidth="165.0" styleClass="header" text="Personal information" GridPane.columnSpan="2147483647">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="characsField1" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <Label text="SendGrid key" GridPane.rowIndex="5" />
-                  <PasswordField GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <PasswordField fx:id="sendgridKeyField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                </children>
             </GridPane>
          </center>
