@@ -20,11 +20,11 @@ public class DBHandler {
 
     public static final DBHandler INSTANCE = new DBHandler();
 
-    private final String host = "sql11.freemysqlhosting.net";
+    private final String host = "54.37.228.40";
     private final int port = 3306;
-    private final String username = "sql11202531";
-    private final String password = "MY6gDGml88";
-    private final String db = "sql11202531";
+    private final String username = "corendon";
+    private final String password = "<INSERT PASSWORD>";
+    private final String db = "corendon";
 
     private Connection connection;
     static final Logger LOGGER = Logger.getLogger(DBHandler.class.

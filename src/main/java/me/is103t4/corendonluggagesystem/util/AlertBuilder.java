@@ -27,7 +27,7 @@ public class AlertBuilder {
     private final Alert.AlertType type;
     private Set<ButtonType> types;
 
-    private AlertBuilder(Alert.AlertType type, String title, String header, String content) {
+    public AlertBuilder(Alert.AlertType type, String title, String header, String content) {
         this.type = type;
         this.title = title;
         this.header = header;
