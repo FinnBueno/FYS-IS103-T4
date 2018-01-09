@@ -41,9 +41,9 @@
                         <TextField fx:id="firstNameField" GridPane.columnIndex="1" />
                         <Label maxWidth="1.7976931348623157E308" text="Last Name* :" GridPane.rowIndex="1" />
                         <TextField fx:id="lastNameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label maxWidth="1.7976931348623157E308" text="Luggage ID:" GridPane.rowIndex="2" />
+                        <Label maxWidth="1.7976931348623157E308" text="Luggage ID :" GridPane.rowIndex="2" />
                         <TextField fx:id="luggageIDField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Label maxWidth="1.7976931348623157E308" text="Flight Number* :" GridPane.rowIndex="3" />
+                        <Label maxWidth="1.7976931348623157E308" text="Flight Number :" GridPane.rowIndex="3" />
                         <Button fx:id="registerButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#registerFoundLuggage" text="Register" GridPane.columnSpan="2147483647" GridPane.rowIndex="6" />
                         <Label maxWidth="1.7976931348623157E308" text="Type* :" GridPane.rowIndex="4" />
                         <ComboBox fx:id="typeBox" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
