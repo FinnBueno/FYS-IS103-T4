@@ -25,7 +25,7 @@ public class FetchAccountsTask extends DBTask<List<Account>> {
             ObservableList<Account> accounts = FXCollections.observableArrayList();
             while (set.next()) {
                 accounts.add(new Account(
-                        set.getString("code"),
+                        set.getInt("account_id"), set.getString("code"),
                         set.getString("username"),
                         set.getString("first_name"),
                         set.getString("last_name"),

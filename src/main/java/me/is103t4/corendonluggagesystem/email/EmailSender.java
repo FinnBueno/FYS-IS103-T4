@@ -6,10 +6,13 @@
 package me.is103t4.corendonluggagesystem.email;
 
 import com.sendgrid.*;
+import me.is103t4.corendonluggagesystem.util.AlertBuilder;
+import me.is103t4.corendonluggagesystem.util.PreferencesManager;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.sql.PreparedStatement;
 import java.util.Base64;
 
 /**
@@ -23,22 +26,15 @@ public class EmailSender {
         return INSTANCE;
     }
 
-    private static final String SENDGRID_API_KEY = "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";
     private static SendGrid SENDGRID;
     private static final String EMAIL_ADDRESS = "noreply@corendonluggage.com";
-
-    static {
-        try {
-            SENDGRID = new SendGrid(SENDGRID_API_KEY);
-        } catch (Exception exc) {
-            System.err.println("SendGrid API key is invalid!");
-        }
-    }
 
     private EmailSender() {
     }
 
     public void send(IEmail iEmail) {
+
+        SENDGRID = new SendGrid(PreferencesManager.get().get(PreferencesManager.SENDGRIDKEY));
 
         // create email instance
         Mail mail = new Mail();
@@ -88,7 +84,7 @@ public class EmailSender {
             System.out.println(response.getBody());
             System.out.println(response.getHeaders());
         } catch (IOException ex) {
-            ex.printStackTrace();
+            AlertBuilder.ERROR_OCCURRED.showAndWait();
         }
 
     }

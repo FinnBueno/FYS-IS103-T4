@@ -6,22 +6,16 @@
 package me.is103t4.corendonluggagesystem.scenes.main.tabs;
 
 import java.io.File;
-import java.net.URL;
-import java.util.Locale;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.control.Alert.AlertType;
 import javafx.stage.FileChooser;
 import me.is103t4.corendonluggagesystem.account.Account;
-import me.is103t4.corendonluggagesystem.database.LuggageType;
-import me.is103t4.corendonluggagesystem.database.RegisterType;
+import me.is103t4.corendonluggagesystem.database.tasks.luggage.FetchLuggageTypesTask;
 import me.is103t4.corendonluggagesystem.database.tasks.luggage.RegisterLuggageTask;
-import me.is103t4.corendonluggagesystem.email.EmailSender;
-import me.is103t4.corendonluggagesystem.email.IEmail;
+import me.is103t4.corendonluggagesystem.database.tasks.util.FetchAirlinesTask;
 import me.is103t4.corendonluggagesystem.scenes.Controller;
 import me.is103t4.corendonluggagesystem.scenes.main.Tabs;
 import me.is103t4.corendonluggagesystem.util.AlertBuilder;
@@ -34,34 +28,28 @@ import me.is103t4.corendonluggagesystem.util.AlertBuilder;
 public class FoundLuggageController extends Controller {
 
     @FXML
-    private TextField firstNameField;
+    public TextField luggageIDField;
 
     @FXML
-    private TextField lastNameField;
+    public ComboBox<String> flightNumberBox;
 
     @FXML
-    private TextField luggageIDField;
+    public ComboBox<String> typeBox;
 
     @FXML
-    private ComboBox<String> flightNumberBox;
+    public TextField brandField;
 
     @FXML
-    private ComboBox<String> typeBox;
+    public ColorPicker colorPicker;
 
     @FXML
-    private TextField brandField;
-
-    @FXML
-    private ColorPicker colorPicker;
-
-    @FXML
-    private TextField characsField;
+    public TextField characsField;
 
     @FXML
     private File photo;
 
     @FXML
-    private Button registerButton;
+    public Button registerButton;
 
     @Override
     public boolean isOpen() {
@@ -70,8 +58,20 @@ public class FoundLuggageController extends Controller {
 
     @Override
     public void postInit() {
+
         // set enter button
         setEnterButton(registerButton);
+
+        // I honestly have no clue what the hell is going on here, this check is the only way I found to possible fix it
+        if (typeBox == null)
+            return;
+
+        FetchAirlinesTask airlinesTask = new FetchAirlinesTask();
+        airlinesTask.setOnSucceeded(v -> flightNumberBox.setItems(FXCollections.observableArrayList((List<String>)
+                airlinesTask.getValue())));
+
+        FetchLuggageTypesTask task = new FetchLuggageTypesTask();
+        task.setOnSucceeded(v -> typeBox.setItems(FXCollections.observableArrayList((List<String>) task.getValue())));
     }
 
     @FXML
@@ -80,16 +80,15 @@ public class FoundLuggageController extends Controller {
         if (checkEmptyFields())
             return;
 
-        RegisterLuggageTask registerLuggageTask = new RegisterLuggageTask(RegisterType.LOST, firstNameField.getText()
-                , lastNameField.getText(), null, null, null, null, null, null, LuggageType.viaLocale(typeBox
-                .getSelectionModel().getSelectedItem(), Locale.ENGLISH), luggageIDField.getText(), brandField.getText
-                (), colorPicker.getValue(), characsField.getText(), photo, flightNumberBox.getSelectionModel().getSelectedItem(), Account
-                .getLoggedInUser());
+        RegisterLuggageTask registerLuggageTask = new RegisterLuggageTask("Found", null, null, null, null,
+                null, null, null, null, typeBox.getSelectionModel().getSelectedItem(), luggageIDField.getText(),
+                brandField.getText(), colorPicker.getValue(), characsField
+                .getText(), photo, flightNumberBox.getSelectionModel().getSelectedItem(), Account.getLoggedInUser());
 
         registerButton.setDisable(true);
         registerLuggageTask.setOnFailed(v -> {
             registerButton.setDisable(false);
-            AlertBuilder.ERROR_OCCURED.showAndWait();
+            AlertBuilder.ERROR_OCCURRED.showAndWait();
         });
         registerLuggageTask.setOnSucceeded(v -> {
             registerButton.setDisable(false);
@@ -101,7 +100,7 @@ public class FoundLuggageController extends Controller {
             ButtonType type = optional.get();
             if (type.getText().equals("Search for matches")) {
                 // TODO: Find match
-                AlertBuilder.ERROR_OCCURED.showAndWait();
+                AlertBuilder.ERROR_OCCURRED.showAndWait();
             }
         });
 
@@ -110,14 +109,6 @@ public class FoundLuggageController extends Controller {
     private boolean checkEmptyFields() {
         if (characsField.getText() == null || characsField.getText().length() == 0) {
             alert("Characteristics cannot be empty!");
-            return true;
-        }
-        if (firstNameField.getText() == null || firstNameField.getText().length() == 0) {
-            alert("First name cannot be empty!");
-            return true;
-        }
-        if (lastNameField.getText() == null || lastNameField.getText().length() == 0) {
-            alert("Last name cannot be empty!");
             return true;
         }
         if (typeBox.getSelectionModel().getSelectedItem() == null) {

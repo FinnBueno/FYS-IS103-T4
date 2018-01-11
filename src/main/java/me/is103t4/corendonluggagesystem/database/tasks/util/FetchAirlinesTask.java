@@ -11,7 +11,14 @@ import java.util.List;
 
 public class FetchAirlinesTask extends DBTask<List<String>> {
 
+    private final boolean humanFriendly;
+
     public FetchAirlinesTask() {
+        this(true);
+    }
+
+    public FetchAirlinesTask(boolean humanFriendly) {
+        this.humanFriendly = humanFriendly;
         start();
     }
 
@@ -22,7 +29,8 @@ public class FetchAirlinesTask extends DBTask<List<String>> {
             ResultSet set = ps.executeQuery();
             List<String> flightIdResult = new ArrayList<>();
             while (set.next()) {
-                flightIdResult.add(set.getString("flight_id"));
+                flightIdResult.add(set.getString("flight_id") + (humanFriendly ? " - " + set.getString("departure_airport") + " - " +
+                        set.getString("destination_airport") : ""));
             }
             return flightIdResult;
         } catch (SQLException ex) {

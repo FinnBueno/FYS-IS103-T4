@@ -60,8 +60,6 @@ public abstract class Controller implements Initializable {
         clickButton = button;
     }
 
-
-
     protected void notify(String s) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Notification");

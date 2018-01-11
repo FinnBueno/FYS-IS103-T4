@@ -6,6 +6,7 @@
 package me.is103t4.corendonluggagesystem;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -33,6 +34,8 @@ public class LugSysMain extends Application {
         Scenes.initAll(this);
 
         scene.setRoot(Scenes.LOGIN.getRoot());
+
+        stage.setOnHidden(event -> Platform.exit());
 
         stage.setScene(scene);
         stage.show();

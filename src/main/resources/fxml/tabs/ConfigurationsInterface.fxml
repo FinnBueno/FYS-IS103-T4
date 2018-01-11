@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="465.0" prefWidth="900.0" stylesheets="@../../css/dark.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.is103t4.corendonluggagesystem.scenes.main.tabs.FoundLuggageController">
+<AnchorPane id="AnchorPane" prefHeight="465.0" prefWidth="900.0" stylesheets="@../../css/dark.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.is103t4.corendonluggagesystem.scenes.main.tabs.ConfigurationsController">
    <children>
       <BorderPane prefHeight="465.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
@@ -35,7 +35,7 @@
                   <Insets bottom="15.0" left="50.0" right="50.0" top="15.0" />
                </BorderPane.margin>
                <children>
-                  <Button fx:id="saveButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" stylesheets="@../../../FYS-IS103-T4/src/main/resources/css/dark.css" text="Save changes" GridPane.columnSpan="2147483647" GridPane.hgrow="NEVER" GridPane.rowIndex="7" />
+                  <Button onAction="#saveChanges" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" stylesheets="@../../../FYS-IS103-T4/src/main/resources/css/dark.css" text="Save changes" GridPane.columnSpan="2147483647" GridPane.hgrow="NEVER" GridPane.rowIndex="7" />
                   <Label text="First name" GridPane.rowIndex="1" />
                   <TextField fx:id="firstNameField" prefHeight="25.0" prefWidth="225.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Label text="Last name" GridPane.rowIndex="2" />

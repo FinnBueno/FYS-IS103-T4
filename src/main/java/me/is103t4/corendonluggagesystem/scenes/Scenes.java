@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import me.is103t4.corendonluggagesystem.LugSysMain;
+import me.is103t4.corendonluggagesystem.scenes.login.LoginController;
 
 /**
  * An enumeration holding all the possible scenes that can be displayed on the primary
@@ -31,17 +32,11 @@ public enum Scenes {
     private Controller controller;
     private final String fxmlURL;
 
-    private static Scenes activeScene;
-
     Scenes(String name) {
         fxmlURL = "/fxml/" + name + "Interface.fxml";
     }
 
-    public static Scenes getActiveScene() {
-        return activeScene;
-    }
-
-    public boolean initialize(LugSysMain main) {
+    public void initialize(LugSysMain main) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().
                     getResource(fxmlURL));
@@ -52,12 +47,12 @@ public enum Scenes {
                 controller.setScene(scene);
                 controller.setMain(main);
                 controller.init();
+                if (controller instanceof LoginController)
+                    controller.postInit();
             }
-            return true;
         } catch (IOException ex) {
             Logger.getLogger(Scenes.class.getName()).
                     log(Level.SEVERE, null, ex);
-            return false;
         }
     }
 
@@ -70,7 +65,6 @@ public enum Scenes {
     }
 
     public void setToScene() {
-        activeScene = this;
         scene.setRoot(root);
     }
 

@@ -5,6 +5,14 @@
  */
 package me.is103t4.corendonluggagesystem.scenes.main;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Tab;
+import javafx.scene.layout.Pane;
+import me.is103t4.corendonluggagesystem.LugSysMain;
+import me.is103t4.corendonluggagesystem.account.AccountRole;
+import me.is103t4.corendonluggagesystem.scenes.Controller;
+import me.is103t4.corendonluggagesystem.scenes.Scenes;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,15 +20,6 @@ import java.util.List;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.Tab;
-import javafx.scene.layout.Pane;
-import me.is103t4.corendonluggagesystem.LugSysMain;
-import me.is103t4.corendonluggagesystem.account.AccountRole;
-import me.is103t4.corendonluggagesystem.scenes.Controller;
-import me.is103t4.corendonluggagesystem.scenes.Scenes;
 
 /**
  * TAB SIZE: WIDTH: 900 Height: 465
@@ -33,7 +32,7 @@ public enum Tabs {
     LOST_LUGGAGE(AccountRole.EMPLOYEE, "LostLuggage"),
     FOUND_LUGGAGE(AccountRole.EMPLOYEE, "FoundLuggage"),
     DAMAGED_LUGGAGE(AccountRole.EMPLOYEE, "DamagedLuggage"),
-    OVERVIEW(AccountRole.EMPLOYEE, "LuggageOverview"),
+    OVERVIEW(AccountRole.EMPLOYEE, "LuggageOverview", "EditLuggage"),
     STATISTICS(new AccountRole[] {AccountRole.ADMIN, AccountRole.MANAGERS }, "Statistics"),
     ACCOUNTS(AccountRole.ADMIN, "Accounts", "NewAccount", "FilterAccount"),
     CONFIGURATIONS("Configurations");
@@ -69,11 +68,10 @@ public enum Tabs {
      * Initialize all tab entries
      *
      * @param main The main app class
-     * @return Whether initialization was successful or not
      */
-    public boolean initialize(LugSysMain main) {
-        System.out.println(name);
+    public void initialize(LugSysMain main) {
         // generate a tab
+        System.out.println(name());
         tab = generateTab();
 
         for (int i = 0; i < fxmlURL.length; i++) {
@@ -95,10 +93,8 @@ public enum Tabs {
             } catch (IOException ex) {
                 Logger.getLogger(Tabs.class.getName()).
                         log(Level.SEVERE, null, ex);
-                return false;
             }
         }
-        return true;
     }
 
     @Deprecated
@@ -113,10 +109,6 @@ public enum Tabs {
 
     public Controller getController(int i) {
         return controller[i];
-    }
-
-    public Pane getRoot(int i) {
-        return root[i];
     }
 
     public void setRoot(int i) {
@@ -178,5 +170,9 @@ public enum Tabs {
     public boolean isOpen(int rootId) {
         MainFrameController main = ((MainFrameController) Scenes.MAIN.getController());
         return Scenes.MAIN.isOpen() && main.getActiveTab().getId().equals(getTab().getId()) && activeRoot == rootId;
+    }
+
+    public int getRootAmount() {
+        return root.length;
     }
 }

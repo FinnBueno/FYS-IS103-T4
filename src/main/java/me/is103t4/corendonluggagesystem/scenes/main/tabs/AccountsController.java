@@ -84,7 +84,7 @@ public class AccountsController extends Controller {
 
     @FXML
     public void editAccount(ActionEvent event) {
-        AlertBuilder.ERROR_OCCURED.showAndWait();
+        AlertBuilder.ERROR_OCCURRED.showAndWait();
     }
 
     @FXML
@@ -94,7 +94,7 @@ public class AccountsController extends Controller {
 
     @FXML
     public void clearFilter(ActionEvent event) {
-        AlertBuilder.ERROR_OCCURED.showAndWait();
+        AlertBuilder.ERROR_OCCURRED.showAndWait();
     }
 
 }

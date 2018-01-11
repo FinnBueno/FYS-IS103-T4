@@ -12,7 +12,7 @@ import java.util.prefs.Preferences;
  * @author Sebastiaan Wezenberg
  */
 public class PreferencesManager {   
-    public static final String SENDGRIDKEY = "SENDGRID_API_KEY";
+    public static final String SENDGRIDKEY = "SENDGRIDAPIKEY";
        
     private final static PreferencesManager INSTANCE = new PreferencesManager();
 
@@ -23,7 +23,7 @@ public class PreferencesManager {
     private final Preferences prefs;
 
     private PreferencesManager() {
-        prefs = Preferences.userNodeForPackage(getClass());
+        prefs = Preferences.userNodeForPackage(PreferencesManager.class);
     }
 
     public void set(String path, String value) {

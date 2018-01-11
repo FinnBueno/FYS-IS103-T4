@@ -40,7 +40,7 @@ public class LoginTask extends DBTask<Account> {
     }
 
     @Override
-    protected Account call() throws Exception {
+    protected Account call() {
         // create query
         String query = "SELECT * FROM `accounts` WHERE code=? AND username=?";
         // create PreparedStatement
@@ -72,6 +72,7 @@ public class LoginTask extends DBTask<Account> {
                 password[i] = 0;
 
             // fetch all data from result
+            int id = result.getInt("account_id");
             String tag = result.getString("code");
             String username = result.getString("username");
             String firstName = result.getString("first_name");
@@ -81,7 +82,7 @@ public class LoginTask extends DBTask<Account> {
             String email = result.getString("email");
 
             // return account instance
-            return new Account(tag, username, firstName, lastName, phoneNumber, role, email);
+            return new Account(id, tag, username, firstName, lastName, phoneNumber, role, email);
 
         } catch (SQLException ex) {
             ex.printStackTrace();

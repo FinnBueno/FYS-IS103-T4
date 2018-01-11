@@ -6,20 +6,21 @@
 package me.is103t4.corendonluggagesystem.scenes.main.tabs;
 
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import me.is103t4.corendonluggagesystem.account.Account;
-import me.is103t4.corendonluggagesystem.database.LuggageType;
-import me.is103t4.corendonluggagesystem.database.RegisterType;
+import me.is103t4.corendonluggagesystem.database.tasks.luggage.FetchLuggageTypesTask;
 import me.is103t4.corendonluggagesystem.database.tasks.luggage.RegisterLuggageTask;
 import me.is103t4.corendonluggagesystem.database.tasks.util.FetchAirlinesTask;
-import me.is103t4.corendonluggagesystem.database.tasks.util.FetchAirportsTask;
 import me.is103t4.corendonluggagesystem.database.tasks.util.FetchCountriesTask;
 import me.is103t4.corendonluggagesystem.email.EmailSender;
 import me.is103t4.corendonluggagesystem.email.IEmail;
+import me.is103t4.corendonluggagesystem.matching.Luggage;
+import me.is103t4.corendonluggagesystem.matching.Matcher;
 import me.is103t4.corendonluggagesystem.scenes.Controller;
 import me.is103t4.corendonluggagesystem.scenes.main.Tabs;
 import me.is103t4.corendonluggagesystem.util.AlertBuilder;
@@ -33,42 +34,6 @@ import java.util.Optional;
  * @author Finn Bon
  */
 public class LostLuggageController extends Controller {
-
-    private static final String[] AIRPORTS = new String[]{
-            "Amsterdam",
-            "Antalya",
-            "Istanbul",
-            "Bodrum",
-            "Dalaman",
-            "Izmir",
-            "Gazipasa-Alanya",
-            "Nicosia-Ercan",
-            "Marrakech",
-            "Crete (Heraklion)",
-            "Kos",
-            "Rodes",
-            "Zakynthos",
-            "Corfu",
-            "Mytilene",
-            "Ohrid",
-            "Samos",
-            "Gran Canaria",
-            "Tenerife",
-            "Palma de Mallorca",
-            "Malaga",
-            "Fuerteventura",
-            "Faro",
-            "Lanzarote",
-            "Hurghada",
-            "Enfidha",
-            "Dubai",
-            "Burgas",
-            "Banjul",
-            "Sicily (Catania)"
-    };
-
-    @FXML
-    private ComboBox<String> depAirportBox;
 
     @FXML
     private TextField firstNameField;
@@ -101,9 +66,6 @@ public class LostLuggageController extends Controller {
     private ComboBox<String> flightNumberBox;
 
     @FXML
-    private ComboBox<String> destBox;
-
-    @FXML
     private ComboBox<String> typeBox;
 
     @FXML
@@ -130,8 +92,6 @@ public class LostLuggageController extends Controller {
     @FXML
     private File photo;
 
-    private List<String> airlines;
-
     @Override
     public boolean isOpen() {
         return Tabs.LOST_LUGGAGE.isOpen(0);
@@ -152,24 +112,18 @@ public class LostLuggageController extends Controller {
                 });
 
         // fill combo boxes
-        FetchAirportsTask airportTask = new FetchAirportsTask();
-        airportTask.setOnSucceeded(v -> {
-            destBox.getItems().addAll((List<String>) airportTask.getValue());
-            depAirportBox.getItems().addAll((List<String>) airportTask.getValue());
-        });
-
         FetchCountriesTask countryTask = new FetchCountriesTask();
-        countryTask.setOnSucceeded(v -> countryBox.getItems().addAll((List<String>) countryTask.getValue()));
+        countryTask.setOnSucceeded(v -> countryBox.setItems(FXCollections.observableArrayList((List<String>)
+                countryTask.getValue())));
 
         FetchAirlinesTask airlinesTask = new FetchAirlinesTask();
-        airlinesTask.setOnSucceeded(v -> flightNumberBox.getItems().addAll((List<String>) airlinesTask.getValue()));
+        airlinesTask.setOnSucceeded(v -> flightNumberBox.setItems(FXCollections.observableArrayList((List<String>)
+                airlinesTask.getValue())));
 
+        FetchLuggageTypesTask task = new FetchLuggageTypesTask();
+        task.setOnSucceeded(v -> typeBox.setItems(FXCollections.observableArrayList((List<String>) task.getValue())));
 
-        typeBox.getItems().
-                addAll(LuggageType.values(Locale.ENGLISH));
-
-        langBox.getItems().
-                addAll("English", "Dutch");
+        langBox.getItems().addAll("English", "Dutch");
     }
 
     @FXML
@@ -178,26 +132,22 @@ public class LostLuggageController extends Controller {
         if (checkEmptyFields())
             return;
 
-        RegisterLuggageTask registerLuggageTask = new RegisterLuggageTask(RegisterType.LOST, firstNameField.getText()
+        RegisterLuggageTask registerLuggageTask = new RegisterLuggageTask("Lost", firstNameField.getText()
                 , lastNameField.getText(), addressField.getText(), cityField.getText(), zipField.getText(),
                 phoneNumberField.getText(), emailField.getText(), langBox.getSelectionModel().getSelectedItem(),
-                LuggageType.viaLocale(typeBox
-                        .getSelectionModel().getSelectedItem(), Locale.ENGLISH), luggageIDField.getText(), brandField
-                .getText
-                        (), colorUnknownCheckbox.isSelected() ? null : colorPicker.getValue()
-                , characsField.getText(), photo, flightNumberBox.getSelectionModel().getSelectedItem(), Account.getLoggedInUser());
+                typeBox.getSelectionModel().getSelectedItem(), luggageIDField.getText(), brandField.getText(),
+                colorUnknownCheckbox.isSelected() ? null : colorPicker.getValue(), characsField.getText(), photo,
+                flightNumberBox.getSelectionModel().getSelectedItem(), Account.getLoggedInUser());
 
         registerButton.setDisable(true);
         registerLuggageTask.setOnSucceeded(v -> {
+            Luggage luggage = (Luggage) registerLuggageTask.getValue();
             registerButton.setDisable(false);
             IEmail email = new IEmail("Lost Luggage Confirmation", true, emailField.
                     getText());
             email.setContentFromURL(getClass().
                     getResource("/email/lostRegisteredEmail.html"), true).
                     setParameters(txt -> {
-                        txt = txt.replace("%%dep%%", depAirportBox.
-                                getSelectionModel().
-                                getSelectedItem());
                         txt = txt.replace("%%first%%", firstNameField.getText());
                         txt = txt.replace("%%last%%", lastNameField.getText());
                         txt = txt.replace("%%address%%", addressField.getText());
@@ -210,10 +160,6 @@ public class LostLuggageController extends Controller {
                         txt = txt.replace("%%email%%", emailField.getText());
                         txt = txt.replace("%%lugid%%", luggageIDField.getText());
                         txt = txt.replace("%%flight%%", flightNumberBox.getSelectionModel().getSelectedItem());
-                        txt = txt.
-                                replace("%%dest%%", destBox.
-                                        getSelectionModel().
-                                        getSelectedItem());
                         txt = txt.
                                 replace("%%type%%", (String) typeBox.
                                         getSelectionModel().
@@ -240,8 +186,10 @@ public class LostLuggageController extends Controller {
 
             ButtonType type = optional.get();
             if (type.getText().equals("Search for matches")) {
-                // TODO: Find match
-                AlertBuilder.ERROR_OCCURED.showAndWait();
+                ButtonType buttonType = AlertBuilder.SEARCH_LOOSENESS.showAndWait().orElse(null);
+                int severity = buttonType.getText().equalsIgnoreCase("normal") ? 1 : (buttonType.getText()
+                        .equalsIgnoreCase("strict")) ? 0 : 2;
+                new Matcher(main.getStage(), luggage, severity).showMatcher();
             }
         });
     }
@@ -267,7 +215,8 @@ public class LostLuggageController extends Controller {
             alert("ZIP code cannot be empty!");
             return true;
         }
-        if (phoneNumberField.getText() == null || zipField.getText().length() == 0 || !phoneNumberField.getText().matches("\\d*")) {
+        if (phoneNumberField.getText() == null || zipField.getText().length() == 0 || !phoneNumberField.getText()
+                .matches("\\d*")) {
             alert("Phone number is invalid!");
             return true;
         }

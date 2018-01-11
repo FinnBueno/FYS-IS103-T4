@@ -23,7 +23,7 @@ public class DBHandler {
     private final String host = "54.37.228.40";
     private final int port = 3306;
     private final String username = "corendon";
-    private final String password = "<INSERT PASSWORD>";
+    private final String password = "Corendon1";
     private final String db = "corendon";
 
     private Connection connection;
