@@ -76,7 +76,7 @@ public class StatisticsController extends Controller {
     public void postInit() {
         setEnterButton(generateButton);
 
-        typeBox.getItems().addAll(names());
+        typeBox.setItems(FXCollections.observableArrayList(names()));
 
         timespanSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 12, 1));
         datePicker.setValue(LocalDate.now());

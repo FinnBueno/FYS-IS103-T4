@@ -7,12 +7,11 @@ import me.is103t4.corendonluggagesystem.database.DBHandler.PreparingStatement;
 import me.is103t4.corendonluggagesystem.database.DBTask;
 import me.is103t4.corendonluggagesystem.database.PasswordAuthentication;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class CreateAccountTask extends DBTask<Account> {
+public class CreateAccountTask extends DBTask<Boolean> {
 
     private final String username;
     private final String firstName;
@@ -34,9 +33,10 @@ public class CreateAccountTask extends DBTask<Account> {
      * @param tag         The user's tag
      * @param role        The user's role
      */
-    public CreateAccountTask(String firstName, String lastName, String email, String phoneNumber, String password, String tag, AccountRole role) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public CreateAccountTask(String firstName, String lastName, String email, String phoneNumber, String password,
+                             String tag, AccountRole role) {
+        this.firstName = firstName.toLowerCase();
+        this.lastName = lastName.toLowerCase();
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.password = password.toCharArray();
@@ -57,7 +57,7 @@ public class CreateAccountTask extends DBTask<Account> {
     }
 
     @Override
-    protected Account call() throws Exception {
+    protected Boolean call() {
 
         //Write query 
         String query = "SELECT * FROM accounts WHERE code = ? AND username = ?";
@@ -72,14 +72,15 @@ public class CreateAccountTask extends DBTask<Account> {
 
             //Test return
             if (set.getFetchSize() != 0)
-                return null;
+                return false;
 
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
 
         // create query
-        query = "INSERT INTO accounts (username, code, password, email, role, salt, last_name, first_name, phone_number) " +
+        query = "INSERT INTO accounts (username, code, password, email, role, salt, last_name, first_name, " +
+                "phone_number) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         // create PreparedStatement
         try (PreparedStatement ps = DBHandler.INSTANCE.getConnection().prepareStatement(query)) {
@@ -98,16 +99,11 @@ public class CreateAccountTask extends DBTask<Account> {
             preparing.setString(9, phoneNumber);
 
             // execute
-            ps.executeUpdate();
-
-            // return account object
-            return new Account(tag, username, firstName, lastName, phoneNumber, role, email);
-
+            return ps.executeUpdate() != -1;
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-
-        return null;
+        return false;
     }
 
 }

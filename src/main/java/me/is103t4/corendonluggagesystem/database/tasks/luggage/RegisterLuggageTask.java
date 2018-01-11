@@ -1,23 +1,19 @@
 package me.is103t4.corendonluggagesystem.database.tasks.luggage;
 
-import com.cloudinary.Cloudinary;
-import com.cloudinary.utils.ObjectUtils;
 import javafx.scene.paint.Color;
 import me.is103t4.corendonluggagesystem.account.Account;
 import me.is103t4.corendonluggagesystem.database.DBHandler;
 import me.is103t4.corendonluggagesystem.database.DBTask;
-import me.is103t4.corendonluggagesystem.database.LuggageType;
-import me.is103t4.corendonluggagesystem.database.RegisterType;
+import me.is103t4.corendonluggagesystem.matching.Luggage;
 
 import java.io.File;
-import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 
-public class RegisterLuggageTask extends DBTask<Boolean> {
+public class RegisterLuggageTask extends DBTask<Luggage> {
 
-    private final RegisterType type;
+    private final String type;
     private final String firstName;
     private final String lastName;
     private final String address;
@@ -26,7 +22,7 @@ public class RegisterLuggageTask extends DBTask<Boolean> {
     private final String phone;
     private final String email;
     private final String lang;
-    private final LuggageType lugType;
+    private final String lugType;
     private final String lugTag;
     private final String brand;
     private final Color colour;
@@ -34,15 +30,10 @@ public class RegisterLuggageTask extends DBTask<Boolean> {
     private final File photo;
     private final String flight_id;
     private final Account employee;
-    private final LocalDate date;
 
-    Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
-            "cloud_name", "my_cloud_name",
-            "api_key", "my_api_key",
-            "api_secret", "my_api_secret"));
-
-    public RegisterLuggageTask(RegisterType type, String firstName, String lastName, String address, String city,
-                               String zip, String phone, String email, String lang, LuggageType lugType, String lugTag, String brand, Color
+    public RegisterLuggageTask(String type, String firstName, String lastName, String address, String city,
+                               String zip, String phone, String email, String lang, String lugType, String
+                                       lugTag, String brand, Color
                                        colour, String characteristics, File photo, String flight_id, Account
                                        employee) {
         this.type = type;
@@ -60,22 +51,23 @@ public class RegisterLuggageTask extends DBTask<Boolean> {
         this.colour = colour;
         this.characteristics = characteristics;
         this.photo = photo;
-        this.flight_id = flight_id;
+        this.flight_id = flight_id.split(" - ")[0];
         this.employee = employee;
-        this.date = LocalDate.now();
 
         start();
     }
 
     @Override
-    protected Boolean call() {
+    protected Luggage call() {
         String query = "INSERT INTO `luggage` (`register_type`, `first_name`, `last_name`, `address`, " +
                 "`city`, `zip`, `phone`, `email`, `language`, `luggage_type`, `luggage_tag`, `brand`, `colour`, " +
-                "`characteristics`, `photo`, `flight_id`, `employee`, `date`) VALUES (?, ?, ?, ?, ?, ?, " +
-                "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, (SELECT account_id FROM `accounts` WHERE username = ? AND code = ?), ?);";
+                "`characteristics`, `photo`, `flight_id`, `employee`) VALUES ((SELECT id FROM statusses WHERE value =" +
+                " ?), ?, ?, ?, ?, ?, ?, ?, ?, (SELECT lug_type_id FROM luggage_types WHERE lug_type_value = ?), ?, ?," +
+                " ?, ?, ?, ?, (SELECT account_id FROM `accounts` WHERE username = ? AND code = ?), ?); " +
+                "SELECT LAST_INSERT_ID();";
         try (PreparedStatement ps = conn.prepareStatement(query)) {
             DBHandler.PreparingStatement preparingStatement = new DBHandler.PreparingStatement(ps);
-            preparingStatement.setInt(1, type.getId());
+            preparingStatement.setString(1, type);
             preparingStatement.setString(2, firstName);
             preparingStatement.setString(3, lastName);
             preparingStatement.setString(4, address);
@@ -84,42 +76,36 @@ public class RegisterLuggageTask extends DBTask<Boolean> {
             preparingStatement.setString(7, phone);
             preparingStatement.setString(8, email);
             preparingStatement.setString(9, lang);
-            preparingStatement.setInt(10, lugType.getId());
+            preparingStatement.setString(10, lugType);
             preparingStatement.setString(11, lugTag);
             preparingStatement.setString(12, brand);
             preparingStatement.setString(13, toHex(colour));
             preparingStatement.setString(14, characteristics);
-            preparingStatement.setString(15, uploadPhoto(photo));
+            preparingStatement.setBytes(15, uploadPhoto(photo));
             preparingStatement.setString(16, flight_id);
             preparingStatement.setString(17, employee.getUsername());
             preparingStatement.setString(18, employee.getCode());
-            preparingStatement.setDate(19, Date.valueOf(date));
 
-            ps.executeUpdate();
-            return true;
+            ResultSet set = ps.executeQuery();
+            set.next();
+            return new Luggage(set.getInt(1), type, lugType, lugTag, brand, toHex(colour), characteristics, firstName, lastName, city, address, flight_id);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return true;
+        return null;
     }
 
     private String toHex(Color colour) {
-        return String.format("%02x%02x%02x", (int) (colour.getRed() * 255), (int) (colour.getGreen() * 255), (int) (colour.getBlue() * 255));
+        return String.format("%02x%02x%02x", (int) (colour.getRed() * 255), (int) (colour.getGreen() * 255), (int)
+                (colour.getBlue() * 255));
     }
 
-    private String uploadPhoto(File photo) {
-        return "NOT YET IMPLEMENTED";
-        /*
-        try {
-            Map map = cloudinary.uploader().upload(photo, ObjectUtils.emptyMap());
-            return (String) map.get("url");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;*/
+    private byte[] uploadPhoto(File photo) {
+        // TODO: Add proper photo implementation
+        return new byte[0];
     }
 
     private String getLang(String lang) {
-        return lang.equalsIgnoreCase("english") ? "en" : "nl";
+        return lang.equalsIgnoreCase("english") ? "ENG" : "NL";
     }
 }

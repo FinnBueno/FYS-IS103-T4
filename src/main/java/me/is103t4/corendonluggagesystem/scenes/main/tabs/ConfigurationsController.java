@@ -14,8 +14,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import me.is103t4.corendonluggagesystem.account.Account;
+import me.is103t4.corendonluggagesystem.database.tasks.accounts.SaveAccountDataTask;
 import me.is103t4.corendonluggagesystem.scenes.Controller;
 import me.is103t4.corendonluggagesystem.scenes.main.Tabs;
+import me.is103t4.corendonluggagesystem.util.AlertBuilder;
 import me.is103t4.corendonluggagesystem.util.PreferencesManager;
 
 /**
@@ -54,15 +57,24 @@ public class ConfigurationsController extends Controller {
                                 replaceAll("[^\\d]", ""));
                     }
                 });
+
         sendgridKeyField.setText(PreferencesManager.get().get(PreferencesManager.SENDGRIDKEY));
+    }
+
+    public void login() {
+        firstNameField.setText(Account.getLoggedInUser().getFirstName());
+        lastNameField.setText(Account.getLoggedInUser().getLastName());
+        emailField.setText(Account.getLoggedInUser().getEmail());
+        phoneNumberField.setText(Account.getLoggedInUser().getPhoneNumber());
     }
     
     @FXML
     public void saveChanges() {
-        if (checkEmptyFields()){
+        if (checkEmptyFields())
             return;
-        }      
-        PreferencesManager.get().set(PreferencesManager.SENDGRIDKEY, sendgridKeyField.getText());         
+        PreferencesManager.get().set(PreferencesManager.SENDGRIDKEY, sendgridKeyField.getText());
+        SaveAccountDataTask task = new SaveAccountDataTask();
+        task.setOnSucceeded(event -> AlertBuilder.CHANGES_SAVED.showAndWait());
     }
     
     /**

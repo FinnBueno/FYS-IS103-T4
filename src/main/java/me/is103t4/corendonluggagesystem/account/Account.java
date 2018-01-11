@@ -8,7 +8,10 @@ package me.is103t4.corendonluggagesystem.account;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import me.is103t4.corendonluggagesystem.scenes.Controller;
 import me.is103t4.corendonluggagesystem.scenes.Scenes;
+import me.is103t4.corendonluggagesystem.scenes.main.Tabs;
+import me.is103t4.corendonluggagesystem.scenes.main.tabs.ConfigurationsController;
 
 /**
  * @author Finn Bon
@@ -19,9 +22,10 @@ public class Account {
 
     private SimpleStringProperty username, email, firstName, lastName, phoneNumber, code;
     private SimpleObjectProperty<AccountRole> role;
-    private SimpleBooleanProperty activated;
+    private int id;
 
-    public Account(String code, String username, String firstName, String lastName, String phoneNumber, AccountRole role, String email) {
+    public Account(int id, String code, String username, String firstName, String lastName, String phoneNumber, AccountRole role, String email) {
+        this.id = id;
         this.username = new SimpleStringProperty(username);
         this.firstName = new SimpleStringProperty(firstName);
         this.lastName = new SimpleStringProperty(lastName);
@@ -29,11 +33,6 @@ public class Account {
         this.role = new SimpleObjectProperty<>(role);
         this.email = new SimpleStringProperty(email);
         this.phoneNumber = new SimpleStringProperty(phoneNumber);
-        this.activated = new SimpleBooleanProperty(true);
-    }
-
-    public boolean isActivated() {
-        return activated.get();
     }
 
     public String getPhoneNumber() {
@@ -50,6 +49,15 @@ public class Account {
 
     public void login() {
         currentUser = this;
+        for (Tabs tab : Tabs.values())
+            for (int i = 0; i < tab.getRootAmount(); i++) {
+                Controller controller = tab.getController(i);
+                if (controller != null) controller.postInit();
+            }
+        ConfigurationsController c = (ConfigurationsController) Tabs.CONFIGURATIONS.getController(0);
+        if (c == null)
+            System.out.println("KDJHGSJ");
+        (c).login();
     }
 
     public String getCode() {
@@ -70,6 +78,10 @@ public class Account {
 
     public static Account getLoggedInUser() {
         return currentUser;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public void logout() {
