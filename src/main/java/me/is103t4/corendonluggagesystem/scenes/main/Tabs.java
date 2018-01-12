@@ -85,7 +85,7 @@ public enum Tabs {
                 if (cntrlr != null) {
                     cntrlr.setMain(main);
                     cntrlr.setScene(main.getScene());
-                    cntrlr.init();
+                    cntrlr.init(false);
                     activeRoot = 0;
                 }
                 controller[i] = cntrlr;

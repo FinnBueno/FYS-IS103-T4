@@ -42,10 +42,6 @@ public class Account {
         this.shownActivated = new SimpleStringProperty(activated ? "Yes" : "No");
     }
 
-    public String getActivated() {
-        return shownActivated.get();
-    }
-
     public boolean isActivated() {
         return activated;
     }
@@ -63,6 +59,12 @@ public class Account {
     }
 
     public void login() {
+        currentUser = this;
+        for (Tabs tab : Tabs.values())
+            for (int i = 0; i < tab.getRootAmount(); i++) {
+                Controller controller = tab.getController(i);
+                if (controller != null) controller.postInit();
+            }
         ConfigurationsController c = (ConfigurationsController) Tabs.CONFIGURATIONS.getController(0);
         if (c != null)
             c.login();

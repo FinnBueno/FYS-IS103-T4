@@ -40,13 +40,17 @@ public abstract class Controller implements Initializable {
     }
 
     public void init() {
+        init(true);
+    }
+
+    public void init(boolean postInit) {
         scene.addEventFilter(KeyEvent.KEY_PRESSED,
                 event -> {
                     if (event.getCode() == KeyCode.ENTER && clickButton != null && isOpen())
                         clickButton.fire();
                 });
-
-        postInit();
+        if (postInit)
+            postInit();
     }
 
     public void postInit() {
