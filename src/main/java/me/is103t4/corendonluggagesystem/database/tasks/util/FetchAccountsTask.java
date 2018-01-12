@@ -18,7 +18,7 @@ public class FetchAccountsTask extends DBTask<List<Account>> {
     }
 
     @Override
-    protected ObservableList<Account> call() throws Exception {
+    protected ObservableList<Account> call() {
         String query = "SELECT * FROM `accounts`";
         try (PreparedStatement ps = conn.prepareStatement(query)){
             ResultSet set = ps.executeQuery();

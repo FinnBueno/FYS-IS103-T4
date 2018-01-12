@@ -9,7 +9,7 @@ import java.sql.SQLException;
 public class UpdateLuggageTask extends DBTask<Boolean> {
 
     private final String firstName, lastName, address, city, zip, phone, email, language, luggageTag,
-            brand, colour, characteristics, flight_id;
+            brand, colour, characteristics, flight_id, status;
     private final int luggageType;
 
     // the entry's id to update
@@ -17,7 +17,7 @@ public class UpdateLuggageTask extends DBTask<Boolean> {
 
     public UpdateLuggageTask(String firstName, String lastName, String address, String city, String zip, String
             phone, String email, String language, int luggageType, String luggageTag, String brand, String colour,
-                             String characteristics, String flight_id, int id) {
+                             String characteristics, String flight_id, String status, int id) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
@@ -32,6 +32,7 @@ public class UpdateLuggageTask extends DBTask<Boolean> {
         this.colour = colour;
         this.characteristics = characteristics;
         this.flight_id = flight_id;
+        this.status = status;
         this.id = id;
 
         start();
@@ -54,7 +55,8 @@ public class UpdateLuggageTask extends DBTask<Boolean> {
                 "colour = ?, " +
                 "characteristics = ?, " +
                 // "photo = ?, " +
-                "flight_id = ? " +
+                "flight_id = ?, " +
+                "register_type = (SELECT id FROM statusses WHERE value = ?) " +
                 "WHERE luggage_id = ?;";
         try (PreparedStatement preparedStatement = DBHandler.INSTANCE.getConnection().prepareStatement(query)) {
             preparedStatement.setString(1, firstName);
@@ -72,7 +74,8 @@ public class UpdateLuggageTask extends DBTask<Boolean> {
             preparedStatement.setString(13, characteristics);
             // preparedStatement.setString(14, getPhoto());
             preparedStatement.setString(14, getFlightId());
-            preparedStatement.setInt(15, id);
+            preparedStatement.setString(15, status);
+            preparedStatement.setInt(16, id);
 
             return preparedStatement.executeUpdate() != -1;
         } catch (SQLException e) {
@@ -85,12 +88,13 @@ public class UpdateLuggageTask extends DBTask<Boolean> {
         return language.equalsIgnoreCase("English") ? "ENG" : "NL";
     }
 
+    @SuppressWarnings("unused")
     private String getPhoto() {
         // TODO: Byte array stuff
         return null;
     }
 
     private String getFlightId() {
-        return flight_id.split(" - ")[0];
+        return (flight_id == null || flight_id.length() == 0) ? null : flight_id.split(" - ")[0];
     }
 }

@@ -9,6 +9,7 @@ import me.is103t4.corendonluggagesystem.database.tasks.luggage.FetchLuggageTypes
 import me.is103t4.corendonluggagesystem.database.tasks.util.FetchAirlinesTask;
 import me.is103t4.corendonluggagesystem.matching.Luggage;
 import me.is103t4.corendonluggagesystem.scenes.Controller;
+import me.is103t4.corendonluggagesystem.scenes.main.Tabs;
 import me.is103t4.corendonluggagesystem.scenes.main.tabs.LuggageOverviewController;
 import me.is103t4.corendonluggagesystem.util.ColorUtil;
 
@@ -105,7 +106,6 @@ public class LuggageFilterController extends Controller {
     }
 
     private boolean canGoThroughFilters(Luggage lug) {
-        // TODO: Fix
         if (checkValue(firstNameField, lug.getFirstName()))
             return false;
         if (checkValue(lastNameField, lug.getLastName()))
@@ -136,7 +136,6 @@ public class LuggageFilterController extends Controller {
     }
 
     private boolean checkComboboxValue(String selectedItem, String flight) {
-        // flightBox.getSelectionModel().getSelectedItem() != null && !lug.getFlight().equalsIgnoreCase(flightBox.getSelectionModel().getSelectedItem())
         selectedItem = selectedItem == null || selectedItem.length() == 0 ? "" : selectedItem.split(" - ")[0];
         flight = flight == null || flight.length() == 0 ? "" : flight;
         return selectedItem.length() != 0 && !selectedItem.equalsIgnoreCase(flight);
@@ -146,6 +145,11 @@ public class LuggageFilterController extends Controller {
         String fieldText = field.getText() == null ? "" : field.getText().toLowerCase();
         text = text == null ? "" : text.toLowerCase();
         return !text.contains(fieldText);
+    }
+
+    @FXML
+    private void backToOverview() {
+        Tabs.OVERVIEW.setRoot(0);
     }
 
     @Override

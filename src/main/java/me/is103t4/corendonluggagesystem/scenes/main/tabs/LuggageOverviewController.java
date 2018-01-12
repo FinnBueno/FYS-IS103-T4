@@ -21,6 +21,7 @@ import me.is103t4.corendonluggagesystem.scenes.matching.MatchingController;
 import me.is103t4.corendonluggagesystem.util.AlertBuilder;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
@@ -28,6 +29,9 @@ public class LuggageOverviewController extends Controller {
 
     @FXML
     private TableColumn<Luggage, String> status, type, tag, brand, colour, characteristics, firstName, lastName, city, address, flight;
+
+    @FXML
+    private TableColumn<Luggage, LocalDate> date;
 
     @FXML
     private TableView<Luggage> table;
@@ -79,7 +83,7 @@ public class LuggageOverviewController extends Controller {
             ((EditLuggageController) Tabs.OVERVIEW.getController(1)).initFields((int) set[14], (String) set[0], (String) set[1],
                     (String) set[2], (String) set[3], (String) set[4], (int) set[5], (String) set[6], (String)
                             set[7], (int) set[8], (String) set[9], (String) set[10], (String) set[11], (String)
-                            set[12], (String) set[13]);
+                            set[12], (String) set[13], (String) set[15]);
             Tabs.OVERVIEW.setRoot(1);
         });
     }
@@ -105,7 +109,10 @@ public class LuggageOverviewController extends Controller {
 
     @FXML
     public void setFilters() {
-        noteLabel.setVisible(true);
+        if (luggageFilterStage.isShowing()) {
+            luggageFilterStage.requestFocus();
+            return;
+        }
         luggageFilterStage.show();
     }
 
@@ -122,8 +129,7 @@ public class LuggageOverviewController extends Controller {
         clearFilters();
         FetchAllLuggageTask task = new FetchAllLuggageTask();
         task.setOnSucceeded(event -> {
-            Luggage[] result = (Luggage[]) task.getValue();
-            data = FXCollections.observableArrayList(Arrays.asList(result));
+            data = FXCollections.observableArrayList(Arrays.asList((Luggage[]) task.getValue()));
             table.setItems(data);
         });
     }
@@ -133,6 +139,8 @@ public class LuggageOverviewController extends Controller {
     }
 
     public void setShownData(List<Luggage> shownData) {
+        if (shownData.size() < data.size())
+            noteLabel.setVisible(true);
         table.setItems(FXCollections.observableArrayList(shownData));
     }
 

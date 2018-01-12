@@ -1,6 +1,5 @@
 package me.is103t4.corendonluggagesystem.database.tasks.luggage;
 
-import javafx.scene.paint.Color;
 import me.is103t4.corendonluggagesystem.database.DBHandler;
 import me.is103t4.corendonluggagesystem.database.DBTask;
 import me.is103t4.corendonluggagesystem.matching.Luggage;
@@ -161,7 +160,7 @@ public class FetchSimilarLuggageTask extends DBTask<Luggage[]> {
                         set.getString(9),
                         set.getString(10),
                         set.getString(11),
-                        set.getString(12)));
+                        set.getString(12), set.getDate(13).toLocalDate()));
             }
             return result.toArray(new Luggage[result.size()]);
         } catch (SQLException ex) {

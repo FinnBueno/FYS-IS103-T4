@@ -5,6 +5,9 @@
  */
 package me.is103t4.corendonluggagesystem.account;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author finnb
  */
@@ -16,6 +19,13 @@ public enum AccountRole {
 
     AccountRole(int i) {
         id = i;
+    }
+
+    public static List<String> getNames() {
+        List<String> strings = new ArrayList<>();
+        for (AccountRole role : values())
+            strings.add(role.toString());
+        return strings;
     }
 
     public int getId() {

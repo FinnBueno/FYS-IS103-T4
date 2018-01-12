@@ -112,12 +112,12 @@ public class NewAccountController extends Controller {
                 AccountRole.fromId(roleBox.getSelectionModel().getSelectedIndex()));
         createAccountTask.setOnFailed(event -> alert("The account could not be created due to an error."));
         createAccountTask.setOnSucceeded(event -> {
-            Account acc = (Account) createAccountTask.getValue();
-            if (acc != null) {
+            boolean acc = (boolean) createAccountTask.getValue();
+            if (acc) {
                 notify("The account has been created!");
                 Tabs.ACCOUNTS.setRoot(0);
             } else
-                alert("The tag and username combination already exists!");
+                alert("The tag and username combination or email already exists!");
         });
     }
 

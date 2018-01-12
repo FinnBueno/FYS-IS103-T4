@@ -1,15 +1,20 @@
 package me.is103t4.corendonluggagesystem.scenes.main.tabs;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import me.is103t4.corendonluggagesystem.database.tasks.luggage.FetchLuggageTypesTask;
 import me.is103t4.corendonluggagesystem.database.tasks.luggage.UpdateLuggageTask;
 import me.is103t4.corendonluggagesystem.database.tasks.util.FetchAirlinesTask;
+import me.is103t4.corendonluggagesystem.database.tasks.util.FetchEditableStatussesTask;
 import me.is103t4.corendonluggagesystem.scenes.Controller;
 import me.is103t4.corendonluggagesystem.scenes.main.Tabs;
 import me.is103t4.corendonluggagesystem.util.AlertBuilder;
 
+import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -67,18 +72,22 @@ public class EditLuggageController extends Controller {
     private ComboBox<String> langBox;
 
     @FXML
+    private ComboBox<String> statusBox;
+
+    @FXML
     private Button saveButton;
 
     private int id = -1;
+    private List<String> statusData;
 
     @FXML
     public void saveChanges() {
-        System.out.println("Test");
         UpdateLuggageTask task = new UpdateLuggageTask(firstNameField.getText(), lastNameField.getText(),
                 addressField.getText(), cityField.getText(), zipField.getText(), phoneNumberField.getText(),
                 emailField.getText(), langBox.getSelectionModel().getSelectedItem(), typeBox.getSelectionModel()
                 .getSelectedIndex(), luggageIDField.getText(), brandField.getText(), toHex(colorPicker.getValue()),
-                characsField.getText(), flightNumberBox.getSelectionModel().getSelectedItem(), id);
+                characsField.getText(), flightNumberBox.getSelectionModel().getSelectedItem(), statusBox
+                .getSelectionModel().getSelectedItem(), id);
         System.out.println(id);
         task.setOnSucceeded(event -> {
             if ((boolean) task.getValue()) {
@@ -93,23 +102,30 @@ public class EditLuggageController extends Controller {
 
     @Override
     public void postInit() {
-        System.out.println();
+
         // fill flights box
         FetchAirlinesTask airlinesTask = new FetchAirlinesTask(true);
         airlinesTask.setOnSucceeded(v -> flightNumberBox.getItems().addAll((List<String>) airlinesTask.getValue()));
 
+        // fill types box
         FetchLuggageTypesTask task = new FetchLuggageTypesTask();
         task.setOnSucceeded(v -> typeBox.getItems().addAll((List<String>) task.getValue()));
 
-        langBox.getItems().
-                addAll("English", "Dutch");
+        // fill status box
+        FetchEditableStatussesTask statusTask = new FetchEditableStatussesTask();
+        statusTask.setOnSucceeded(v -> {
+            statusData = (List<String>) statusTask.getValue();
+            statusBox.setItems(FXCollections.observableArrayList(statusData));
+        });
+
+        // fill lang box
+        langBox.getItems().addAll("English", "Dutch");
     }
 
     public void initFields(int id, String firstName, String lastName, String address, String city, String zip, int
             phoneNumber, String email, String lang, int type, String luggageID, String brand, String color,
-                           String characs, String flightNumber) {
+                           String characs, String flightNumber, String status) {
         this.id = id;
-
         this.firstNameField.setText(firstName);
         this.lastNameField.setText(lastName);
         this.addressField.setText(address);
@@ -131,6 +147,15 @@ public class EditLuggageController extends Controller {
         this.brandField.setText(brand);
         this.colorPicker.setValue(toColor(color));
         this.characsField.setText(characs);
+        if (status.equalsIgnoreCase("Handled")) {
+            this.statusBox.setItems(FXCollections.observableArrayList(Collections.singletonList("Handled")));
+            this.statusBox.getSelectionModel().select(0);
+            this.statusBox.setDisable(true);
+        } else {
+            this.statusBox.setDisable(false);
+            this.statusBox.setItems(FXCollections.observableArrayList(statusData));
+            this.statusBox.getSelectionModel().select(status);
+        }
         this.langBox.getSelectionModel().select(lang == null || lang.equalsIgnoreCase("eng") ? 0 : 1);
     }
 

@@ -6,6 +6,7 @@ import me.is103t4.corendonluggagesystem.matching.Luggage;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class FetchAllLuggageTask extends DBTask<Luggage[]> {
         // create query
         String query = "SELECT l.luggage_id, s.value, lt.lug_type_value, l.luggage_tag, " +
                 "l.brand, l.colour, l.characteristics, l.first_name, l.last_name, " +
-                "l.city, l.address, l.flight_id " +
+                "l.city, l.address, l.flight_id, l.date " +
                 "FROM luggage l " +
                 "JOIN luggage_types lt " +
                 "ON lt.lug_type_id = l.luggage_type " +
@@ -44,7 +45,8 @@ public class FetchAllLuggageTask extends DBTask<Luggage[]> {
                         set.getString(9),
                         set.getString(10),
                         set.getString(11),
-                        set.getString(12)));
+                        set.getString(12),
+                        set.getDate(13).toLocalDate()));
             return result.toArray(new Luggage[result.size()]);
         } catch (SQLException ex) {
             ex.printStackTrace();
