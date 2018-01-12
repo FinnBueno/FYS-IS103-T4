@@ -121,7 +121,7 @@ public class EditLuggageController extends Controller {
 
         for (int i = 0; i < flightNumberBox.getItems().size(); i++) {
             String value = flightNumberBox.getItems().get(i);
-            if (value != null && value.startsWith(flightNumber)) {
+            if (flightNumber != null && value != null && value.startsWith(flightNumber)) {
                 flightNumberBox.getSelectionModel().select(i);
                 break;
             }
