@@ -85,6 +85,8 @@ public class LoginController extends Controller {
             displayErrorAlert();
         });
         task.setOnSucceeded((Event event) -> {
+
+            System.out.println("Test2");
             Account account = (Account) task.getValue();
             Alert alert;
             if (account == null) {
@@ -95,6 +97,7 @@ public class LoginController extends Controller {
                 alert.setContentText("Invalid credentials!");
                 alert.showAndWait();
             } else {
+                System.out.println("Test3");
                 account.login();
                 errorLabel.setText("");
                 MainFrameController mc = (MainFrameController) Scenes.MAIN.

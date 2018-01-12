@@ -93,6 +93,7 @@ public class EditLuggageController extends Controller {
 
     @Override
     public void postInit() {
+        System.out.println();
         // fill flights box
         FetchAirlinesTask airlinesTask = new FetchAirlinesTask(true);
         airlinesTask.setOnSucceeded(v -> flightNumberBox.getItems().addAll((List<String>) airlinesTask.getValue()));

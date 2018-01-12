@@ -5,8 +5,12 @@
  */
 package me.is103t4.corendonluggagesystem.scenes.main.tabs;
 
+import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
 import me.is103t4.corendonluggagesystem.scenes.Controller;
 import me.is103t4.corendonluggagesystem.scenes.main.Tabs;
+
+import java.awt.*;
 
 /**
  * FXML Controller class
@@ -14,6 +18,24 @@ import me.is103t4.corendonluggagesystem.scenes.main.Tabs;
  * @author Roy
  */
 public class FilterAccountController extends Controller {
+
+    @FXML
+    private TextField username;
+
+    @FXML
+    private TextField tagField;
+
+    @FXML
+    private TextField firstNameField;
+
+    @FXML
+    private TextField lastNameField;
+
+    @FXML
+    private ComboBox<String> roleBox;
+
+    @FXML
+    private ComboBox<String> activeBox;
 
     @Override
     public boolean isOpen() {

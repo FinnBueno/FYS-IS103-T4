@@ -14,12 +14,13 @@ public class SaveAccountDataTask extends DBTask<Boolean> {
     }
 
     @Override
-    protected Boolean call() throws Exception {
+    protected Boolean call() {
         String query = "UPDATE `accounts` " +
                 "SET first_name = ?, " +
                 "last_name = ?, " +
                 "email = ?, " +
-                "phone_number = ? " +
+                "phone_number = ?, " +
+                "active = ? " +
                 "WHERE account_id = ?";
         Account acc = Account.getLoggedInUser();
         try (PreparedStatement preparedStatement = DBHandler.INSTANCE.getConnection().prepareStatement(query)){
@@ -27,7 +28,8 @@ public class SaveAccountDataTask extends DBTask<Boolean> {
             preparedStatement.setString(2, acc.getLastName());
             preparedStatement.setString(3, acc.getEmail());
             preparedStatement.setString(4, acc.getPhoneNumber());
-            preparedStatement.setInt(5, acc.getId());
+            preparedStatement.setBoolean(5, acc.isActivated());
+            preparedStatement.setInt(6, acc.getId());
 
             return preparedStatement.executeUpdate() != -1;
         } catch (SQLException e) {

@@ -25,11 +25,11 @@ public class Account {
     private StringProperty phoneNumber;
     private StringProperty code;
     private ObjectProperty<AccountRole> role;
-    private StringProperty shownActivated;
     private boolean activated;
     private int id;
 
-    public Account(int id, String code, String username, String firstName, String lastName, String phoneNumber, AccountRole role, String email, boolean activated) {
+    public Account(int id, String code, String username, String firstName, String lastName, String phoneNumber,
+                   AccountRole role, String email, boolean activated) {
         this.id = id;
         this.username = new SimpleStringProperty(username);
         this.firstName = new SimpleStringProperty(firstName);
@@ -39,7 +39,6 @@ public class Account {
         this.email = new SimpleStringProperty(email);
         this.phoneNumber = new SimpleStringProperty(phoneNumber);
         this.activated = activated;
-        this.shownActivated = new SimpleStringProperty(activated ? "Yes" : "No");
     }
 
     public boolean isActivated() {

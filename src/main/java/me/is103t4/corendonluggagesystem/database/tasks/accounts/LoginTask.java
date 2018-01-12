@@ -42,7 +42,7 @@ public class LoginTask extends DBTask<Account> {
     @Override
     protected Account call() {
         // create query
-        String query = "SELECT * FROM `accounts` WHERE code=? AND username=?";
+        String query = "SELECT * FROM `accounts` WHERE code=? AND username=? AND active = TRUE;";
         // create PreparedStatement
         try (PreparedStatement preparedStatement = conn.
                 prepareStatement(query)) {
@@ -80,9 +80,11 @@ public class LoginTask extends DBTask<Account> {
             String phoneNumber = result.getString("phone_number");
             AccountRole role = AccountRole.fromId(result.getInt("role"));
             String email = result.getString("email");
+            boolean activated = result.getBoolean("active");
+            System.out.println("Test");
 
             // return account instance
-            return new Account(id, tag, username, firstName, lastName, phoneNumber, role, email);
+            return new Account(id, tag, username, firstName, lastName, phoneNumber, role, email, activated);
 
         } catch (SQLException ex) {
             ex.printStackTrace();
