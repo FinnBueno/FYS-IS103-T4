@@ -34,7 +34,7 @@ public enum Tabs {
     DAMAGED_LUGGAGE(AccountRole.EMPLOYEE, "DamagedLuggage"),
     OVERVIEW(AccountRole.EMPLOYEE, "LuggageOverview", "EditLuggage"),
     STATISTICS(new AccountRole[] {AccountRole.ADMIN, AccountRole.MANAGERS }, "Statistics"),
-    ACCOUNTS(AccountRole.ADMIN, "Accounts", "NewAccount"),
+    ACCOUNTS(AccountRole.ADMIN, "Accounts", "NewAccount", "EditAccount"),
     CONFIGURATIONS("Configurations");
 
     private Tab tab;

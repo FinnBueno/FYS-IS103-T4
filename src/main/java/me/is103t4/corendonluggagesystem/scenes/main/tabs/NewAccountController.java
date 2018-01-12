@@ -115,10 +115,15 @@ public class NewAccountController extends Controller {
             boolean acc = (boolean) createAccountTask.getValue();
             if (acc) {
                 notify("The account has been created!");
-                Tabs.ACCOUNTS.setRoot(0);
+                back();
             } else
                 alert("The tag and username combination or email already exists!");
         });
+    }
+
+    @FXML
+    public void back() {
+        Tabs.ACCOUNTS.setRoot(0);
     }
 
 }

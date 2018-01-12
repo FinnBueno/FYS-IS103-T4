@@ -110,6 +110,10 @@ public class AccountsController extends Controller {
 
     @FXML
     public void editAccount() {
+        Account selected = table.getSelectionModel().getSelectedItem();
+        if (selected == null)
+            return;
+        ((EditAccountController) Tabs.ACCOUNTS.getController(2)).setEditingAccount(selected);
         Tabs.ACCOUNTS.setRoot(2);
     }
 
