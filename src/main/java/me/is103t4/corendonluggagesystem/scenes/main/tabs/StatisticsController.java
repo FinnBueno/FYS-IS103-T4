@@ -14,10 +14,13 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import me.is103t4.corendonluggagesystem.database.tasks.luggage.FetchLuggageDataTask;
+import me.is103t4.corendonluggagesystem.matching.Luggage;
 import me.is103t4.corendonluggagesystem.scenes.Controller;
 import me.is103t4.corendonluggagesystem.scenes.main.Tabs;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.format.TextStyle;
 import java.time.temporal.TemporalAdjuster;
 import java.time.temporal.TemporalAdjusters;
@@ -43,6 +46,15 @@ public class StatisticsController extends Controller {
 
     @FXML
     private CheckBox showDamaged;
+
+    @FXML
+    private CheckBox showHandled;
+
+    @FXML
+    private CheckBox showDestroyed;
+
+    @FXML
+    private CheckBox showDepot;
 
     @FXML
     private TextField graphTitleField;
@@ -84,20 +96,19 @@ public class StatisticsController extends Controller {
 
     @FXML
     public void generateChart() {
-        // TODO: Add actual database data
         if (typeBox.getSelectionModel().getSelectedItem() == null) {
             alert("Please select a graph type first!");
             return;
         }
 
         switch (ChartType.valueOf(typeBox.getSelectionModel().getSelectedItem().toUpperCase())) {
-            case LINE :
+            case LINE:
                 generateLineChart();
                 break;
-            case BAR :
+            case BAR:
                 generateBarChart();
                 break;
-            case PIE :
+            case PIE:
                 generatePieChart();
                 break;
         }
@@ -112,36 +123,27 @@ public class StatisticsController extends Controller {
     }
 
     private void generatePieChart() {
-        List<PieChart.Data> list = new ArrayList<>();
+        ObservableList<PieChart.Data> list = FXCollections.observableArrayList(new ArrayList<>());
 
-        if (showLost.isSelected()) {
-            double value = 0;
-            for (int i = 0; i <= timespanSpinner.getValue(); i++) {
-                value += Math.random() * 20;
+        FetchLuggageDataTask task = new FetchLuggageDataTask(datePicker.getValue(), timespanSpinner.getValue(),
+                showLost.isSelected(), showFound.isSelected(), showDamaged.isSelected(), showHandled.isSelected(),
+                showDestroyed.isSelected(), showDepot.isSelected());
+        task.setOnSucceeded(event -> {
+            // chart data sorted per status, per month in amounts
+            Map<String, Map<Month, Integer>> map = (Map<String, Map<Month, Integer>>) task.getValue();
+            List<String> statusses = new ArrayList<>(map.keySet());
+            Collections.sort(statusses);
+            Collections.reverse(statusses);
+            for (String status : statusses) {
+                Map<Month, Integer> innerMap = map.get(status);
+                int amount = innerMap.keySet().stream().mapToInt(innerMap::get).sum();
+                if (amount == 0)
+                    continue;
+                list.add(new PieChart.Data(status, amount));
             }
-            list.add(new PieChart.Data("Lost", value));
-        }
+        });
 
-        if (showFound.isSelected()) {
-            double value = 0;
-            for (int i = 0; i <= timespanSpinner.getValue(); i++) {
-                value += Math.random() * 20;
-            }
-            list.add(new PieChart.Data("Found", value));
-        }
-
-        if (showDamaged.isSelected()) {
-            double value = 0;
-            for (int i = 0; i <= timespanSpinner.getValue(); i++) {
-                value += Math.random() * 20;
-            }
-            list.add(new PieChart.Data("Damaged", value));
-        }
-
-        ObservableList<PieChart.Data> data = FXCollections.observableArrayList(
-                list
-        );
-        chart = new PieChart(data);
+        chart = new PieChart(list);
         chart.setTitle(graphTitleField.getText());
     }
 
@@ -153,38 +155,25 @@ public class StatisticsController extends Controller {
         chart = new BarChart<>(xAxis, yAxis);
         chart.setTitle(graphTitleField.getText());
 
-        if (showLost.isSelected()) {
-            XYChart.Series series = new XYChart.Series();
-            series.setName("Lost");
-            LocalDate start = datePicker.getValue();
-            for (int i = 0; i <= timespanSpinner.getValue(); i++) {
-                series.getData().add(new XYChart.Data<String, Number>(start.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH), Math.random() * 20));
-                start = start.with(TemporalAdjusters.firstDayOfNextMonth());
+        FetchLuggageDataTask task = new FetchLuggageDataTask(datePicker.getValue(), timespanSpinner.getValue(),
+                showLost.isSelected(), showFound.isSelected(), showDamaged.isSelected(), showHandled.isSelected(),
+                showDestroyed.isSelected(), showDepot.isSelected());
+        task.setOnSucceeded(event -> {
+            // chart data sorted per status, per month in amounts
+            Map<String, Map<Month, Integer>> map = (Map<String, Map<Month, Integer>>) task.getValue();
+            for (String status : map.keySet()) {
+                XYChart.Series series = new XYChart.Series();
+                series.setName(status);
+                Map<Month, Integer> innerMap = map.get(status);
+                List<Month> months;
+                Collections.sort(months = new ArrayList<>(innerMap.keySet()));
+                for (Month month : months) {
+                    series.getData().add(new XYChart.Data<String, Number>(month.getDisplayName(TextStyle.FULL, Locale
+                            .ENGLISH), innerMap.get(month)));
+                }
+                ((BarChart) chart).getData().add(series);
             }
-            ((BarChart)chart).getData().add(series);
-        }
-
-        if (showFound.isSelected()) {
-            XYChart.Series series = new XYChart.Series();
-            series.setName("Found");
-            LocalDate start = datePicker.getValue();
-            for (int i = 0; i <= timespanSpinner.getValue(); i++) {
-                series.getData().add(new XYChart.Data<String, Number>(start.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH), Math.random() * 20));
-                start = start.with(TemporalAdjusters.firstDayOfNextMonth());
-            }
-            ((BarChart)chart).getData().add(series);
-        }
-
-        if (showDamaged.isSelected()) {
-            XYChart.Series series = new XYChart.Series();
-            series.setName("Damaged");
-            LocalDate start = datePicker.getValue();
-            for (int i = 0; i <= timespanSpinner.getValue(); i++) {
-                series.getData().add(new XYChart.Data<String, Number>(start.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH), Math.random() * 20));
-                start = start.with(TemporalAdjusters.firstDayOfNextMonth());
-            }
-            ((BarChart)chart).getData().add(series);
-        }
+        });
     }
 
     private void generateLineChart() {
@@ -195,38 +184,25 @@ public class StatisticsController extends Controller {
         chart = new LineChart<>(xAxis, yAxis);
         chart.setTitle(graphTitleField.getText());
 
-        if (showLost.isSelected()) {
-            XYChart.Series series = new XYChart.Series();
-            series.setName("Lost");
-            LocalDate start = datePicker.getValue();
-            for (int i = 0; i <= timespanSpinner.getValue(); i++) {
-                series.getData().add(new XYChart.Data<String, Number>(start.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH), Math.random() * 20));
-                start = start.with(TemporalAdjusters.firstDayOfNextMonth());
+        FetchLuggageDataTask task = new FetchLuggageDataTask(datePicker.getValue(), timespanSpinner.getValue(),
+                showLost.isSelected(), showFound.isSelected(), showDamaged.isSelected(), showHandled.isSelected(),
+                showDestroyed.isSelected(), showDepot.isSelected());
+        task.setOnSucceeded(event -> {
+            // chart data sorted per status, per month in amounts
+            Map<String, Map<Month, Integer>> map = (Map<String, Map<Month, Integer>>) task.getValue();
+            for (String status : map.keySet()) {
+                XYChart.Series series = new XYChart.Series();
+                series.setName(status);
+                Map<Month, Integer> innerMap = map.get(status);
+                List<Month> months;
+                Collections.sort(months = new ArrayList<>(innerMap.keySet()));
+                for (Month month : months) {
+                    series.getData().add(new XYChart.Data<String, Number>(month.getDisplayName(TextStyle.FULL, Locale
+                            .ENGLISH), innerMap.get(month)));
+                }
+                ((LineChart) chart).getData().add(series);
             }
-            ((LineChart)chart).getData().add(series);
-        }
-
-        if (showFound.isSelected()) {
-            XYChart.Series series = new XYChart.Series();
-            series.setName("Found");
-            LocalDate start = datePicker.getValue();
-            for (int i = 0; i <= timespanSpinner.getValue(); i++) {
-                series.getData().add(new XYChart.Data<String, Number>(start.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH), Math.random() * 20));
-                start = start.with(TemporalAdjusters.firstDayOfNextMonth());
-            }
-            ((LineChart)chart).getData().add(series);
-        }
-
-        if (showDamaged.isSelected()) {
-            XYChart.Series series = new XYChart.Series();
-            series.setName("Damaged");
-            LocalDate start = datePicker.getValue();
-            for (int i = 0; i <= timespanSpinner.getValue(); i++) {
-                series.getData().add(new XYChart.Data<String, Number>(start.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH), Math.random() * 20));
-                start = start.with(TemporalAdjusters.firstDayOfNextMonth());
-            }
-            ((LineChart)chart).getData().add(series);
-        }
+        });
     }
 
     public enum ChartType {
