@@ -5,9 +5,7 @@
  */
 package me.is103t4.corendonluggagesystem.account;
 
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.*;
 import me.is103t4.corendonluggagesystem.scenes.Controller;
 import me.is103t4.corendonluggagesystem.scenes.Scenes;
 import me.is103t4.corendonluggagesystem.scenes.main.Tabs;
@@ -20,11 +18,18 @@ public class Account {
 
     private static Account currentUser;
 
-    private SimpleStringProperty username, email, firstName, lastName, phoneNumber, code;
-    private SimpleObjectProperty<AccountRole> role;
+    private StringProperty username;
+    private StringProperty email;
+    private StringProperty firstName;
+    private StringProperty lastName;
+    private StringProperty phoneNumber;
+    private StringProperty code;
+    private ObjectProperty<AccountRole> role;
+    private boolean activated;
     private int id;
 
-    public Account(int id, String code, String username, String firstName, String lastName, String phoneNumber, AccountRole role, String email) {
+    public Account(int id, String code, String username, String firstName, String lastName, String phoneNumber,
+                   AccountRole role, String email, boolean activated) {
         this.id = id;
         this.username = new SimpleStringProperty(username);
         this.firstName = new SimpleStringProperty(firstName);
@@ -33,6 +38,11 @@ public class Account {
         this.role = new SimpleObjectProperty<>(role);
         this.email = new SimpleStringProperty(email);
         this.phoneNumber = new SimpleStringProperty(phoneNumber);
+        this.activated = activated;
+    }
+
+    public boolean isActivated() {
+        return activated;
     }
 
     public String getPhoneNumber() {
@@ -55,9 +65,8 @@ public class Account {
                 if (controller != null) controller.postInit();
             }
         ConfigurationsController c = (ConfigurationsController) Tabs.CONFIGURATIONS.getController(0);
-        if (c == null)
-            System.out.println("KDJHGSJ");
-        (c).login();
+        if (c != null)
+            c.login();
     }
 
     public String getCode() {

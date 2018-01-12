@@ -88,7 +88,7 @@ public class RegisterLuggageTask extends DBTask<Luggage> {
 
             ResultSet set = ps.executeQuery();
             set.next();
-            return new Luggage(set.getInt(1), type, lugType, lugTag, brand, toHex(colour), characteristics, firstName, lastName, city, address, flight_id);
+            return new Luggage(set.getInt(1), type, lugType, lugTag, brand, toHex(colour), characteristics, firstName, lastName, city, address, flight_id, set.getDate(13).toLocalDate());
         } catch (SQLException e) {
             e.printStackTrace();
         }

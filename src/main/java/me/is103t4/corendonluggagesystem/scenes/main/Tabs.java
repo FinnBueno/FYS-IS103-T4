@@ -34,7 +34,7 @@ public enum Tabs {
     DAMAGED_LUGGAGE(AccountRole.EMPLOYEE, "DamagedLuggage"),
     OVERVIEW(AccountRole.EMPLOYEE, "LuggageOverview", "EditLuggage"),
     STATISTICS(new AccountRole[] {AccountRole.ADMIN, AccountRole.MANAGERS }, "Statistics"),
-    ACCOUNTS(AccountRole.ADMIN, "Accounts", "NewAccount", "FilterAccount"),
+    ACCOUNTS(AccountRole.ADMIN, "Accounts", "NewAccount", "EditAccount"),
     CONFIGURATIONS("Configurations");
 
     private Tab tab;
@@ -85,7 +85,7 @@ public enum Tabs {
                 if (cntrlr != null) {
                     cntrlr.setMain(main);
                     cntrlr.setScene(main.getScene());
-                    cntrlr.init();
+                    cntrlr.init(false);
                     activeRoot = 0;
                 }
                 controller[i] = cntrlr;

@@ -45,7 +45,6 @@
                         <PasswordField fx:id = "repasswordField" GridPane.columnIndex = "4" GridPane.rowIndex = "1"/>
                         <TextField fx:id = "phoneNumberField" maxWidth = "1.7976931348623157E308" prefHeight = "24.0" prefWidth = "151.0" GridPane.columnIndex = "4" GridPane.rowIndex = "2"/>
                         <TextField fx:id = "emailField" maxWidth = "1.7976931348623157E308" GridPane.columnIndex = "4" GridPane.rowIndex = "3"/>
-                        <Button maxHeight = "1.7976931348623157E308" maxWidth = "1.7976931348623157E308" mnemonicParsing = "false" onAction = "#createAccount" text = "Register" GridPane.columnSpan = "2147483647" GridPane.rowIndex = "6"/>
 
                         <Label text = "First Name:"/>
                         <Label text = "Last Name:" GridPane.rowIndex = "1"/>
@@ -55,6 +54,9 @@
                         <Label text = "Re-type password:" GridPane.columnIndex = "3" GridPane.rowIndex = "1"/>
                         <Label text = "Phone number" GridPane.columnIndex = "3" GridPane.rowIndex = "2"/>
                         <Label text = "E-mail:" GridPane.columnIndex = "3" GridPane.rowIndex = "3"/>
+
+                        <Button maxHeight = "1.7976931348623156E308" maxWidth = "1.7976931348623156E308" mnemonicParsing = "false" onAction = "#back" text="Back" GridPane.columnSpan="2" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
+                        <Button maxHeight = "1.7976931348623157E308" maxWidth = "1.7976931348623157E308" mnemonicParsing = "false" onAction = "#createAccount" text = "Register" GridPane.columnSpan = "2147483647" GridPane.columnIndex="3" GridPane.rowIndex = "6"/>
                     </children>
                 </GridPane>
             </center>

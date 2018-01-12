@@ -18,7 +18,7 @@ public class FetchAccountsTask extends DBTask<List<Account>> {
     }
 
     @Override
-    protected ObservableList<Account> call() throws Exception {
+    protected ObservableList<Account> call() {
         String query = "SELECT * FROM `accounts`";
         try (PreparedStatement ps = conn.prepareStatement(query)){
             ResultSet set = ps.executeQuery();
@@ -31,7 +31,8 @@ public class FetchAccountsTask extends DBTask<List<Account>> {
                         set.getString("last_name"),
                         set.getString("phone_number"),
                         AccountRole.fromId(set.getInt("role")),
-                        set.getString("email")));
+                        set.getString("email"),
+                        set.getBoolean("active")));
             }
             return accounts;
         } catch (SQLException ex) {

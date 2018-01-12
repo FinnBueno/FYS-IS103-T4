@@ -1,9 +1,12 @@
 package me.is103t4.corendonluggagesystem.matching;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 public class Luggage implements Serializable {
 
@@ -18,11 +21,12 @@ public class Luggage implements Serializable {
     private StringProperty city = new SimpleStringProperty();
     private StringProperty address = new SimpleStringProperty();
     private StringProperty flight = new SimpleStringProperty();
+    private ObjectProperty<LocalDate> date = new SimpleObjectProperty<>();
 
     private final int id;
 
     public Luggage(int id, String registerType, String type, String tag, String brand, String colour, String characteristics, String firstName,
-                   String lastName, String city, String address, String flight) {
+                   String lastName, String city, String address, String flight, LocalDate date) {
         this.id = id;
         this.status.set(registerType);
         this.type.set(type);
@@ -35,6 +39,7 @@ public class Luggage implements Serializable {
         this.city.set(city);
         this.address.set(address);
         this.flight.set(flight);
+        this.date.set(date);
     }
 
     public int getId() {
@@ -83,6 +88,10 @@ public class Luggage implements Serializable {
 
     public String getFlight() {
         return flight.get();
+    }
+
+    public LocalDate getDate() {
+        return date.get();
     }
 
 }
