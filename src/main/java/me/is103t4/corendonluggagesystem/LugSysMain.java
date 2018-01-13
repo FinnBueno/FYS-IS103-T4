@@ -8,6 +8,7 @@ package me.is103t4.corendonluggagesystem;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import me.is103t4.corendonluggagesystem.database.DBHandler;
@@ -37,8 +38,14 @@ public class LugSysMain extends Application {
 
         stage.setOnHidden(event -> Platform.exit());
 
+        // set icon and name
+        stage.setTitle("Corendon - Luggage Detective");
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/Square Logo.png")));
+
         stage.setScene(scene);
         stage.show();
+
+        stage.requestFocus();
 
         stage.setOnCloseRequest(event -> DBHandler.INSTANCE.close());
     }
