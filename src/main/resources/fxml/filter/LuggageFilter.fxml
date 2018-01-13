@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="500.0" prefWidth="650.0" stylesheets="@../../css/dark.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.is103t4.corendonluggagesystem.scenes.filter.LuggageFilterController">
+<AnchorPane prefHeight="500.0" prefWidth="650.0" stylesheets="@../../css/mainCss.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.is103t4.corendonluggagesystem.scenes.filter.LuggageFilterController">
     <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <center>
             <GridPane hgap="5.0" vgap="5.0" BorderPane.alignment="CENTER">

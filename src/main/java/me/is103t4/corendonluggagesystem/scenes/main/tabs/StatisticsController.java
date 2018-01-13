@@ -18,7 +18,9 @@ import me.is103t4.corendonluggagesystem.database.tasks.luggage.FetchLuggageDataT
 import me.is103t4.corendonluggagesystem.matching.Luggage;
 import me.is103t4.corendonluggagesystem.scenes.Controller;
 import me.is103t4.corendonluggagesystem.scenes.main.Tabs;
+import me.is103t4.corendonluggagesystem.util.MonthYear;
 
+import javax.sound.sampled.Line;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.format.TextStyle;
@@ -60,12 +62,6 @@ public class StatisticsController extends Controller {
     private TextField graphTitleField;
 
     @FXML
-    private TextField xAxisField;
-
-    @FXML
-    private TextField yAxisField;
-
-    @FXML
     private DatePicker datePicker;
 
     @FXML
@@ -101,6 +97,7 @@ public class StatisticsController extends Controller {
             return;
         }
 
+        // switch between graph types and run code to create one
         switch (ChartType.valueOf(typeBox.getSelectionModel().getSelectedItem().toUpperCase())) {
             case LINE:
                 generateLineChart();
@@ -123,91 +120,122 @@ public class StatisticsController extends Controller {
     }
 
     private void generatePieChart() {
+        // get data list ready
         ObservableList<PieChart.Data> list = FXCollections.observableArrayList(new ArrayList<>());
 
+        // run db task to fetch data from db sorted per status per month
         FetchLuggageDataTask task = new FetchLuggageDataTask(datePicker.getValue(), timespanSpinner.getValue(),
                 showLost.isSelected(), showFound.isSelected(), showDamaged.isSelected(), showHandled.isSelected(),
                 showDestroyed.isSelected(), showDepot.isSelected());
         task.setOnSucceeded(event -> {
             // chart data sorted per status, per month in amounts
-            Map<String, Map<Month, Integer>> map = (Map<String, Map<Month, Integer>>) task.getValue();
+            // key in first map is the status (each status is entered once) and has a Map<MonthYear, Integer>, which has
+            // MonthYear wrapper as key, holding a month with it's year, and an integer representing how many entries with
+            // the specified status appear in that month
+            Map<String, Map<MonthYear, Integer>> map = (Map<String, Map<MonthYear, Integer>>) task.getValue();
+            // sort statusses
             List<String> statusses = new ArrayList<>(map.keySet());
             Collections.sort(statusses);
             Collections.reverse(statusses);
+            // since a pie chart doesnt sort by month, just get the sum of every integer in the inner map
             for (String status : statusses) {
-                Map<Month, Integer> innerMap = map.get(status);
+                Map<MonthYear, Integer> innerMap = map.get(status);
                 int amount = innerMap.keySet().stream().mapToInt(innerMap::get).sum();
                 if (amount == 0)
                     continue;
+                // add to data list
                 list.add(new PieChart.Data(status, amount));
             }
         });
 
+        // create piechart
         chart = new PieChart(list);
         chart.setTitle(graphTitleField.getText());
     }
 
     private void generateBarChart() {
+        // create axis
         xAxis = new CategoryAxis();
-        xAxis.setLabel(xAxisField.getText());
+        xAxis.setLabel("Month");
         yAxis = new NumberAxis();
-        yAxis.setLabel(yAxisField.getText());
+        yAxis.setLabel("Luggage");
         chart = new BarChart<>(xAxis, yAxis);
         chart.setTitle(graphTitleField.getText());
 
+        // run db task to fetch data from db sorted per status per month
         FetchLuggageDataTask task = new FetchLuggageDataTask(datePicker.getValue(), timespanSpinner.getValue(),
                 showLost.isSelected(), showFound.isSelected(), showDamaged.isSelected(), showHandled.isSelected(),
                 showDestroyed.isSelected(), showDepot.isSelected());
         task.setOnSucceeded(event -> {
             // chart data sorted per status, per month in amounts
-            Map<String, Map<Month, Integer>> map = (Map<String, Map<Month, Integer>>) task.getValue();
+            // key in first map is the status (each status is entered once) and has a Map<MonthYear, Integer>, which has
+            // MonthYear wrapper as key, holding a month with it's year, and an integer representing how many entries with
+            // the specified status appear in that month
+            Map<String, Map<MonthYear, Integer>> map = (Map<String, Map<MonthYear, Integer>>) task.getValue();
             for (String status : map.keySet()) {
+                // create and set series name
                 XYChart.Series series = new XYChart.Series();
                 series.setName(status);
-                Map<Month, Integer> innerMap = map.get(status);
-                List<Month> months;
-                Collections.sort(months = new ArrayList<>(innerMap.keySet()));
-                for (Month month : months) {
-                    series.getData().add(new XYChart.Data<String, Number>(month.getDisplayName(TextStyle.FULL, Locale
-                            .ENGLISH), innerMap.get(month)));
-                }
+                // sort
+                Map<MonthYear, Integer> innerMap = map.get(status);
+                List<MonthYear> months = new ArrayList<>(innerMap.keySet());
+                Collections.sort(months);
+                // input values
+                for (MonthYear monthYear : months)
+                    series.getData().add(new XYChart.Data<String, Number>(monthYear.getMonth().getDisplayName
+                            (TextStyle.FULL, Locale.ENGLISH), task.get(innerMap, monthYear)));
+                // add to chart
                 ((BarChart) chart).getData().add(series);
             }
         });
     }
 
     private void generateLineChart() {
+        // create axis
         xAxis = new CategoryAxis();
         xAxis.setLabel("Month");
         yAxis = new NumberAxis();
-        yAxis.setLabel(yAxisField.getText());
+        yAxis.setLabel("Luggage");
         chart = new LineChart<>(xAxis, yAxis);
         chart.setTitle(graphTitleField.getText());
 
+        // run db task to fetch data from db sorted per status per month
         FetchLuggageDataTask task = new FetchLuggageDataTask(datePicker.getValue(), timespanSpinner.getValue(),
                 showLost.isSelected(), showFound.isSelected(), showDamaged.isSelected(), showHandled.isSelected(),
                 showDestroyed.isSelected(), showDepot.isSelected());
         task.setOnSucceeded(event -> {
             // chart data sorted per status, per month in amounts
-            Map<String, Map<Month, Integer>> map = (Map<String, Map<Month, Integer>>) task.getValue();
+            // key in first map is the status (each status is entered once) and has a Map<MonthYear, Integer>, which has
+            // MonthYear wrapper as key, holding a month with it's year, and an integer representing how many entries with
+            // the specified status appear in that month
+            Map<String, Map<MonthYear, Integer>> map = (Map<String, Map<MonthYear, Integer>>) task.getValue();
             for (String status : map.keySet()) {
+                // create and set series name
                 XYChart.Series series = new XYChart.Series();
                 series.setName(status);
-                Map<Month, Integer> innerMap = map.get(status);
-                List<Month> months;
-                Collections.sort(months = new ArrayList<>(innerMap.keySet()));
-                for (Month month : months) {
-                    series.getData().add(new XYChart.Data<String, Number>(month.getDisplayName(TextStyle.FULL, Locale
-                            .ENGLISH), innerMap.get(month)));
-                }
+                // sort
+                Map<MonthYear, Integer> innerMap = map.get(status);
+                List<MonthYear> months = new ArrayList<>(innerMap.keySet());
+                Collections.sort(months);
+                // input values
+                for (MonthYear monthYear : months)
+                    series.getData().add(new XYChart.Data<String, Number>(monthYear.getMonth().getDisplayName
+                            (TextStyle.FULL, Locale.ENGLISH), task.get(innerMap, monthYear)));
+                // add to chart
                 ((LineChart) chart).getData().add(series);
             }
         });
     }
 
+    /**
+     * Inner enum containing all available chart types
+     */
     public enum ChartType {
         LINE, BAR, PIE;
 
+        /**
+         * @return Human readable names of each chart type
+         */
         public static List<String> names() {
             return Arrays.stream(values()).map(ChartType::toString).collect(Collectors.toList());
         }

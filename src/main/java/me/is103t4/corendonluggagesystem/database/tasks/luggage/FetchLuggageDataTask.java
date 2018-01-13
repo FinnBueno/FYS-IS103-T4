@@ -2,21 +2,18 @@ package me.is103t4.corendonluggagesystem.database.tasks.luggage;
 
 import me.is103t4.corendonluggagesystem.database.DBHandler;
 import me.is103t4.corendonluggagesystem.database.DBTask;
-import me.is103t4.corendonluggagesystem.matching.Luggage;
 import me.is103t4.corendonluggagesystem.util.DateRange;
+import me.is103t4.corendonluggagesystem.util.MonthYear;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.Month;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
-public class FetchLuggageDataTask extends DBTask<List<Luggage>[]> {
+public class FetchLuggageDataTask extends DBTask<Map<String, Map<MonthYear, Integer>>> {
 
     private final LocalDate startDate, endDate;
     private final boolean lost, found, damaged, handled, destroyed, depot;
@@ -35,7 +32,7 @@ public class FetchLuggageDataTask extends DBTask<List<Luggage>[]> {
     }
 
     @Override
-    protected Map<String, Map<Month, Integer>> call() {
+    protected Map<String, Map<MonthYear, Integer>> call() {
         String[] statusses = getAllStatusses();
         String query = "SELECT s.value, l.date " +
                 "FROM luggage l " +
@@ -43,12 +40,13 @@ public class FetchLuggageDataTask extends DBTask<List<Luggage>[]> {
                 "ON s.id = l.register_type " +
                 "WHERE l.date >= ? AND " +
                 "l.date <= ? AND " +
+                "((l.register_type = (SELECT id FROM statusses WHERE value = ?) AND ?) OR " +
                 "(l.register_type = (SELECT id FROM statusses WHERE value = ?) AND ?) OR " +
                 "(l.register_type = (SELECT id FROM statusses WHERE value = ?) AND ?) OR " +
                 "(l.register_type = (SELECT id FROM statusses WHERE value = ?) AND ?) OR " +
                 "(l.register_type = (SELECT id FROM statusses WHERE value = ?) AND ?) OR " +
-                "(l.register_type = (SELECT id FROM statusses WHERE value = ?) AND ?) OR " +
-                "(l.register_type = (SELECT id FROM statusses WHERE value = ?) AND ?);";
+                "(l.register_type = (SELECT id FROM statusses WHERE value = ?) AND ?)) " +
+                "ORDER BY s.id;";
         try (PreparedStatement preparedStatement = DBHandler.INSTANCE.getConnection().prepareStatement(query)) {
             preparedStatement.setDate(1, Date.valueOf(startDate));
             preparedStatement.setDate(2, Date.valueOf(endDate));
@@ -67,25 +65,60 @@ public class FetchLuggageDataTask extends DBTask<List<Luggage>[]> {
 
             ResultSet set = preparedStatement.executeQuery();
 
-            Map<String, Map<Month, Integer>> result = new HashMap<>();
-            forLoop : for (String statusName : statusses) {
-                Map<Month, Integer> innerMap = new HashMap<>();
+            Map<String, Map<MonthYear, Integer>> result = new HashMap<>();
+            for (String statusName : statusses) {
+                Map<MonthYear, Integer> innerMap = new HashMap<>();
                 result.put(statusName, innerMap);
-                new DateRange(startDate, endDate).toList().forEach(month -> innerMap.put(month.getMonth(), 0));
+                new DateRange(startDate, endDate).toList().forEach(date -> innerMap.put(new MonthYear(date), 0));
             }
+
+            result.forEach((String status, Map<MonthYear, Integer> map) -> {
+                System.out.println("Status: " + status);
+                map.forEach((MonthYear my, Integer amount) -> {
+                    System.out.println("\tMonthYear: " + my.getMonth() + " - " + my.getYear() + " - Amount: " + amount);
+                });
+            });
+
+            System.out.println("\n ----- FILLING -----\n");
 
             while (set.next()) {
                 String status = set.getString(1);
                 LocalDate date = set.getDate(2).toLocalDate();
-                Map<Month, Integer> innerMap = result.get(status);
-                innerMap.put(date.getMonth(), innerMap.get(date.getMonth()) + 1);
+                System.out.println("ENTRY: " + status + " - " + date.format(DateTimeFormatter.BASIC_ISO_DATE));
+                Map<MonthYear, Integer> innerMap = result.get(status);
+                increaseValue(innerMap, date);
             }
+
+            System.out.println("\n ----- FILLED -----");
+
+            result.forEach((String status, Map<MonthYear, Integer> map) -> {
+                System.out.println("Status: " + status);
+                map.forEach((MonthYear my, Integer amount) -> {
+                    System.out.println("\tMonthYear: " + my.getMonth() + " - " + my.getYear() + " - Amount: " + amount);
+                });
+            });
 
             return result;
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return new HashMap<>();
+    }
+
+    private void increaseValue(Map<MonthYear, Integer> innerMap, LocalDate date) {
+        MonthYear replaceable = null;
+        int amount = 0;
+        for (MonthYear my : innerMap.keySet()) {
+            if (my.getYear() == date.getYear() && my.getMonth() == date.getMonth()) {
+                replaceable = my;
+                amount = innerMap.get(my);
+                break;
+            }
+        }
+        if (replaceable == null)
+            return;
+
+        innerMap.put(replaceable, amount + 1);
     }
 
     private String[] getAllStatusses() {
@@ -119,6 +152,20 @@ public class FetchLuggageDataTask extends DBTask<List<Luggage>[]> {
             e.printStackTrace();
         }
         return new String[0];
+    }
+
+    private int get(Map<MonthYear, Integer> map, LocalDate date) {
+        for (MonthYear my : map.keySet())
+            if (my.getYear() == date.getYear() && my.getMonth() == date.getMonth())
+                return map.get(my) + 1;
+        return 0;
+    }
+
+    public int get(Map<MonthYear, Integer> map, MonthYear monthYear) {
+        for (MonthYear my : map.keySet())
+            if (monthYear.getMonth() == my.getMonth() && monthYear.getYear() == my.getYear())
+                return map.get(my);
+        return 0;
     }
 }
 

@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="465.0" prefWidth="900.0" stylesheets="@../../css/dark.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.is103t4.corendonluggagesystem.scenes.main.tabs.LuggageOverviewController">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="465.0" prefWidth="900.0" stylesheets="@../../css/mainCss.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.is103t4.corendonluggagesystem.scenes.main.tabs.LuggageOverviewController">
     <BorderPane layoutX="186.0" layoutY="92.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="465.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <right>
             <GridPane vgap="10.0" BorderPane.alignment="CENTER">

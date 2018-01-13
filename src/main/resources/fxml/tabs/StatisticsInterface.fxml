@@ -16,80 +16,74 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane id = "AnchorPane" prefHeight = "465.0" prefWidth = "900.0" stylesheets = "@../../css/dark.css" xmlns = "http://javafx.com/javafx/9.0.1" xmlns:fx = "http://javafx.com/fxml/1" fx:controller = "me.is103t4.corendonluggagesystem.scenes.main.tabs.StatisticsController">
-    <BorderPane layoutY = "25.0" AnchorPane.bottomAnchor = "0.0" AnchorPane.leftAnchor = "0.0" AnchorPane.rightAnchor = "0.0" AnchorPane.topAnchor = "0.0">
+<AnchorPane id="AnchorPane" prefHeight="465.0" prefWidth="900.0" stylesheets="@../../css/mainCss.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.is103t4.corendonluggagesystem.scenes.main.tabs.StatisticsController">
+    <BorderPane layoutY="25.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <right>
-            <ScrollPane fitToHeight = "true" hbarPolicy = "NEVER" maxWidth = "1.7976931348623157E308">
-                <GridPane hgap = "10.0" maxWidth = "1.7976931348623157E308" minHeight = "-Infinity" prefHeight = "460.0">
+            <ScrollPane fitToHeight="true" hbarPolicy="NEVER" maxWidth="1.7976931348623157E308">
+                <GridPane hgap="10.0" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="460.0">
                     <columnConstraints>
-                        <ColumnConstraints hgrow = "SOMETIMES" maxWidth = "1.7976931348623157E308" minWidth = "10.0"/>
-                        <ColumnConstraints hgrow = "SOMETIMES" maxWidth = "1.7976931348623157E308" minWidth = "-Infinity"/>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints minHeight = "10.0" prefHeight = "30.0" vgrow = "SOMETIMES"/>
-                        <RowConstraints minHeight = "10.0" prefHeight = "30.0" vgrow = "SOMETIMES"/>
-                        <RowConstraints minHeight = "10.0" prefHeight = "30.0" vgrow = "SOMETIMES"/>
-                        <RowConstraints minHeight = "10.0" prefHeight = "30.0" vgrow = "SOMETIMES"/>
-                        <RowConstraints minHeight = "10.0" prefHeight = "30.0" vgrow = "SOMETIMES"/>
-                        <RowConstraints minHeight = "10.0" prefHeight = "30.0" vgrow = "SOMETIMES"/>
-                        <RowConstraints minHeight = "10.0" prefHeight = "30.0" vgrow = "SOMETIMES"/>
-                        <RowConstraints minHeight = "10.0" prefHeight = "30.0" vgrow = "SOMETIMES"/>
-                        <RowConstraints maxHeight = "-Infinity" minHeight = "-Infinity" prefHeight = "10.0" vgrow = "SOMETIMES"/>
-                        <RowConstraints minHeight = "10.0" prefHeight = "30.0" vgrow = "SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <padding>
-                        <Insets bottom = "15.0" left = "10.0" right = "10.0" top = "10.0"/>
+                        <Insets bottom="15.0" left="10.0" right="10.0" top="10.0" />
                     </padding>
-                    <ComboBox fx:id = "typeBox" maxWidth = "1.7976931348623157E308" prefWidth = "100.0" GridPane.columnIndex = "1"/>
-                    <TextField fx:id = "graphTitleField" maxWidth = "1.7976931348623157E308" prefWidth = "100.0" promptText = "Graph title" text = "Graph" GridPane.columnIndex = "1" GridPane.rowIndex = "4"/>
-                    <TextField maxWidth = "1.7976931348623157E308" prefWidth = "100.0" promptText = "X axis title" text = "X axis" GridPane.columnIndex = "1" GridPane.rowIndex = "5" fx:id = "xAxisField"/>
-                    <TextField fx:id = "yAxisField" maxWidth = "1.7976931348623157E308" prefWidth = "100.0" promptText = "Y axis title" text = "Y axis" GridPane.columnIndex = "1" GridPane.rowIndex = "6"/>
-                    <Button fx:id = "generateButton" maxHeight = "1.7976931348623157E308" maxWidth = "1.7976931348623157E308" mnemonicParsing = "false" onAction = "#generateChart" text = "Update graph" GridPane.columnSpan = "2147483647" GridPane.rowIndex = "9"/>
+                    <ComboBox fx:id="typeBox" maxWidth="1.7976931348623157E308" prefWidth="100.0" GridPane.columnIndex="1" />
+                    <TextField fx:id="graphTitleField" maxWidth="1.7976931348623157E308" prefWidth="100.0" promptText="Graph title" text="Graph" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                    <Button fx:id="generateButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#generateChart" text="Update graph" GridPane.columnSpan="2147483647" GridPane.rowIndex="7" />
 
-                    <GridPane hgap = "5.0" maxHeight = "1.7976931348623157E308" maxWidth = "1.7976931348623157E308" GridPane.columnIndex = "1" GridPane.rowIndex = "7">
+                    <GridPane hgap="5.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="5">
                         <columnConstraints>
-                            <ColumnConstraints hgrow = "SOMETIMES" maxWidth = "1.7976931348623157E308" minWidth = "-Infinity" prefWidth = "100.0"/>
-                            <ColumnConstraints hgrow = "SOMETIMES" maxWidth = "1.7976931348623157E308" minWidth = "-Infinity" prefWidth = "120.0"/>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="120.0" />
                         </columnConstraints>
                         <rowConstraints>
-                            <RowConstraints maxHeight = "-Infinity" minHeight = "-Infinity" prefHeight = "20.0" vgrow = "SOMETIMES"/>
-                            <RowConstraints maxHeight = "1.7976931348623157E308" minHeight = "-Infinity" prefHeight = "30.0" vgrow = "SOMETIMES"/>
+                            <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="20.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="1.7976931348623157E308" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
                         </rowConstraints>
-                        <Label alignment = "CENTER" maxWidth = "1.7976931348623157E308" text = "Start date"/>
-                        <DatePicker fx:id = "datePicker" showWeekNumbers = "true" GridPane.rowIndex = "1"/>
-                        <Label alignment = "CENTER" maxWidth = "1.7976931348623157E308" text = "Span (months)" GridPane.columnIndex = "1"/>
-                        <HBox alignment = "CENTER" GridPane.columnIndex = "1" GridPane.rowIndex = "1">
-                            <Spinner fx:id = "timespanSpinner" minWidth = "-Infinity" prefWidth = "60.0"/>
+                        <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Start date" />
+                        <DatePicker fx:id="datePicker" showWeekNumbers="true" GridPane.rowIndex="1" />
+                        <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Span (months)" GridPane.columnIndex="1" />
+                        <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                            <Spinner fx:id="timespanSpinner" minWidth="-Infinity" prefWidth="60.0" />
                         </HBox>
                     </GridPane>
 
-                    <Label text = "Graph type:"/>
-                    <Label text = "Graph title:" GridPane.rowIndex = "4"/>
-                    <Label text = "X title:" GridPane.rowIndex = "5"/>
-                    <Label text = "Y title:" GridPane.rowIndex = "6"/>
-                    <Label text = "Time span:" GridPane.rowIndex = "7"/>
-                    <GridPane GridPane.columnIndex = "1" GridPane.rowIndex = "1" GridPane.rowSpan = "3">
+                    <Label text="Graph type:" />
+                    <Label text="Graph title:" GridPane.rowIndex="4" />
+                    <Label text="Time span:" GridPane.rowIndex="5" />
+                    <GridPane GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="3">
                         <columnConstraints>
-                            <ColumnConstraints hgrow = "SOMETIMES" minWidth = "10.0" prefWidth = "100.0"/>
-                            <ColumnConstraints hgrow = "SOMETIMES" minWidth = "10.0" prefWidth = "100.0"/>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         </columnConstraints>
                         <rowConstraints>
-                            <RowConstraints minHeight = "10.0" prefHeight = "30.0" vgrow = "SOMETIMES"/>
-                            <RowConstraints minHeight = "10.0" prefHeight = "30.0" vgrow = "SOMETIMES"/>
-                            <RowConstraints minHeight = "10.0" prefHeight = "30.0" vgrow = "SOMETIMES"/>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         </rowConstraints>
-                        <CheckBox fx:id="showLost" mnemonicParsing = "false" selected = "true" text = "Lost"/>
-                        <CheckBox fx:id = "showDamaged" mnemonicParsing = "false" selected = "true" text = "Damaged" GridPane.rowIndex = "2"/>
-                        <CheckBox fx:id = "showFound" mnemonicParsing = "false" selected = "true" text = "Found" GridPane.rowIndex = "1"/>
-                        <CheckBox fx:id = "showDestroyed" mnemonicParsing = "false" selected = "true" text = "Destroyed" GridPane.columnIndex = "1" GridPane.rowIndex = "1"/>
-                        <CheckBox fx:id="showHandled" mnemonicParsing = "false" selected = "true" text = "Handled" GridPane.columnIndex = "1"/>
-                        <CheckBox fx:id="showDepot" mnemonicParsing = "false" selected = "true" text = "Depot" GridPane.columnIndex = "1" GridPane.rowIndex = "2"/>
+                        <CheckBox fx:id="showLost" mnemonicParsing="false" selected="true" text="Lost" />
+                        <CheckBox fx:id="showDamaged" mnemonicParsing="false" selected="true" text="Damaged" GridPane.rowIndex="2" />
+                        <CheckBox fx:id="showFound" mnemonicParsing="false" selected="true" text="Found" GridPane.rowIndex="1" />
+                        <CheckBox fx:id="showDestroyed" mnemonicParsing="false" selected="true" text="Destroyed" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <CheckBox fx:id="showHandled" mnemonicParsing="false" selected="true" text="Handled" GridPane.columnIndex="1" />
+                        <CheckBox fx:id="showDepot" mnemonicParsing="false" selected="true" text="Depot" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                     </GridPane>
                 </GridPane>
             </ScrollPane>
         </right>
         <center>
-            <AnchorPane fx:id = "chartHolder" BorderPane.alignment = "CENTER"/>
+            <AnchorPane fx:id="chartHolder" BorderPane.alignment="CENTER" />
         </center>
     </BorderPane>
 </AnchorPane>

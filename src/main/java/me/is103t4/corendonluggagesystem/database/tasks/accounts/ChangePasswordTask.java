@@ -34,10 +34,10 @@ public class ChangePasswordTask extends DBTask {
     }
 
     @Override
-    protected Object call() throws Exception {
+    protected Object call() {
 
         // create query
-        String query = "UPDATE accounts SET password=? AND salt=? WHERE email=?";
+        String query = "UPDATE accounts SET password=?, salt=? WHERE email=?";
         // create PreparedStatement
         try (PreparedStatement preparedStatement = conn.
                 prepareStatement(query)) {
