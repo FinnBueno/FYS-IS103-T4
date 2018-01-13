@@ -15,6 +15,12 @@ public class DateRange implements Iterable<LocalDate> {
 
     public DateRange(LocalDate startDate, LocalDate endDate) {
         //check that range is valid (null, start < end)
+        if (startDate == null)
+            throw new IllegalArgumentException("StartDate cannot be null!");
+        if (endDate == null)
+            throw new IllegalArgumentException("EndDate cannot be null!");
+        if (endDate.isBefore(startDate))
+            throw new IllegalArgumentException("StartDate cannot be after EndDate!");
         this.startDate = startDate;
         this.endDate = endDate;
     }
@@ -34,6 +40,7 @@ public class DateRange implements Iterable<LocalDate> {
         for (LocalDate d = startDate; !d.isAfter(endDate); d = d.plusMonths(1))
             dates.add(d);
         Collections.sort(dates);
+        dates.remove(dates.size() - 1);
         return dates;
     }
 }
