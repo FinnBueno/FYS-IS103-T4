@@ -25,7 +25,7 @@ import me.is103t4.corendonluggagesystem.scenes.main.MainFrameController;
  * @author Finn Bon
  */
 public class LoginController extends Controller {
-
+    
     @FXML
     private TextField usernameField;
 
@@ -54,7 +54,7 @@ public class LoginController extends Controller {
     }
 
     @FXML
-    private void login() {
+    private void login() {  
         String usernameInput = usernameField.getText();
         if (usernameInput.length() == 0 || passwordField.getText().
                 length() == 0) {
@@ -109,7 +109,7 @@ public class LoginController extends Controller {
             passwordField.setText("");
 
             loginButton.setDisable(false);
-        });
+        });      
     }
 
     private void displayErrorAlert() {
