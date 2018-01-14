@@ -6,13 +6,16 @@ import me.is103t4.corendonluggagesystem.database.DBHandler;
 import me.is103t4.corendonluggagesystem.database.DBTask;
 import me.is103t4.corendonluggagesystem.matching.Luggage;
 
+
 import java.io.File;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javafx.scene.control.CheckBox;
 
 public class RegisterLuggageTask extends DBTask<Luggage> {
 
+    
     private final String type;
     private final String firstName;
     private final String lastName;
@@ -94,8 +97,11 @@ public class RegisterLuggageTask extends DBTask<Luggage> {
         }
         return null;
     }
-
-    private String toHex(Color colour) {
+    
+      private String toHex(Color colour) {
+        if (colour == null ) {
+            return null;
+        }
         return String.format("%02x%02x%02x", (int) (colour.getRed() * 255), (int) (colour.getGreen() * 255), (int)
                 (colour.getBlue() * 255));
     }
