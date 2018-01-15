@@ -45,10 +45,11 @@ public class NewAccountController extends Controller {
     public void postInit() {
         tagField.textProperty().
                 addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
-                    if (!newValue.matches("^\\d{1,4}")) {
-                        tagField.setText(newValue.
-                                replaceAll("[^\\d]", "").substring(0, 4));
-                    }
+                    if (newValue.length() > 4)
+                        newValue = newValue.substring(0, 4);
+                    if (!newValue.matches("^\\d"))
+                        newValue = newValue.replaceAll("[^\\d]", "");
+                    tagField.setText(newValue);
                 });
 
         roleBox.getItems().addAll(AccountRole.ADMIN.name(), AccountRole.MANAGERS.name(), AccountRole.EMPLOYEE.name());

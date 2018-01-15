@@ -163,7 +163,7 @@ public class FetchSimilarLuggageTask extends DBTask<Luggage[]> {
                         set.getString(11),
                         set.getString(12),
                         set.getDate(13).toLocalDate(),
-                        set.getInt(14)));
+                        0));
             }
             return result.toArray(new Luggage[result.size()]);
         } catch (SQLException ex) {

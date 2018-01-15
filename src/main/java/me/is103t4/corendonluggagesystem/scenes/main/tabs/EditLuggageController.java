@@ -102,7 +102,6 @@ public class EditLuggageController extends Controller {
 
     @Override
     public void postInit() {
-
         // fill flights box
         FetchAirlinesTask airlinesTask = new FetchAirlinesTask(true);
         airlinesTask.setOnSucceeded(v -> flightNumberBox.getItems().addAll((List<String>) airlinesTask.getValue()));
@@ -160,6 +159,8 @@ public class EditLuggageController extends Controller {
     }
 
     private String toHex(Color color) {
+        if (color == null)
+            return null;
         return String.format("%02X%02X%02X",
                 (int) (color.getRed() * 255),
                 (int) (color.getGreen() * 255),
@@ -167,6 +168,8 @@ public class EditLuggageController extends Controller {
     }
 
     private Color toColor(String hex) {
+        if (hex == null)
+            return null;
         return Color.color(
                 Integer.valueOf(hex.substring(0, 2), 16) / 255D,
                 Integer.valueOf(hex.substring(2, 4), 16) / 255D,

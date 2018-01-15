@@ -149,13 +149,11 @@ public class PDF {
 
             // open directory selector
             File file;
-            do {
-                file = openDirectorySelector();
-                if (file == null || !file.isDirectory()) {
-                    new AlertBuilder(Alert.AlertType.ERROR, "Error!", "Must select a directory!", "You must select a " +
-                            "directory in order to create the PDF file.").showAndWait();
-                }
-            } while (file == null || !file.isDirectory());
+            file = openDirectorySelector();
+            if (file == null || !file.isDirectory()) {
+                AlertBuilder.NO_SELECTION.showAndWait();
+                return;
+            }
 
             // save document
             document.save(file = new File(file.getPath() + File.separator + "GenPDF-" + name + "-" + UUID.randomUUID()
@@ -171,16 +169,14 @@ public class PDF {
 
             // open directory selector
             File file;
-            do {
-                file = openDirectorySelector();
-                if (file == null || !file.isDirectory()) {
-                    new AlertBuilder(Alert.AlertType.ERROR, "Error!", "Must select a directory!", "You must select a " +
-                            "directory in order to create the insurance claim form.").showAndWait();
-                }
-            } while (file == null || !file.isDirectory());
-
+            file = openDirectorySelector();
+            if (file == null || !file.isDirectory()) {
+                AlertBuilder.NO_SELECTION.showAndWait();
+                return;
+            }
             // save document
-            document.save(new File(file.getPath() + File.separator + "Insurance Claim Form " + name + "-" + UUID.randomUUID()
+            document.save(new File(file.getPath() + File.separator + "Insurance Claim Form " + name + "-" + UUID
+                    .randomUUID()
                     .toString().substring(0, 10) + ".pdf"));
             Desktop.getDesktop().open(file);
         } catch (IOException ex) {
@@ -216,13 +212,11 @@ public class PDF {
             }
             // open directory selector
             File file;
-            do {
-                file = openDirectorySelector();
-                if (file == null || !file.isDirectory()) {
-                    new AlertBuilder(Alert.AlertType.ERROR, "Error!", "Must select a directory!", "You must select a " +
-                            "directory in order to create the DHL form.").showAndWait();
-                }
-            } while (file == null || !file.isDirectory());
+            file = openDirectorySelector();
+            if (file == null || !file.isDirectory()) {
+                AlertBuilder.NO_SELECTION.showAndWait();
+                return;
+            }
 
             // save document
             document.save(new File(file.getPath() + File.separator + "DHL Form " + name + "-" + UUID.randomUUID()
