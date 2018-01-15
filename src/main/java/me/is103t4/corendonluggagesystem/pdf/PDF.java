@@ -8,10 +8,8 @@ package me.is103t4.corendonluggagesystem.pdf;
 
 import java.awt.*;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.util.List;
-import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -53,7 +51,7 @@ public class PDF {
      * @param stage         The stage used to open a potential warning
      * @param paragraphs    The content
      */
-    public PDF(String title, boolean signatureLine, Stage stage, String... paragraphs) {
+    private PDF(String title, boolean signatureLine, Stage stage, String... paragraphs) {
         this("", title, signatureLine, stage, paragraphs);
     }
 
@@ -168,6 +166,28 @@ public class PDF {
         }
     }
 
+    public void exportInsurancePDF() {
+        try (PDDocument document = PDDocument.load(getClass().getResourceAsStream("/pdf/Verzekering_Claim.pdf"))) {
+
+            // open directory selector
+            File file;
+            do {
+                file = openDirectorySelector();
+                if (file == null || !file.isDirectory()) {
+                    new AlertBuilder(Alert.AlertType.ERROR, "Error!", "Must select a directory!", "You must select a " +
+                            "directory in order to create the insurance claim form.").showAndWait();
+                }
+            } while (file == null || !file.isDirectory());
+
+            // save document
+            document.save(new File(file.getPath() + File.separator + "Insurance Claim Form " + name + "-" + UUID.randomUUID()
+                    .toString().substring(0, 10) + ".pdf"));
+            Desktop.getDesktop().open(file);
+        } catch (IOException ex) {
+            LOGGER.log(Level.SEVERE, null, ex);
+        }
+    }
+
     public void exportDHLPDF(Luggage select) {
         try (PDDocument document = PDDocument.load(getClass().getResourceAsStream("/pdf/DHL_Template.pdf"));
              InputStream is = getClass().getResourceAsStream("/font/arial.ttf")) {
@@ -267,12 +287,14 @@ public class PDF {
     public PDF createRegistrationCopy(String firstName, String lastName, String address, String city, String zip,
                                       String country, String phoneNumber, String email, String luggageId, String
                                               flight, String type, String brand, String colour, String
-                                              characteristics, String language) {
+                                              characteristics, String language, int registrationID, String employee) {
         paragraphs.add("This copy serves as proof that " +
                 "we, Corendon Airlines, have lost your luggage. On here you can find information we have " +
                 "registered " +
                 "in order to retrieve your luggage.");
-        paragraphs.add("Name: " + firstName + " " + lastName + "<!>" +
+        paragraphs.add("RegistrationID: " + registrationID + "<!>" +
+                "Employee: " + employee + "<!>" +
+                "Name: " + firstName + " " + lastName + "<!>" +
                 "Address: " + address + " " + city + " (" + zip + ") " + country + "<!>" +
                 "Phone number: " + phoneNumber + "<!>" +
                 "E-mail: " + email + "<!>" +

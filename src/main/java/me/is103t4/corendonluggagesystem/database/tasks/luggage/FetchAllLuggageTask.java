@@ -22,7 +22,7 @@ public class FetchAllLuggageTask extends DBTask<Luggage[]> {
         // create query
         String query = "SELECT l.luggage_id, s.value, lt.lug_type_value, l.luggage_tag, " +
                 "l.brand, l.colour, l.characteristics, l.first_name, l.last_name, " +
-                "l.city, l.address, l.flight_id, l.date " +
+                "l.city, l.address, l.flight_id, l.date, l.costs " +
                 "FROM luggage l " +
                 "JOIN luggage_types lt " +
                 "ON lt.lug_type_id = l.luggage_type " +
@@ -49,7 +49,8 @@ public class FetchAllLuggageTask extends DBTask<Luggage[]> {
                         set.getString(10),
                         set.getString(11),
                         set.getString(12),
-                        date));
+                        date,
+                        set.getInt(14)));
             }
             return result.toArray(new Luggage[result.size()]);
         } catch (SQLException ex) {

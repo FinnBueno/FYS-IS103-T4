@@ -98,7 +98,7 @@ public class FetchSimilarLuggageTask extends DBTask<Luggage[]> {
     private Luggage[] searchStrict() {
         String query =
                 "SELECT l.luggage_id, s.value, lt.lug_type_value, l.luggage_tag, l.brand, l.colour, l" +
-                        ".characteristics, l.first_name, l.last_name, l.city, l.address, l.flight_id, l.date " +
+                        ".characteristics, l.first_name, l.last_name, l.city, l.address, l.flight_id, l.date, l.costs " +
                         "FROM luggage l " +
                         "JOIN luggage_types lt " +
                         "ON lt.lug_type_id = l.luggage_type " +
@@ -162,7 +162,8 @@ public class FetchSimilarLuggageTask extends DBTask<Luggage[]> {
                         set.getString(10),
                         set.getString(11),
                         set.getString(12),
-                        set.getDate(13).toLocalDate()));
+                        set.getDate(13).toLocalDate(),
+                        set.getInt(14)));
             }
             return result.toArray(new Luggage[result.size()]);
         } catch (SQLException ex) {

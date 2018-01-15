@@ -15,6 +15,7 @@ import javafx.stage.FileChooser;
 import me.is103t4.corendonluggagesystem.account.Account;
 import me.is103t4.corendonluggagesystem.database.tasks.luggage.FetchLuggageTypesTask;
 import me.is103t4.corendonluggagesystem.database.tasks.luggage.RegisterLuggageTask;
+import me.is103t4.corendonluggagesystem.database.tasks.util.CreateRegistrationCopyTask;
 import me.is103t4.corendonluggagesystem.database.tasks.util.FetchAirlinesTask;
 import me.is103t4.corendonluggagesystem.database.tasks.util.FetchCountriesTask;
 import me.is103t4.corendonluggagesystem.email.EmailSender;
@@ -109,10 +110,17 @@ public class LostLuggageController extends Controller {
         // turn some textfields into numberfields
         phoneNumberField.textProperty().
                 addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
-                    if (!newValue.matches("\\d*")) {
-                        phoneNumberField.setText(newValue.
+                    if (newValue.length() > 10)
+                        newValue = newValue.substring(0, 10);
+                    if (!newValue.matches("\\d*"))
+                        newValue = newValue.replaceAll("[^\\d]", "");
+                    phoneNumberField.setText(newValue);
+                });
+        luggageIDField.textProperty().
+                addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+                    if (!newValue.matches("\\d*"))
+                        luggageIDField.setText(newValue.
                                 replaceAll("[^\\d]", ""));
-                    }
                 });
 
         // fill combo boxes
@@ -148,6 +156,7 @@ public class LostLuggageController extends Controller {
             boolean inserted = (boolean) registerLuggageTask.getValue();
             if (!inserted) {
                 AlertBuilder.ERROR_OCCURRED.showAndWait();
+                registerButton.setDisable(false);
                 return;
             }
 
@@ -187,6 +196,10 @@ public class LostLuggageController extends Controller {
             EmailSender.getInstance().
                     send(email);
 
+            // insurance claim
+            promptForInsuranceClaim();
+
+            // registration copy
             promptForPDFCreation(
                     firstNameField.getText(),
                     lastNameField.getText(),
@@ -207,6 +220,10 @@ public class LostLuggageController extends Controller {
             AlertBuilder.REGISTERED_LUGGAGE.showAndWait();
             Tabs.OVERVIEW.setRoot(0);
         });
+    }
+
+    private void promptForInsuranceClaim() {
+        new PDF("Insurance Claim", main.getStage()).exportInsurancePDF();
     }
 
     private boolean checkEmptyFields() {
@@ -258,14 +275,13 @@ public class LostLuggageController extends Controller {
                                       String country, String phoneNumber, String email, String luggageId, String
                                               flight, String type, String brand, String colour, String
                                               characteristics, String language) {
-        new PDF("PDF_Registration_Copy_" + LocalDate.now().format(DateTimeFormatter.ISO_DATE) + "_" + UUID.randomUUID
-                ().toString(), "Registration Copy", false, main.getStage()).createRegistrationCopy(
-                firstName, lastName, address, city, zip, country, phoneNumber, email, luggageId, flight, type, brand,
-                colour, characteristics, language
-        ).exportPDF();
+        new CreateRegistrationCopyTask(firstName, lastName, address, city, zip, country, phoneNumber, email,
+                luggageId, flight, type, brand, colour, characteristics, language, main.getStage());
     }
 
     private String toHex(Color color) {
+        if (color == null)
+            return null;
         return String.format("#%02X%02X%02X",
                 (int) (color.getRed() * 255),
                 (int) (color.getGreen() * 255),
@@ -275,14 +291,12 @@ public class LostLuggageController extends Controller {
     @FXML
     private void selectPhoto() {
         File file = openFileSelectPrompt(
-                new FileChooser.ExtensionFilter("All Files", "*.*"),
-                new FileChooser.ExtensionFilter("JPG", "*.jpg", "*.jpeg"),
-                new FileChooser.ExtensionFilter("PNG", "*.png")
+                new FileChooser.ExtensionFilter("PNG", "*.png"),
+        new FileChooser.ExtensionFilter("JPG", "*.jpg", "*.jpeg"),
+        new FileChooser.ExtensionFilter("All Files", "*.*")
         );
-
-        if (file != null && file.exists()) {
+        if (file != null && file.exists())
             photo = file;
-        }
     }
 
 }

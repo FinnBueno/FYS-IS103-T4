@@ -22,11 +22,12 @@ public class Luggage implements Serializable {
     private StringProperty address = new SimpleStringProperty();
     private StringProperty flight = new SimpleStringProperty();
     private ObjectProperty<LocalDate> date = new SimpleObjectProperty<>();
+    private StringProperty costs = new SimpleStringProperty();
 
     private final int id;
 
     public Luggage(int id, String registerType, String type, String tag, String brand, String colour, String characteristics, String firstName,
-                   String lastName, String city, String address, String flight, LocalDate date) {
+                   String lastName, String city, String address, String flight, LocalDate date, int costs) {
         this.id = id;
         this.status.set(registerType);
         this.type.set(type);
@@ -40,6 +41,7 @@ public class Luggage implements Serializable {
         this.address.set(address);
         this.flight.set(flight);
         this.date.set(date);
+        this.costs.set(String.valueOf(costs));
     }
 
     public int getId() {

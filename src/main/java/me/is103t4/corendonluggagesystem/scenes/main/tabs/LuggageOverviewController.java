@@ -14,6 +14,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import me.is103t4.corendonluggagesystem.database.tasks.luggage.FetchAllLuggageTask;
 import me.is103t4.corendonluggagesystem.database.tasks.luggage.FetchLuggageTask;
+import me.is103t4.corendonluggagesystem.database.tasks.util.CreateRegistrationCopyTask;
 import me.is103t4.corendonluggagesystem.database.tasks.util.SetPhotoTask;
 import me.is103t4.corendonluggagesystem.database.tasks.util.ViewPhotoTask;
 import me.is103t4.corendonluggagesystem.dropbox.DropboxHandler;
@@ -41,7 +42,7 @@ public class LuggageOverviewController extends Controller {
 
     @FXML
     private TableColumn<Luggage, String> status, type, tag, brand, colour, characteristics, firstName, lastName,
-            city, address, flight;
+            city, address, flight, costs;
 
     @FXML
     private TableColumn<Luggage, LocalDate> date;
@@ -163,12 +164,22 @@ public class LuggageOverviewController extends Controller {
 
     @FXML
     public void createInsuranceForm() {
-        System.out.println("INSURANCE");
+        Luggage select = table.getSelectionModel().getSelectedItem();
+        if (select == null) {
+            assertSelection();
+            return;
+        }
+
     }
 
     @FXML
     public void createRegistrationCopy() {
-        System.out.println("REGISTRATION");
+        Luggage select = table.getSelectionModel().getSelectedItem();
+        if (select == null) {
+            assertSelection();
+            return;
+        }
+        new CreateRegistrationCopyTask(select, main.getStage());
     }
 
     @Override
