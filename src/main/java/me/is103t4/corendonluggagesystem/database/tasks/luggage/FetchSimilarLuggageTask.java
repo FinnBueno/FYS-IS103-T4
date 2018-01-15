@@ -40,7 +40,7 @@ public class FetchSimilarLuggageTask extends DBTask<Luggage[]> {
     private Luggage[] searchNormal() {
         String query =
                 "SELECT l.luggage_id, s.value, lt.lug_type_value, l.luggage_tag, l.brand, l.colour, l" +
-                        ".characteristics, l.first_name, l.last_name, l.city, l.address, l.flight_id " +
+                        ".characteristics, l.first_name, l.last_name, l.city, l.address, l.flight_id, l.date " +
                         "FROM luggage l " +
                         "JOIN luggage_types lt " +
                         "ON lt.lug_type_id = l.luggage_type " +
@@ -48,9 +48,9 @@ public class FetchSimilarLuggageTask extends DBTask<Luggage[]> {
                         "ON s.id = l.register_type " +
 
                         "WHERE (SELECT COUNT(m.match_id) FROM matches m WHERE l.luggage_id = m.lost_id OR l.luggage_id = m.found_id) = 0 AND " +
-                        "l.register_type < 3 " +
+                        "l.register_type < 3 AND " +
                         "s.value = ? AND " +
-                        "lt.lug_type_value LIKE ? AND " +
+                        "(lt.lug_type_value LIKE ? AND " +
                         "(l.luggage_tag IS NULL OR UPPER(l.luggage_tag) LIKE UPPER(?)) AND " +
                         "(l.brand IS NULL OR UPPER(l.brand) LIKE UPPER(?)) AND " +
                         "(l.characteristics IS NULL OR UPPER(l.characteristics) LIKE UPPER(?)) AND " +
@@ -58,7 +58,7 @@ public class FetchSimilarLuggageTask extends DBTask<Luggage[]> {
                         "(l.last_name IS NULL OR UPPER(l.last_name) LIKE UPPER(?)) AND " +
                         "(l.city IS NULL OR UPPER(l.city) LIKE UPPER(?)) AND " +
                         "(l.address IS NULL OR UPPER(l.address) LIKE UPPER(?)) AND " +
-                        "(l.flight_id IS NULL OR UPPER(l.flight_id) LIKE UPPER(?));";
+                        "(l.flight_id IS NULL OR UPPER(l.flight_id) LIKE UPPER(?)));";
         String searchingFor = getSearchingFor();
         if (searchingFor == null)
             return new Luggage[0];
@@ -69,7 +69,7 @@ public class FetchSimilarLuggageTask extends DBTask<Luggage[]> {
     private Luggage[] searchLoose() {
         String query =
                 "SELECT l.luggage_id, s.value, lt.lug_type_value, l.luggage_tag, l.brand, l.colour, l" +
-                        ".characteristics, l.first_name, l.last_name, l.city, l.address, l.flight_id " +
+                        ".characteristics, l.first_name, l.last_name, l.city, l.address, l.flight_id, l.date " +
                         "FROM luggage l " +
                         "JOIN luggage_types lt " +
                         "ON lt.lug_type_id = l.luggage_type " +
@@ -98,7 +98,7 @@ public class FetchSimilarLuggageTask extends DBTask<Luggage[]> {
     private Luggage[] searchStrict() {
         String query =
                 "SELECT l.luggage_id, s.value, lt.lug_type_value, l.luggage_tag, l.brand, l.colour, l" +
-                        ".characteristics, l.first_name, l.last_name, l.city, l.address, l.flight_id " +
+                        ".characteristics, l.first_name, l.last_name, l.city, l.address, l.flight_id, l.date " +
                         "FROM luggage l " +
                         "JOIN luggage_types lt " +
                         "ON lt.lug_type_id = l.luggage_type " +
@@ -142,6 +142,7 @@ public class FetchSimilarLuggageTask extends DBTask<Luggage[]> {
             ResultSet set = preparedStatement.executeQuery();
             List<Luggage> result = new ArrayList<>();
             while (set.next()) {
+                System.out.println("   - Result!!");
                 String status = set.getString(2);
                 if (!status.equalsIgnoreCase(searchingFor))
                     continue;
@@ -160,7 +161,8 @@ public class FetchSimilarLuggageTask extends DBTask<Luggage[]> {
                         set.getString(9),
                         set.getString(10),
                         set.getString(11),
-                        set.getString(12), set.getDate(13).toLocalDate()));
+                        set.getString(12),
+                        set.getDate(13).toLocalDate()));
             }
             return result.toArray(new Luggage[result.size()]);
         } catch (SQLException ex) {

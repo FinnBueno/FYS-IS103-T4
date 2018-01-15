@@ -11,32 +11,42 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
+import static javafx.scene.control.ButtonBar.*;
+
 public class AlertBuilder {
 
     public static final AlertBuilder REGISTERED_LUGGAGE = new AlertBuilder(Alert.AlertType.CONFIRMATION, "Luggage " +
             "registered", "Successfully registered luggage!", "You've successfully registered the luggage. Use the " +
             "buttons below to take further action. A PDF will be created. Click the button below to directly search " +
-            "for matches.").addButton(new ButtonType("Search for matches", ButtonBar.ButtonData.FINISH));
+            "for matches.").addButton(new ButtonType("Search for matches", ButtonData.FINISH));
     public static final AlertBuilder ERROR_OCCURRED = new AlertBuilder(Alert.AlertType.ERROR, "Error", "An error has " +
             "occurred", "An error has occurred while attempting to perform this action. Please try again later!")
-            .addButton(new ButtonType("OK", ButtonBar.ButtonData.FINISH));
+            .addButton(new ButtonType("OK", ButtonData.FINISH));
     public static final AlertBuilder CHANGES_SAVED = new AlertBuilder(Alert.AlertType.CONFIRMATION, "Saved", "Changes" +
             " saved",
             "Your changes have been saved!")
-            .addButton(new ButtonType("OK", ButtonBar.ButtonData.FINISH));
+            .addButton(new ButtonType("OK", ButtonData.FINISH));
     public static final AlertBuilder SEARCH_LOOSENESS = new AlertBuilder(Alert.AlertType.INFORMATION, "Matching",
             "Select Matching Level", "Please select how loose the matching should be.")
-            .addButton(new ButtonType("Strict", ButtonBar.ButtonData.OK_DONE))
-            .addButton(new ButtonType("Normal", ButtonBar.ButtonData.OK_DONE))
-            .addButton(new ButtonType("Loose", ButtonBar.ButtonData.OK_DONE));
+            .addButton(new ButtonType("Strict", ButtonData.CANCEL_CLOSE))
+            .addButton(new ButtonType("Normal", ButtonData.OTHER))
+            .addButton(new ButtonType("Loose", ButtonData.FINISH));
     public static final AlertBuilder NO_SELECTION = new AlertBuilder(Alert.AlertType.WARNING, "Alert!", "No " +
             "Selection!", "You must make a " +
-            "selection before you can create a match!").addButton(new ButtonType("OK", ButtonBar.ButtonData.OK_DONE));
+            "selection first!").addButton(new ButtonType("OK", ButtonData.OK_DONE));
     public static final AlertBuilder MATCH_CREATED = new AlertBuilder(Alert.AlertType.INFORMATION, "Success!", "Match" +
             " created",
             "A match has been created. The owner will be notified their luggage has been found. Please enter the " +
                     "e-mail address of the lost-and-found service so they can be asked to ship the luggage.")
             .addTextField();
+    public static final AlertBuilder PASSENGER_EMAIL_PROMPT = new AlertBuilder(Alert.AlertType.INFORMATION,
+            "Passenger email", "Passenger email", "Please enter the passenger's email.").addTextField().addButton(new
+            ButtonType("Done", ButtonData.OK_DONE));
+    public static final AlertBuilder NO_PERMISSION = new AlertBuilder(Alert.AlertType.ERROR,
+            "No permission", "No permission", "You do not have the right role to perform this action").addButton(new
+            ButtonType("OK", ButtonData.OK_DONE));
+    public static final AlertBuilder NO_IMAGE = new AlertBuilder(Alert.AlertType.ERROR,"Error", "No Image", "No image was submitted for " +
+            "this entry").addButton(new ButtonType("OK", ButtonData.OK_DONE));
 
     private final String content;
     private final String header;

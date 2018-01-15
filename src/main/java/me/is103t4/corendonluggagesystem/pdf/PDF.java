@@ -8,6 +8,7 @@ package me.is103t4.corendonluggagesystem.pdf;
 
 import java.awt.*;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
@@ -17,6 +18,7 @@ import java.util.logging.Logger;
 import javafx.scene.control.Alert;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
+import me.is103t4.corendonluggagesystem.matching.Luggage;
 import me.is103t4.corendonluggagesystem.util.AlertBuilder;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -36,7 +38,7 @@ public class PDF {
     private static final float PARAGRAPH_SPACING = 35;
     private static final Logger LOGGER = Logger.getLogger(PDF.class.getName());
     private static final float FONT_SIZE = 16;
-    public static final String REPLACE_STRING = "<!>";
+    private static final String REPLACE_STRING = "<!>";
 
     // values needed to create the PDF
     private final String title;
@@ -46,35 +48,35 @@ public class PDF {
     private final String name;
 
     /**
-     * @param title The file's title in the PDF
+     * @param title         The file's title in the PDF
      * @param signatureLine Whether the file needs a signature line
-     * @param stage The stage used to open a potential warning
-     * @param paragraphs The content
+     * @param stage         The stage used to open a potential warning
+     * @param paragraphs    The content
      */
     public PDF(String title, boolean signatureLine, Stage stage, String... paragraphs) {
         this("", title, signatureLine, stage, paragraphs);
     }
 
     /**
-     * @param name The file's name
-     * @param title The file's title in the PDF
+     * @param name          The file's name
+     * @param title         The file's title in the PDF
      * @param signatureLine Whether the file needs a signature line
-     * @param stage The stage used to open a potential warning
-     * @param paragraphs The content
+     * @param stage         The stage used to open a potential warning
+     * @param paragraphs    The content
      */
     public PDF(String name, String title, boolean signatureLine, Stage stage, String... paragraphs) {
         this.name = name;
         this.title = title;
         this.signatureLine = signatureLine;
-        this.paragraphs = Arrays.asList(paragraphs);
+        this.paragraphs = new ArrayList<>(Arrays.asList(paragraphs));
         this.stage = stage;
     }
 
     /**
-     * @param title The file's title in the PDF
-     * @param stage The stage used to open a potential warning
+     * @param title      The file's title in the PDF
+     * @param stage      The stage used to open a potential warning
      * @param paragraphs The content
-     * signatureLine defaults to false
+     *                   signatureLine defaults to false
      */
     public PDF(String title, Stage stage, String... paragraphs) {
         this(title, true, stage, paragraphs);
@@ -84,7 +86,6 @@ public class PDF {
      * Exports the PDF and prompts the user to find a place to save it
      */
     public void exportPDF() {
-
         try (PDDocument document = PDDocument.load(getClass().getResourceAsStream("/pdf/PDF_Template.pdf"));
              InputStream is = getClass().getResourceAsStream("/font/arial.ttf")) {
 
@@ -159,8 +160,54 @@ public class PDF {
             } while (file == null || !file.isDirectory());
 
             // save document
-            document.save(new File(file.getPath() + File.separator + "GenPDF-" + name + "-" + UUID.randomUUID()
+            document.save(file = new File(file.getPath() + File.separator + "GenPDF-" + name + "-" + UUID.randomUUID()
                     .toString().substring(0, 4) + ".pdf"));
+            Desktop.getDesktop().open(file);
+        } catch (IOException ex) {
+            LOGGER.log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void exportDHLPDF(Luggage select) {
+        try (PDDocument document = PDDocument.load(getClass().getResourceAsStream("/pdf/DHL_Template.pdf"));
+             InputStream is = getClass().getResourceAsStream("/font/arial.ttf")) {
+
+            // font
+            PDFont font = PDType0Font.load(document, is, true);
+
+            PDPage page = document.getPage(0);
+            try (PDPageContentStream stream = new PDPageContentStream(document, page, PDPageContentStream.AppendMode
+                    .APPEND, false)) {
+
+                stream.beginText();
+                stream.setNonStrokingColor(Color.BLACK);
+
+                stream.setTextMatrix(Matrix.getTranslateInstance(125, page.getMediaBox().getHeight() - 151));
+                stream.setFont(font, FONT_SIZE * .75F);
+
+                stream.showText(select.getFirstName());
+                stream.newLineAtOffset(0, -font.getFontDescriptor().getFontBoundingBox().getHeight() * FONT_SIZE /
+                        1000F + 4);
+                stream.showText(select.getLastName());
+
+                stream.setTextMatrix(Matrix.getTranslateInstance(190, page.getMediaBox().getHeight() - 270));
+
+                stream.showText(select.getAddress() == null ? "" : select.getAddress());
+            }
+            // open directory selector
+            File file;
+            do {
+                file = openDirectorySelector();
+                if (file == null || !file.isDirectory()) {
+                    new AlertBuilder(Alert.AlertType.ERROR, "Error!", "Must select a directory!", "You must select a " +
+                            "directory in order to create the DHL form.").showAndWait();
+                }
+            } while (file == null || !file.isDirectory());
+
+            // save document
+            document.save(new File(file.getPath() + File.separator + "DHL Form " + name + "-" + UUID.randomUUID()
+                    .toString().substring(0, 10) + ".pdf"));
+            Desktop.getDesktop().open(file);
         } catch (IOException ex) {
             LOGGER.log(Level.SEVERE, null, ex);
         }
@@ -168,6 +215,7 @@ public class PDF {
 
     /**
      * Opens the directory selector
+     *
      * @return The selected directory
      */
     private File openDirectorySelector() {
@@ -181,9 +229,10 @@ public class PDF {
 
     /**
      * Bring insert REPLACE_STRING where needed
-     * @param text The string to run the code on
+     *
+     * @param text     The string to run the code on
      * @param maxWidth The maximum allowed width
-     * @param font The font to use
+     * @param font     The font to use
      * @return The string with REPLACE_STRING inserted where needed
      */
     private String skipToNextLine(String text, double maxWidth, PDFont font) {
@@ -215,4 +264,25 @@ public class PDF {
         return builder.toString();
     }
 
+    public PDF createRegistrationCopy(String firstName, String lastName, String address, String city, String zip,
+                                      String country, String phoneNumber, String email, String luggageId, String
+                                              flight, String type, String brand, String colour, String
+                                              characteristics, String language) {
+        paragraphs.add("This copy serves as proof that " +
+                "we, Corendon Airlines, have lost your luggage. On here you can find information we have " +
+                "registered " +
+                "in order to retrieve your luggage.");
+        paragraphs.add("Name: " + firstName + " " + lastName + "<!>" +
+                "Address: " + address + " " + city + " (" + zip + ") " + country + "<!>" +
+                "Phone number: " + phoneNumber + "<!>" +
+                "E-mail: " + email + "<!>" +
+                "Luggage Tag: " + luggageId + "<!>" +
+                "Flight: " + flight + "<!>" +
+                "Type: " + type + "<!>" +
+                "Brand: " + brand + "<!>" +
+                "Colour: " + colour + "<!>" +
+                "Characteristics: " + characteristics + "<!>" +
+                "Language: " + language);
+        return this;
+    }
 }

@@ -47,8 +47,6 @@ public enum Scenes {
                 controller.setScene(scene);
                 controller.setMain(main);
                 controller.init();
-                if (controller instanceof LoginController)
-                    controller.postInit();
             }
         } catch (IOException ex) {
             Logger.getLogger(Scenes.class.getName()).

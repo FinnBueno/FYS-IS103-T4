@@ -3,6 +3,7 @@ package me.is103t4.corendonluggagesystem.database.tasks.luggage;
 import me.is103t4.corendonluggagesystem.database.DBTask;
 import me.is103t4.corendonluggagesystem.matching.Luggage;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -33,7 +34,9 @@ public class FetchAllLuggageTask extends DBTask<Luggage[]> {
                 prepareStatement(query)) {
             ResultSet set = preparedStatement.executeQuery();
             List<Luggage> result = new ArrayList<>();
-            while (set.next())
+            while (set.next()) {
+                Date sqlDate = set.getDate(13);
+                LocalDate date = sqlDate == null ? null : sqlDate.toLocalDate();
                 result.add(new Luggage(set.getInt(1),
                         set.getString(2),
                         set.getString(3),
@@ -46,7 +49,8 @@ public class FetchAllLuggageTask extends DBTask<Luggage[]> {
                         set.getString(10),
                         set.getString(11),
                         set.getString(12),
-                        set.getDate(13).toLocalDate()));
+                        date));
+            }
             return result.toArray(new Luggage[result.size()]);
         } catch (SQLException ex) {
             ex.printStackTrace();

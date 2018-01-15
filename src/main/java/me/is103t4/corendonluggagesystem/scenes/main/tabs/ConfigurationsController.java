@@ -38,9 +38,12 @@ public class ConfigurationsController extends Controller {
     
     @FXML
     private TextField emailField;
-    
+
     @FXML
     private TextField sendgridKeyField;
+
+    @FXML
+    private TextField dropboxKeyField;
 
     @Override 
     public boolean isOpen() {
@@ -59,6 +62,7 @@ public class ConfigurationsController extends Controller {
                 });
 
         sendgridKeyField.setText(PreferencesManager.get().get(PreferencesManager.SENDGRIDKEY));
+        dropboxKeyField.setText(PreferencesManager.get().get(PreferencesManager.DROPBOXKEY));
     }
 
     public void login() {
@@ -73,6 +77,7 @@ public class ConfigurationsController extends Controller {
         if (checkEmptyFields())
             return;
         PreferencesManager.get().set(PreferencesManager.SENDGRIDKEY, sendgridKeyField.getText());
+        PreferencesManager.get().set(PreferencesManager.DROPBOXKEY, dropboxKeyField.getText());
         SaveAccountDataTask task = new SaveAccountDataTask();
         task.setOnSucceeded(event -> AlertBuilder.CHANGES_SAVED.showAndWait());
     }
@@ -100,8 +105,12 @@ public class ConfigurationsController extends Controller {
             alert("Email cannot be empty!");
             return true;
         }     
-        if (sendgridKeyField.getText() == null || emailField.getText().length() == 0) {
+        if (sendgridKeyField.getText() == null || sendgridKeyField.getText().length() == 0) {
             alert("sendgrid key cannot be empty!");
+            return true;
+        }
+        if (dropboxKeyField.getText() == null || sendgridKeyField.getText().length() == 0) {
+            alert("dropbox key cannot be empty!");
             return true;
         }
         return false;

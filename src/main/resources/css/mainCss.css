@@ -82,6 +82,33 @@ Button:pressed {
     -fx-text-fill: -clr-prim;
 }
 
+.context-menu {
+    -fx-skin: "com.sun.javafx.scene.control.skin.ContextMenuSkin";
+    -fx-background-color: -clr-prim;
+    -fx-text-fill: green;
+    -fx-background-insets: 0, 1, 2;
+}
+
+.menu-button:openvertically {
+    -fx-font-size: 15px;
+    -fx-text-fill: white;
+    -fx-background-color: -clr-prim;
+    -fx-background-radius: 0px;
+}
+
+.menu-button:openvertically .arrow-button,
+.menu-button:openvertically .label {
+    -fx-font-size: 15px;
+    -fx-text-fill: white;
+    -fx-background-color: transparent;
+    -fx-background-radius: 0px;
+}
+
+.menu-button:openvertically:hover {
+    -fx-background-color: derive(-clr-prim, 25%);
+    -fx-border-color: derive(-clr-prim, 25%);
+}
+
 .secButton {
     -fx-background-color: derive(-clr-light, -15%);
     -fx-background-radius: 0px;

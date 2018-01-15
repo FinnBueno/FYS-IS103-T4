@@ -3,6 +3,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
@@ -26,15 +28,30 @@
                     <RowConstraints minHeight="-Infinity" prefHeight="35.0" vgrow="NEVER" />
                     <RowConstraints minHeight="-Infinity" prefHeight="35.0" vgrow="NEVER" />
                     <RowConstraints minHeight="-Infinity" prefHeight="35.0" vgrow="NEVER" />
+               <RowConstraints minHeight="10.0" prefHeight="35.0" vgrow="NEVER" />
+               <RowConstraints minHeight="-Infinity" prefHeight="35.0" vgrow="NEVER" />
                 </rowConstraints>
                 <BorderPane.margin>
                     <Insets left="20.0" right="20.0" top="30.0" />
                 </BorderPane.margin>
-                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#editEntry" text="Edit luggage entry" GridPane.rowIndex="1" />
                 <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#findMatch" text="Find match" />
+                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#editEntry" text="Edit luggage entry" GridPane.rowIndex="1" />
                 <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#setFilters" text="Filter" GridPane.rowIndex="2" />
                 <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#clearFilters" text="Clear filters" GridPane.rowIndex="3" />
                 <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#refresh" text="Refresh" GridPane.rowIndex="4" />
+            <MenuButton maxHeight="37.0" maxWidth="1.7976931348623157E308" minHeight="37.0" mnemonicParsing="false" prefHeight="37.0" text="Photo Options" GridPane.rowIndex="5">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#viewPhoto" text="View Photo" />
+                <MenuItem mnemonicParsing="false" onAction="#setPhoto" text="Set Photo" />
+              </items>
+            </MenuButton>
+            <MenuButton maxHeight="37.0" maxWidth="1.7976931348623157E308" minHeight="37.0" mnemonicParsing="false" prefHeight="37.0" text="Other Actions" GridPane.rowIndex="6">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#createRegistrationCopy" text="Create Registration Copy" />
+                <MenuItem mnemonicParsing="false" onAction="#createInsuranceForm" text="Create Insurance Claim Form" />
+                <MenuItem mnemonicParsing="false" onAction="#createDHLForm" text="Create DHL Form" />
+              </items>
+            </MenuButton>
             </GridPane>
         </right>
         <center>

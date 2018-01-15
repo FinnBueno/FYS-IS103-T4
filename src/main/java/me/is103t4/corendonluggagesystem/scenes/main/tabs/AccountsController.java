@@ -105,11 +105,19 @@ public class AccountsController extends Controller {
 
     @FXML
     public void addAccount() {
+        if (Account.getLoggedInUser().getRole() != AccountRole.ADMIN) {
+            AlertBuilder.NO_PERMISSION.showAndWait();
+            return;
+        }
         Tabs.ACCOUNTS.setRoot(1);
     }
 
     @FXML
     public void editAccount() {
+        if (Account.getLoggedInUser().getRole() != AccountRole.ADMIN) {
+            AlertBuilder.NO_PERMISSION.showAndWait();
+            return;
+        }
         Account selected = table.getSelectionModel().getSelectedItem();
         if (selected == null)
             return;

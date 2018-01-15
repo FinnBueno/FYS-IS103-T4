@@ -23,8 +23,6 @@ import java.util.logging.Logger;
  */
 public class IEmail {
 
-    private static final String SENDGRID_API_KEY = "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";
-
     private List<String> recipients;
     private String subject;
     private String content;

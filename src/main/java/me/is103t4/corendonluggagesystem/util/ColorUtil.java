@@ -19,6 +19,8 @@ public class ColorUtil {
 
     public static double getDistance(Color c1, String colour2) {
         Color c2 = toColor(colour2);
+        if (c1 == null || c2 == null)
+            return 0D;
         long rmean = ((long) (c1.getRed() * 255) + (long) (c2.getRed() * 255)) / 2;
         long r = (long) (c1.getRed() * 255) - (long) (c2.getRed() * 255);
         long g = (long) (c1.getGreen() * 255) - (long) (c2.getGreen() * 255);
@@ -27,6 +29,8 @@ public class ColorUtil {
     }
 
     private static Color toColor(String colour) {
+        if (colour == null)
+            return null;
         return Color.color(
                 Integer.parseInt(colour.substring(0, 2), 16) / 255D,
                 Integer.parseInt(colour.substring(2, 4), 16) / 255D,

@@ -21,14 +21,18 @@ import me.is103t4.corendonluggagesystem.email.EmailSender;
 import me.is103t4.corendonluggagesystem.email.IEmail;
 import me.is103t4.corendonluggagesystem.matching.Luggage;
 import me.is103t4.corendonluggagesystem.matching.Matcher;
+import me.is103t4.corendonluggagesystem.pdf.PDF;
 import me.is103t4.corendonluggagesystem.scenes.Controller;
 import me.is103t4.corendonluggagesystem.scenes.main.Tabs;
 import me.is103t4.corendonluggagesystem.util.AlertBuilder;
 
 import java.io.File;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * @author Finn Bon
@@ -141,7 +145,12 @@ public class LostLuggageController extends Controller {
 
         registerButton.setDisable(true);
         registerLuggageTask.setOnSucceeded(v -> {
-            Luggage luggage = (Luggage) registerLuggageTask.getValue();
+            boolean inserted = (boolean) registerLuggageTask.getValue();
+            if (!inserted) {
+                AlertBuilder.ERROR_OCCURRED.showAndWait();
+                return;
+            }
+
             registerButton.setDisable(false);
             IEmail email = new IEmail("Lost Luggage Confirmation", true, emailField.
                     getText());
@@ -178,19 +187,25 @@ public class LostLuggageController extends Controller {
             EmailSender.getInstance().
                     send(email);
 
-            promptForPDFCreation();
+            promptForPDFCreation(
+                    firstNameField.getText(),
+                    lastNameField.getText(),
+                    addressField.getText(),
+                    cityField.getText(),
+                    zipField.getText(),
+                    countryBox.getSelectionModel().getSelectedItem(),
+                    phoneNumberField.getText(),
+                    emailField.getText(),
+                    luggageIDField.getText(),
+                    flightNumberBox.getSelectionModel().getSelectedItem(),
+                    typeBox.getSelectionModel().getSelectedItem(),
+                    brandField.getText(),
+                    colorUnknownCheckbox.isSelected() ? "Unknown" : toHex(colorPicker.getValue()),
+                    characsField.getText(),
+                    langBox.getSelectionModel().getSelectedItem());
 
-            Optional<ButtonType> optional = AlertBuilder.REGISTERED_LUGGAGE.showAndWait();
-            if (!optional.isPresent())
-                return;
-
-            ButtonType type = optional.get();
-            if (type.getText().equals("Search for matches")) {
-                ButtonType buttonType = AlertBuilder.SEARCH_LOOSENESS.showAndWait().orElse(null);
-                int severity = buttonType.getText().equalsIgnoreCase("normal") ? 1 : (buttonType.getText()
-                        .equalsIgnoreCase("strict")) ? 0 : 2;
-                new Matcher(main.getStage(), luggage, severity).showMatcher();
-            }
+            AlertBuilder.REGISTERED_LUGGAGE.showAndWait();
+            Tabs.OVERVIEW.setRoot(0);
         });
     }
 
@@ -239,17 +254,15 @@ public class LostLuggageController extends Controller {
         return false;
     }
 
-    private void promptForPDFCreation() {
-        DirectoryChooser fileChooser = new DirectoryChooser();
-        fileChooser.setTitle("Select PDF Location");
-        fileChooser.setInitialDirectory(
-                new File(System.getProperty("user.home"))
-        );
-        File file = fileChooser.showDialog(main.getStage());
-
-        if (file != null && file.exists()) {
-            // TODO: Create PDF
-        }
+    private void promptForPDFCreation(String firstName, String lastName, String address, String city, String zip,
+                                      String country, String phoneNumber, String email, String luggageId, String
+                                              flight, String type, String brand, String colour, String
+                                              characteristics, String language) {
+        new PDF("PDF_Registration_Copy_" + LocalDate.now().format(DateTimeFormatter.ISO_DATE) + "_" + UUID.randomUUID
+                ().toString(), "Registration Copy", false, main.getStage()).createRegistrationCopy(
+                firstName, lastName, address, city, zip, country, phoneNumber, email, luggageId, flight, type, brand,
+                colour, characteristics, language
+        ).exportPDF();
     }
 
     private String toHex(Color color) {
