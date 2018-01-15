@@ -122,7 +122,7 @@ public class CreateRegistrationCopyTask extends DBTask {
 
             ResultSet set = preparedStatement.executeQuery();
             while (set.next()) {
-                registrationID = registrationID == -1 ? registrationID : set.getInt(1);
+                registrationID = registrationID != -1 ? registrationID : set.getInt(1);
                 employee = set.getString(2);
             }
             promptForPDF();

@@ -17,6 +17,7 @@ import javafx.stage.FileChooser;
 import me.is103t4.corendonluggagesystem.account.Account;
 import me.is103t4.corendonluggagesystem.database.tasks.luggage.FetchLuggageTypesTask;
 import me.is103t4.corendonluggagesystem.database.tasks.luggage.RegisterLuggageTask;
+import me.is103t4.corendonluggagesystem.database.tasks.util.FetchAirlinesTask;
 import me.is103t4.corendonluggagesystem.scenes.Controller;
 import me.is103t4.corendonluggagesystem.scenes.main.Tabs;
 import me.is103t4.corendonluggagesystem.util.AlertBuilder;
@@ -38,7 +39,7 @@ public class DamagedLuggageController extends Controller {
     private TextField luggageIDField;
 
     @FXML
-    private TextField flightNumberField;
+    private ComboBox<String> flightNumberBox;
 
     @FXML
     private TextField emailField;
@@ -73,6 +74,15 @@ public class DamagedLuggageController extends Controller {
 
         FetchLuggageTypesTask task = new FetchLuggageTypesTask();
         task.setOnSucceeded(event -> typeBox.setItems(FXCollections.observableList((List<String>) task.getValue())));
+        FetchAirlinesTask task1 = new FetchAirlinesTask();
+        task1.setOnSucceeded(event -> flightNumberBox.setItems(FXCollections.observableList((List<String>) task1.getValue())));
+
+        luggageIDField.textProperty().
+                addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+                    if (!newValue.matches("\\d*"))
+                        luggageIDField.setText(newValue.
+                                replaceAll("[^\\d]", ""));
+                });
 
         phoneNumberField.textProperty().
                 addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
@@ -94,16 +104,43 @@ public class DamagedLuggageController extends Controller {
 
     @FXML
     private void registerDamagedLuggage() {
+        if (checkEmptyFields()) {
+            AlertBuilder.NOT_ALL_REQUIRED_FILLED.showAndWait();
+            return;
+        }
+
         RegisterLuggageTask task = new RegisterLuggageTask("Damaged", firstNameField.getText(), lastNameField.getText(),
                 "", "", "", phoneNumberField.getText(), emailField.getText(), "",
                 typeBox.getSelectionModel().getSelectedItem(), luggageIDField.getText(), "", null,
-                descriptionField.getText(), photo, flightNumberField.getText(), Account.getLoggedInUser(), Integer
-                .parseInt(repairCosts.getText()));
+                descriptionField.getText(), photo, flightNumberBox.getSelectionModel().getSelectedItem(), Account.getLoggedInUser(), Integer
+                .parseInt(repairCosts.getText() == null || repairCosts.getText().length() == 0 ? "0" : repairCosts.getText()));
         task.setOnSucceeded(event -> {
             boolean succeeded = (boolean) task.getValue();
-            if (!succeeded) AlertBuilder.ERROR_OCCURRED.showAndWait();
-            else AlertBuilder.CHANGES_SAVED.showAndWait();
+            if (succeeded) AlertBuilder.CHANGES_SAVED.showAndWait();
+            else AlertBuilder.ERROR_OCCURRED.showAndWait();
         });
+    }
+
+    private boolean checkEmptyFields() {
+        if (firstNameField.getText() == null || firstNameField.getText().length() == 0)
+            return true;
+        if (lastNameField.getText() == null || lastNameField.getText().length() == 0)
+            return true;
+        if (phoneNumberField.getText() == null || phoneNumberField.getText().length() == 0)
+            return true;
+        if (luggageIDField.getText() == null || luggageIDField.getText().length() == 0)
+            return true;
+        if (flightNumberBox.getSelectionModel().getSelectedItem() == null)
+            return true;
+        if (emailField.getText() == null || emailField.getText().length() == 0)
+            return true;
+        if (repairCosts.getText() == null || repairCosts.getText().length() == 0)
+            return true;
+        if (descriptionField.getText() == null || descriptionField.getText().length() == 0)
+            return true;
+        if (typeBox.getSelectionModel().getSelectedItem() == null)
+            return true;
+        return false;
     }
 
     @FXML

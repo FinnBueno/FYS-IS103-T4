@@ -169,7 +169,7 @@ public class LuggageOverviewController extends Controller {
             assertSelection();
             return;
         }
-
+        new PDF("Insurance PDF", main.getStage()).exportInsurancePDF();
     }
 
     @FXML

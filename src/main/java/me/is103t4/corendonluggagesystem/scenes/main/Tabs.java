@@ -138,9 +138,7 @@ public enum Tabs {
     }
 
     public static Tabs[] getTabsForRole(AccountRole role) {
-        if (role == AccountRole.DEVELOPER) {
-            return values();
-        }
+        if (role == AccountRole.DEVELOPER) return values();
 
         List<Tabs> list = new ArrayList<>();
         for (Tabs tab : values())

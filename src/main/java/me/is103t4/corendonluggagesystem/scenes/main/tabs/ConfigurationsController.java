@@ -70,6 +70,11 @@ public class ConfigurationsController extends Controller {
         lastNameField.setText(Account.getLoggedInUser().getLastName());
         emailField.setText(Account.getLoggedInUser().getEmail());
         phoneNumberField.setText(Account.getLoggedInUser().getPhoneNumber());
+        /*
+        String sendGridKey = PreferencesManager.get().set(PreferencesManager.SENDGRIDKEY, sendgridKeyField.getText());
+        if (sendGridKey
+        PreferencesManager.get().set(PreferencesManager.DROPBOXKEY, dropboxKeyField.getText());
+         */
     }
     
     @FXML

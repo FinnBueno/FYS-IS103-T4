@@ -47,6 +47,8 @@ public class AlertBuilder {
             ButtonType("OK", ButtonData.OK_DONE));
     public static final AlertBuilder NO_IMAGE = new AlertBuilder(Alert.AlertType.ERROR,"Error", "No Image", "No image was submitted for " +
             "this entry").addButton(new ButtonType("OK", ButtonData.OK_DONE));
+    public static final AlertBuilder NOT_ALL_REQUIRED_FILLED = new AlertBuilder(Alert.AlertType.ERROR, "Error", "Empty fields",
+            "Not all required fields have been filled in!").addButton(new ButtonType("OK", ButtonData.OK_DONE));
 
     private final String content;
     private final String header;

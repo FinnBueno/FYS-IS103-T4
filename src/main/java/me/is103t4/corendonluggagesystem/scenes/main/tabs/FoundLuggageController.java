@@ -8,6 +8,7 @@ package me.is103t4.corendonluggagesystem.scenes.main.tabs;
 import java.io.File;
 import java.util.*;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -76,32 +77,30 @@ public class FoundLuggageController extends Controller {
 
     @FXML
     private void registerFoundLuggage() {
-
-        if (checkEmptyFields())
+        if (checkEmptyFields()) {
             return;
+        }
+
+        System.out.println("Found register called");
 
         RegisterLuggageTask registerLuggageTask = new RegisterLuggageTask("Found", null, null, null, null,
                 null, null, null, null, typeBox.getSelectionModel().getSelectedItem(), luggageIDField.getText(),
                 brandField.getText(), colorPicker.getValue(), characsField
                 .getText(), photo, flightNumberBox.getSelectionModel().getSelectedItem(), Account.getLoggedInUser());
 
+        System.out.println("Found register called 2");
+
         registerButton.setDisable(true);
         registerLuggageTask.setOnFailed(v -> {
+            System.out.println(registerLuggageTask.getException());
             registerButton.setDisable(false);
             AlertBuilder.ERROR_OCCURRED.showAndWait();
         });
         registerLuggageTask.setOnSucceeded(v -> {
             registerButton.setDisable(false);
 
-            Optional<ButtonType> optional = AlertBuilder.REGISTERED_LUGGAGE.showAndWait();
-            if (!optional.isPresent())
-                return;
-
-            ButtonType type = optional.get();
-            if (type.getText().equals("Search for matches")) {
-                // TODO: Find match
-                AlertBuilder.ERROR_OCCURRED.showAndWait();
-            }
+            AlertBuilder.REGISTERED_LUGGAGE.showAndWait().orElse(null);
+            Platform.runLater(() -> Tabs.OVERVIEW.setRoot(0));
         });
 
     }

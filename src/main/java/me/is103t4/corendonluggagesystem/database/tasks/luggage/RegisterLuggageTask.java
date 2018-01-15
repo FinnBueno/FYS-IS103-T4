@@ -60,7 +60,7 @@ public class RegisterLuggageTask extends DBTask<Boolean> {
         this.colour = colour;
         this.characteristics = characteristics;
         this.photo = photo;
-        this.flight_id = flight_id.split(" - ")[0];
+        this.flight_id = flight_id == null ? null : flight_id.split(" - ")[0];
         this.employee = employee;
         this.costs = costs;
 
@@ -80,10 +80,10 @@ public class RegisterLuggageTask extends DBTask<Boolean> {
     protected Boolean call() {
         String query = "INSERT INTO `luggage` (`register_type`, `first_name`, `last_name`, `address`, " +
                 "`city`, `zip`, `phone`, `email`, `language`, `luggage_type`, `luggage_tag`, `brand`, `colour`, " +
-                "`characteristics`, `photo`, `flight_id`, `employee`, `date`, `costs`) VALUES ((SELECT id FROM statusses WHERE" +
-                " value =" +
-                " ?), ?, ?, ?, ?, ?, ?, ?, ?, (SELECT lug_type_id FROM luggage_types WHERE lug_type_value = ?), ?, ?," +
-                " ?, ?, ?, ?, (SELECT account_id FROM `accounts` WHERE username = ? AND code = ?), ?, ?);";
+                "`characteristics`, `photo`, `flight_id`, `employee`, `date`, `costs`) VALUES ((SELECT id FROM " +
+                "statusses WHERE value = ?), ?, ?, ?, ?, ?, ?, ?, ?, (SELECT lug_type_id FROM luggage_types WHERE " +
+                "lug_type_value = ?), ?, ?, ?, ?, ?, ?, (SELECT account_id FROM `accounts` WHERE username = ? AND " +
+                "code = ?), ?, ?);";
         try (PreparedStatement ps = conn.prepareStatement(query)) {
             DBHandler.PreparingStatement preparingStatement = new DBHandler.PreparingStatement(ps);
             preparingStatement.setString(1, type);
@@ -107,11 +107,13 @@ public class RegisterLuggageTask extends DBTask<Boolean> {
             preparingStatement.setDate(19, Date.valueOf(LocalDate.now()));
             preparingStatement.setInt(20, costs);
 
+            System.out.println("Found register called 3");
+
             return ps.executeUpdate() != -1;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return false;
     }
 
     private String toHex(Color colour) {
@@ -122,6 +124,8 @@ public class RegisterLuggageTask extends DBTask<Boolean> {
     }
 
     private String uploadPhoto(File photo) {
+        if (photo == null)
+            return null;
         return DropboxHandler.HANDLER.uploadPhoto(photo);
     }
 

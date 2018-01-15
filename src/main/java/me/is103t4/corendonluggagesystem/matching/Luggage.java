@@ -96,4 +96,7 @@ public class Luggage implements Serializable {
         return date.get();
     }
 
+    public String getCosts() {
+        return costs.get();
+    }
 }
