@@ -19,6 +19,8 @@ import me.is103t4.corendonluggagesystem.scenes.Controller;
 import me.is103t4.corendonluggagesystem.scenes.Scenes;
 import me.is103t4.corendonluggagesystem.scenes.main.MainFrameController;
 
+import java.util.ResourceBundle;
+
 /**
  * Controller class for the login interface
  *
@@ -44,7 +46,7 @@ public class LoginController extends Controller {
     }
 
     @Override
-    public void postInit() {
+    public void postInit(ResourceBundle bundle) {
         setEnterButton(loginButton);
     }
 

@@ -81,7 +81,7 @@ public class StatisticsController extends Controller {
     }
 
     @Override
-    public void postInit() {
+    public void postInit(ResourceBundle bundle) {
         setEnterButton(generateButton);
 
         typeBox.setItems(FXCollections.observableArrayList(names()));

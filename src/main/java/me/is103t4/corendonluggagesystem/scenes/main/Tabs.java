@@ -14,10 +14,7 @@ import me.is103t4.corendonluggagesystem.scenes.Controller;
 import me.is103t4.corendonluggagesystem.scenes.Scenes;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -69,7 +66,7 @@ public enum Tabs {
      *
      * @param main The main app class
      */
-    public void initialize(LugSysMain main) {
+    public void initialize(LugSysMain main, ResourceBundle bundle) {
         // generate a tab
         System.out.println(name());
         tab = generateTab();
@@ -79,13 +76,13 @@ public enum Tabs {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().
                         getResource(url));
-
+                loader.setResources(bundle);
                 root[i] = loader.load();
                 Controller cntrlr = loader.getController();
                 if (cntrlr != null) {
                     cntrlr.setMain(main);
                     cntrlr.setScene(main.getScene());
-                    cntrlr.init();
+                    cntrlr.init(bundle);
                     activeRoot = 0;
                 }
                 controller[i] = cntrlr;
@@ -147,10 +144,8 @@ public enum Tabs {
         return list.toArray(new Tabs[list.size()]);
     }
 
-    public static void initAll(LugSysMain lugSysMain) {
-        for (Tabs tab : values()) {
-            tab.initialize(lugSysMain);
-        }
+    public static void initAll(LugSysMain lugSysMain, ResourceBundle bundle) {
+        for (Tabs tab : values()) tab.initialize(lugSysMain, bundle);
     }
 
     public static Tabs getTabById(String id) {

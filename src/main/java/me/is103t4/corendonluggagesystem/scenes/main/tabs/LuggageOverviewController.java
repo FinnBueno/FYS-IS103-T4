@@ -35,6 +35,7 @@ import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -58,7 +59,7 @@ public class LuggageOverviewController extends Controller {
     private Stage luggageFilterStage;
 
     @Override
-    public void postInit() {
+    public void postInit(ResourceBundle bundle) {
         FetchAllLuggageTask task = new FetchAllLuggageTask();
         task.setOnSucceeded(event -> {
             Luggage[] result = (Luggage[]) task.getValue();

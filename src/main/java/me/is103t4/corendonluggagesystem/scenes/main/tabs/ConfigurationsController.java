@@ -51,7 +51,7 @@ public class ConfigurationsController extends Controller {
     } 
     
     @Override
-    public void postInit() {
+    public void postInit(ResourceBundle bundle) {
         // turn some textfields into numberfields
         phoneNumberField.textProperty().
                 addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {

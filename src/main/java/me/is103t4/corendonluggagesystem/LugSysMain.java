@@ -13,6 +13,12 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import me.is103t4.corendonluggagesystem.database.DBHandler;
 import me.is103t4.corendonluggagesystem.scenes.Scenes;
+import me.is103t4.corendonluggagesystem.util.PreferencesManager;
+
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 /**
  * Main class and entry point of the application
@@ -31,8 +37,14 @@ public class LugSysMain extends Application {
 
         scene = new Scene(new Pane(), 800, 600);
 
+        String lang = PreferencesManager.get().get(PreferencesManager.LANGUAGE);
+        Locale locale = lang == null || !lang.equalsIgnoreCase("NL") ? new Locale("en", "US")
+                : new Locale("nl", "NL");
+        URL url = getClass().getResource("/language/");
+        ClassLoader loader = new URLClassLoader(new URL[]{url});
+        ResourceBundle bundle = ResourceBundle.getBundle("bundle", locale, loader);
         Scenes.initScene(scene);
-        Scenes.initAll(this);
+        Scenes.initAll(this, bundle);
 
         scene.setRoot(Scenes.LOGIN.getRoot());
 

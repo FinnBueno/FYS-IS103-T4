@@ -7,6 +7,7 @@ package me.is103t4.corendonluggagesystem.scenes.main.tabs;
 
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
@@ -30,15 +31,16 @@ import me.is103t4.corendonluggagesystem.util.AlertBuilder;
 import java.io.File;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Locale;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * @author Finn Bon
  */
 public class LostLuggageController extends Controller {
+
+    private static final long HOUR_PERIOD_6 = 6 * 60 * 60 * 1000;
+    private static final long HOUR_PERIOD_24 = 24 * 60 * 60 * 1000;
+    private static final long HOUR_PERIOD_72 = 72 * 60 * 60 * 1000;
 
     @FXML
     private TextField firstNameField;
@@ -103,7 +105,7 @@ public class LostLuggageController extends Controller {
     }
 
     @Override
-    public void postInit() {
+    public void postInit(ResourceBundle bundle) {
         // set enter action
         setEnterButton(registerButton);
 
@@ -152,7 +154,7 @@ public class LostLuggageController extends Controller {
                 flightNumberBox.getSelectionModel().getSelectedItem(), Account.getLoggedInUser());
 
         registerButton.setDisable(true);
-        registerLuggageTask.setOnSucceeded(v -> {
+        registerLuggageTask.setOnSucceeded((Event v) -> {
             boolean inserted = (boolean) registerLuggageTask.getValue();
             if (!inserted) {
                 AlertBuilder.ERROR_OCCURRED.showAndWait();
@@ -197,7 +199,7 @@ public class LostLuggageController extends Controller {
                     send(email);
 
             // insurance claim
-            promptForInsuranceClaim();
+            File file = promptForInsuranceClaim();
 
             // registration copy
             promptForPDFCreation(
@@ -215,15 +217,18 @@ public class LostLuggageController extends Controller {
                     brandField.getText(),
                     colorUnknownCheckbox.isSelected() ? "Unknown" : toHex(colorPicker.getValue()),
                     characsField.getText(),
-                    langBox.getSelectionModel().getSelectedItem());
+                    langBox.getSelectionModel().getSelectedItem(), file);
 
             AlertBuilder.REGISTERED_LUGGAGE.showAndWait();
             Tabs.OVERVIEW.setRoot(0);
         });
     }
 
-    private void promptForInsuranceClaim() {
-        new PDF("Insurance Claim", main.getStage()).exportInsurancePDF();
+    public static void main(String[] args) {
+    }
+
+    private File promptForInsuranceClaim() {
+        return new PDF("Insurance Claim", main.getStage()).exportInsurancePDF();
     }
 
     private boolean checkEmptyFields() {
@@ -274,9 +279,9 @@ public class LostLuggageController extends Controller {
     private void promptForPDFCreation(String firstName, String lastName, String address, String city, String zip,
                                       String country, String phoneNumber, String email, String luggageId, String
                                               flight, String type, String brand, String colour, String
-                                              characteristics, String language) {
+                                              characteristics, String language, File... files) {
         new CreateRegistrationCopyTask(firstName, lastName, address, city, zip, country, phoneNumber, email,
-                luggageId, flight, type, brand, colour, characteristics, language, main.getStage());
+                luggageId, flight, type, brand, colour, characteristics, language, main.getStage(), files);
     }
 
     private String toHex(Color color) {
@@ -292,8 +297,8 @@ public class LostLuggageController extends Controller {
     private void selectPhoto() {
         File file = openFileSelectPrompt(
                 new FileChooser.ExtensionFilter("PNG", "*.png"),
-        new FileChooser.ExtensionFilter("JPG", "*.jpg", "*.jpeg"),
-        new FileChooser.ExtensionFilter("All Files", "*.*")
+                new FileChooser.ExtensionFilter("JPG", "*.jpg", "*.jpeg"),
+                new FileChooser.ExtensionFilter("All Files", "*.*")
         );
         if (file != null && file.exists())
             photo = file;

@@ -9,22 +9,16 @@
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane id="AnchorPane" prefHeight="465.0" prefWidth="900.0" styleClass="mainFxmlClass" stylesheets="@../../css/mainCss.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.is103t4.corendonluggagesystem.scenes.main.tabs.FoundLuggageController">
-   <children>
-      <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <ImageView fitHeight="300.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../images/Luggage%20Detective.png" />
-               </image>
-               <viewport>
-                  <Rectangle2D />
-               </viewport>
-               <VBox.margin>
-                  <Insets bottom="10.0" />
-               </VBox.margin>
-            </ImageView>
-            <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" prefWidth="300.0" text="Welcome to the Corendon Luggage System! This program exists in order to help passengers get back their lost luggage, report found luggage, or report their damaged luggage. If you have any questions regarding the use of this program, please refer to the manual. If you do not have a manual, please contact your superior." textAlignment="JUSTIFY" wrapText="true" />
-         </children>
-      </VBox>
-   </children>
+    <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <ImageView fitHeight="300.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+            <viewport>
+                <Rectangle2D />
+            </viewport>
+            <VBox.margin>
+                <Insets bottom="10.0" />
+            </VBox.margin>
+            <Image url="@../../images/Luggage%20Detective.png" />
+        </ImageView>
+        <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" prefWidth="300.0" text="%welcomeMessage" textAlignment="JUSTIFY" wrapText="true" />
+    </VBox>
 </AnchorPane>

@@ -83,7 +83,7 @@ public class PDF {
     /**
      * Exports the PDF and prompts the user to find a place to save it
      */
-    public void exportPDF() {
+    public File exportPDF() {
         try (PDDocument document = PDDocument.load(getClass().getResourceAsStream("/pdf/PDF_Template.pdf"));
              InputStream is = getClass().getResourceAsStream("/font/arial.ttf")) {
 
@@ -152,19 +152,20 @@ public class PDF {
             file = openDirectorySelector();
             if (file == null || !file.isDirectory()) {
                 AlertBuilder.NO_SELECTION.showAndWait();
-                return;
+                return null;
             }
 
             // save document
             document.save(file = new File(file.getPath() + File.separator + "GenPDF-" + name + "-" + UUID.randomUUID()
                     .toString().substring(0, 4) + ".pdf"));
-            Desktop.getDesktop().open(file);
+            return file;
         } catch (IOException ex) {
             LOGGER.log(Level.SEVERE, null, ex);
         }
+        return null;
     }
 
-    public void exportInsurancePDF() {
+    public File exportInsurancePDF() {
         try (PDDocument document = PDDocument.load(getClass().getResourceAsStream("/pdf/Verzekering_Claim.pdf"))) {
 
             // open directory selector
@@ -172,19 +173,20 @@ public class PDF {
             file = openDirectorySelector();
             if (file == null || !file.isDirectory()) {
                 AlertBuilder.NO_SELECTION.showAndWait();
-                return;
+                return null;
             }
             // save document
-            document.save(new File(file.getPath() + File.separator + "Insurance Claim Form " + name + "-" + UUID
+            document.save(file = new File(file.getPath() + File.separator + "Insurance Claim Form " + name + "-" + UUID
                     .randomUUID()
                     .toString().substring(0, 10) + ".pdf"));
-            Desktop.getDesktop().open(file);
+            return file;
         } catch (IOException ex) {
             LOGGER.log(Level.SEVERE, null, ex);
         }
+        return null;
     }
 
-    public void exportDHLPDF(Luggage select) {
+    public File exportDHLPDF(Luggage select) {
         try (PDDocument document = PDDocument.load(getClass().getResourceAsStream("/pdf/DHL_Template.pdf"));
              InputStream is = getClass().getResourceAsStream("/font/arial.ttf")) {
 
@@ -215,16 +217,17 @@ public class PDF {
             file = openDirectorySelector();
             if (file == null || !file.isDirectory()) {
                 AlertBuilder.NO_SELECTION.showAndWait();
-                return;
+                return null;
             }
 
             // save document
-            document.save(new File(file.getPath() + File.separator + "DHL Form " + name + "-" + UUID.randomUUID()
+            document.save(file = new File(file.getPath() + File.separator + "DHL Form " + name + "-" + UUID.randomUUID()
                     .toString().substring(0, 10) + ".pdf"));
-            Desktop.getDesktop().open(file);
+            return file;
         } catch (IOException ex) {
             LOGGER.log(Level.SEVERE, null, ex);
         }
+        return null;
     }
 
     /**

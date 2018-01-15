@@ -16,6 +16,8 @@ import me.is103t4.corendonluggagesystem.account.Account;
 import me.is103t4.corendonluggagesystem.scenes.Controller;
 import me.is103t4.corendonluggagesystem.scenes.Scenes;
 
+import java.util.ResourceBundle;
+
 /**
  * The controller for the main frame interface
  *
@@ -35,7 +37,7 @@ public class MainFrameController extends Controller {
     }
 
     @Override
-    public void postInit() {
+    public void postInit(ResourceBundle bundle) {
         tabPane.getSelectionModel().selectedItemProperty().addListener((ov, oldTab, newTab) -> {
             if (newTab == null)
                 return;
@@ -55,8 +57,11 @@ public class MainFrameController extends Controller {
         langBox.setCellFactory(c -> new StringImageCell());
         langBox.setButtonCell(new StringImageCell());
         langBox.getSelectionModel().select(1);
+        langBox.setOnAction(event -> {
+            System.out.println("ACTION");
+        });
 
-        Tabs.initAll(main);
+        Tabs.initAll(main, bundle);
     }
 
     public void fillTabPane() {

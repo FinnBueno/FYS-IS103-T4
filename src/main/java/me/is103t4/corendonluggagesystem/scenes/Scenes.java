@@ -6,6 +6,8 @@
 package me.is103t4.corendonluggagesystem.scenes;
 
 import java.io.IOException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import me.is103t4.corendonluggagesystem.LugSysMain;
 import me.is103t4.corendonluggagesystem.scenes.login.LoginController;
+import me.is103t4.corendonluggagesystem.util.PreferencesManager;
 
 /**
  * An enumeration holding all the possible scenes that can be displayed on the primary
@@ -36,17 +39,18 @@ public enum Scenes {
         fxmlURL = "/fxml/" + name + "Interface.fxml";
     }
 
-    public void initialize(LugSysMain main) {
+    public void initialize(LugSysMain main, ResourceBundle bundle) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().
                     getResource(fxmlURL));
+            loader.setResources(bundle);
 
             root = loader.load();
             controller = loader.getController();
             if (controller != null) {
                 controller.setScene(scene);
                 controller.setMain(main);
-                controller.init();
+                controller.init(bundle);
             }
         } catch (IOException ex) {
             Logger.getLogger(Scenes.class.getName()).
@@ -72,10 +76,9 @@ public enum Scenes {
         Scenes.scene = scene;
     }
 
-    public static void initAll(LugSysMain lugSysMain) {
-        for (Scenes scene : values()) {
-            scene.initialize(lugSysMain);
-        }
+    public static void initAll(LugSysMain lugSysMain, ResourceBundle bundle) {
+        for (Scenes scene : values())
+            scene.initialize(lugSysMain, bundle);
     }
 
     public boolean isOpen() {

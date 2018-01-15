@@ -39,21 +39,21 @@ public abstract class Controller implements Initializable {
         this.main = main;
     }
 
-    public void init() {
-        init(true);
+    public void init(ResourceBundle bundle) {
+        init(true, bundle);
     }
 
-    public void init(boolean postInit) {
+    public void init(boolean postInit, ResourceBundle bundle) {
         scene.addEventFilter(KeyEvent.KEY_PRESSED,
                 event -> {
                     if (event.getCode() == KeyCode.ENTER && clickButton != null && isOpen())
                         clickButton.fire();
                 });
         if (postInit)
-            postInit();
+            postInit(bundle);
     }
 
-    public void postInit() {
+    public void postInit(ResourceBundle bundle) {
     }
 
     @Override
