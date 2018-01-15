@@ -13,10 +13,7 @@ import me.is103t4.corendonluggagesystem.scenes.main.Tabs;
 import me.is103t4.corendonluggagesystem.util.AlertBuilder;
 
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 public class EditLuggageController extends Controller {
 
@@ -101,7 +98,7 @@ public class EditLuggageController extends Controller {
     }
 
     @Override
-    public void postInit() {
+    public void postInit(ResourceBundle bundle) {
         // fill flights box
         FetchAirlinesTask airlinesTask = new FetchAirlinesTask(true);
         airlinesTask.setOnSucceeded(v -> flightNumberBox.getItems().addAll((List<String>) airlinesTask.getValue()));

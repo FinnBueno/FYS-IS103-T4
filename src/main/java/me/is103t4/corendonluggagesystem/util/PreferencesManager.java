@@ -14,6 +14,7 @@ import java.util.prefs.Preferences;
 public class PreferencesManager {   
     public static final String SENDGRIDKEY = "SENDGRIDAPIKEY";
     public static final String DROPBOXKEY = "DROPBOXAPIKEY";
+    public static final String LANGUAGE = "LANGUAGE";
 
     private final static PreferencesManager INSTANCE = new PreferencesManager();
 

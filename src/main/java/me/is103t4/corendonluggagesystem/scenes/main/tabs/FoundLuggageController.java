@@ -58,7 +58,7 @@ public class FoundLuggageController extends Controller {
     }
 
     @Override
-    public void postInit() {
+    public void postInit(ResourceBundle bundle) {
 
         // set enter button
         setEnterButton(registerButton);

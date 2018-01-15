@@ -19,6 +19,8 @@ import me.is103t4.corendonluggagesystem.database.tasks.accounts.ChangePasswordTa
 import me.is103t4.corendonluggagesystem.scenes.Controller;
 import me.is103t4.corendonluggagesystem.scenes.Scenes;
 
+import java.util.ResourceBundle;
+
 /**
  * FXML Controller class
  *
@@ -52,7 +54,7 @@ public class PasswordResetController extends Controller {
     }
 
     @Override
-    public void postInit() {
+    public void postInit(ResourceBundle bundle) {
         codeField.textProperty().
                 addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
                     boolean disabled = !newValue.equals(String.valueOf(code));

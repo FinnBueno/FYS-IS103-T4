@@ -12,6 +12,8 @@ import me.is103t4.corendonluggagesystem.database.tasks.accounts.CreateAccountTas
 import me.is103t4.corendonluggagesystem.scenes.Controller;
 import me.is103t4.corendonluggagesystem.scenes.main.Tabs;
 
+import java.util.ResourceBundle;
+
 /**
  * @author Roy Klein
  */
@@ -42,7 +44,7 @@ public class NewAccountController extends Controller {
     private TextField phoneNumberField;
 
     @Override
-    public void postInit() {
+    public void postInit(ResourceBundle bundle) {
         tagField.textProperty().
                 addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
                     if (newValue.length() > 4)

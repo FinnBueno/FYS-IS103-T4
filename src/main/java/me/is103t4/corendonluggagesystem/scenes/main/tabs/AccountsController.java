@@ -29,6 +29,7 @@ import me.is103t4.corendonluggagesystem.util.AlertBuilder;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.ResourceBundle;
 
 /**
  * @author Roy Klein
@@ -70,7 +71,7 @@ public class AccountsController extends Controller {
 
     private ObservableList<Account> tableData;
 
-    public void postInit() {
+    public void postInit(ResourceBundle bundle) {
         FetchAccountsTask task = new FetchAccountsTask();
         task.setOnSucceeded(v -> table.setItems(tableData = (ObservableList<Account>) task.getValue()));
 

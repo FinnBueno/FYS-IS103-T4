@@ -14,6 +14,7 @@ import me.is103t4.corendonluggagesystem.scenes.main.Tabs;
 import me.is103t4.corendonluggagesystem.util.AlertBuilder;
 
 import java.util.Arrays;
+import java.util.ResourceBundle;
 
 public class EditAccountController extends Controller {
 
@@ -38,7 +39,7 @@ public class EditAccountController extends Controller {
     private Account editingAccount;
 
     @Override
-    public void postInit() {
+    public void postInit(ResourceBundle bundle) {
         activeBox.setItems(FXCollections.observableList(Arrays.asList("Yes", "No")));
         roleBox.setItems(FXCollections.observableArrayList(AccountRole.values()));
     }

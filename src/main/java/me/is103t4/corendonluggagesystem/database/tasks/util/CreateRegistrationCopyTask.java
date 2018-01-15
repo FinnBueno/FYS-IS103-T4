@@ -8,6 +8,9 @@ import me.is103t4.corendonluggagesystem.database.DBTask;
 import me.is103t4.corendonluggagesystem.matching.Luggage;
 import me.is103t4.corendonluggagesystem.pdf.PDF;
 
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,6 +20,7 @@ import java.util.UUID;
 
 public class CreateRegistrationCopyTask extends DBTask {
 
+    private final File[] otherFiles;
     private String firstName;
     private String lastName;
     private String address;
@@ -40,7 +44,7 @@ public class CreateRegistrationCopyTask extends DBTask {
     public CreateRegistrationCopyTask(String firstName, String lastName, String address, String city, String zip,
                                       String country, String phoneNumber, String email, String luggageId, String
                                               flight, String type, String brand, String colour, String
-                                              characteristics, String language, Stage stage) {
+                                              characteristics, String language, Stage stage, File[] files) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
@@ -57,6 +61,7 @@ public class CreateRegistrationCopyTask extends DBTask {
         this.characteristics = characteristics;
         this.language = language;
         this.stage = stage;
+        this.otherFiles = files;
 
         this.luggage = null;
 
@@ -80,6 +85,7 @@ public class CreateRegistrationCopyTask extends DBTask {
         this.characteristics = null;
         this.language = null;
         this.stage = stage;
+        this.otherFiles = new File[0];
 
         this.luggage = l;
         start();
@@ -134,14 +140,18 @@ public class CreateRegistrationCopyTask extends DBTask {
 
     private void promptForPDF() {
         Platform.runLater(() ->
-                new PDF("PDF_Registration_Copy_" + LocalDate.now().format(DateTimeFormatter.ISO_DATE) + "_" + UUID
-                        .randomUUID
-                                ().toString(),
-                        "Registration Copy", false, stage)
-                        .createRegistrationCopy(firstName, lastName, address, city, zip, country, phoneNumber, email,
-                                luggageId,
-                                flight, type, brand, colour, characteristics, language, registrationID, employee
-                        ).exportPDF());
+        {
+            File file = new PDF("PDF_Registration_Copy_" + LocalDate.now().format(DateTimeFormatter.ISO_DATE) + "_" + UUID
+                    .randomUUID().toString(), "Registration Copy", false, stage).createRegistrationCopy(firstName,
+                    lastName, address, city, zip, country, phoneNumber, email, luggageId, flight, type, brand,
+                    colour, characteristics, language, registrationID, employee).exportPDF();
+            try {
+                Desktop.getDesktop().open(file);
+                for (File f : otherFiles) Desktop.getDesktop().open(f);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
 }
