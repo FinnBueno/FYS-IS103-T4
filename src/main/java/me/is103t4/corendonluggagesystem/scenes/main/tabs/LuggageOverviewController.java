@@ -10,7 +10,6 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import me.is103t4.corendonluggagesystem.database.tasks.luggage.FetchAllLuggageTask;
 import me.is103t4.corendonluggagesystem.database.tasks.luggage.FetchLuggageTask;
@@ -25,7 +24,6 @@ import me.is103t4.corendonluggagesystem.scenes.Controller;
 import me.is103t4.corendonluggagesystem.scenes.filter.LuggageFilterController;
 import me.is103t4.corendonluggagesystem.scenes.main.Tabs;
 import me.is103t4.corendonluggagesystem.util.AlertBuilder;
-import sun.plugin.javascript.navig.Anchor;
 
 import javax.imageio.ImageIO;
 import java.io.ByteArrayInputStream;
