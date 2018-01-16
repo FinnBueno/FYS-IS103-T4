@@ -64,7 +64,7 @@ public class UpdateLuggageTask extends DBTask<Boolean> {
             preparedStatement.setString(3, address);
             preparedStatement.setString(4, city);
             preparedStatement.setString(5, zip);
-            preparedStatement.setInt(6, Integer.parseInt(phone));
+            preparedStatement.setLong(6, Long.parseLong(phone));
             preparedStatement.setString(7, email);
             preparedStatement.setString(8, getLanguage());
             preparedStatement.setInt(9, luggageType);
