@@ -224,9 +224,6 @@ public class LostLuggageController extends Controller {
         });
     }
 
-    public static void main(String[] args) {
-    }
-
     private File promptForInsuranceClaim() {
         return new PDF("Insurance Claim", main.getStage()).exportInsurancePDF();
     }

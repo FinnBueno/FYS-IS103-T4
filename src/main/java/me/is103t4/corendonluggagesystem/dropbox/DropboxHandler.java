@@ -7,6 +7,7 @@ import com.dropbox.core.v2.DbxClientV2;
 import com.dropbox.core.v2.files.FileMetadata;
 import com.dropbox.core.v2.files.ListFolderResult;
 import com.dropbox.core.v2.files.UploadErrorException;
+import me.is103t4.corendonluggagesystem.util.AlertBuilder;
 import me.is103t4.corendonluggagesystem.util.PreferencesManager;
 
 import javax.imageio.ImageIO;
@@ -24,11 +25,10 @@ public class DropboxHandler {
 
     public static final DropboxHandler HANDLER = new DropboxHandler();
 
-    private final DbxClientV2 client;
+    private final DbxRequestConfig config;
 
     private DropboxHandler() {
-        DbxRequestConfig config = new DbxRequestConfig("dropbox/corendon-luggage-detective", "en_US");
-        client = new DbxClientV2(config, PreferencesManager.get().get(PreferencesManager.DROPBOXKEY));
+        config = new DbxRequestConfig("dropbox/corendon-luggage-detective", "en_US");
     }
 
     /**
@@ -38,6 +38,8 @@ public class DropboxHandler {
      * @return The name used to upload the file
      */
     public String uploadPhoto(File file) {
+        DbxClientV2 client = new DbxClientV2(config, PreferencesManager.get().get(PreferencesManager.DROPBOXKEY));
+
         String name = UUID.randomUUID().toString().replace("-", "") + "-" + LocalDate.now()
                 .format(DateTimeFormatter.ISO_DATE);
         String extension = file.getName().substring(file.getName().length() - 4);
@@ -45,13 +47,14 @@ public class DropboxHandler {
             try (InputStream in = new FileInputStream(file)) {
                 client.files().uploadBuilder("/" + name + "." + extension).uploadAndFinish(in);
             } catch (IOException | DbxException e) {
-                e.printStackTrace();
+                AlertBuilder.INVALID_DROPBOX.showAndWait();
             }
         }).start();
         return name + "." + extension;
     }
 
     public void getImage(String name, BiConsumer<BufferedImage, String> callback) {
+        DbxClientV2 client = new DbxClientV2(config, PreferencesManager.get().get(PreferencesManager.DROPBOXKEY));
         new Thread(() -> {
             if (name == null || name.length() == 0) {
                 callback.accept(null, null);
@@ -76,7 +79,7 @@ public class DropboxHandler {
                 callback.accept(img, name.substring(name.length() - 3));
                 tempFile.delete();
             } catch (DbxException | IOException e) {
-                e.printStackTrace();
+                AlertBuilder.INVALID_DROPBOX.showAndWait();
             }
         }).start();
     }

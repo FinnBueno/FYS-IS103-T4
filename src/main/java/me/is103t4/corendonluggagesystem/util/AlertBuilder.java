@@ -15,7 +15,6 @@ import static javafx.scene.control.ButtonBar.*;
 public class AlertBuilder {
 
     private static final ResourceBundle bundle;
-
     static {
         String lang = PreferencesManager.get().get(PreferencesManager.LANGUAGE);
         Locale locale = lang == null || !lang.equalsIgnoreCase("NL") ? new Locale("en", "US")
@@ -24,6 +23,22 @@ public class AlertBuilder {
         ClassLoader loader = new URLClassLoader(new URL[]{url});
         bundle = ResourceBundle.getBundle("bundle", locale, loader);
     }
+
+    public static final AlertBuilder INVALID_DROPBOX = new AlertBuilder(Alert.AlertType.ERROR,
+            bundle.getString("error"),
+            bundle.getString("error"),
+            bundle.getString("invalidDropbox"));
+
+    public static final AlertBuilder INVALID_SENDGRID= new AlertBuilder(Alert.AlertType.ERROR,
+            bundle.getString("error"),
+            bundle.getString("error"),
+            bundle.getString("invalidSendgrid"));
+
+    public static final AlertBuilder INVALID_KEY = new AlertBuilder(Alert.AlertType.ERROR,
+            bundle.getString("error"),
+            bundle.getString("error"),
+            bundle.getString("invalidKey"))
+            .addButton(new ButtonType("OK", ButtonData.FINISH));
 
     public static final AlertBuilder REGISTERED_LUGGAGE = new AlertBuilder(Alert.AlertType.CONFIRMATION,
             bundle.getString("luggageRegistered"),

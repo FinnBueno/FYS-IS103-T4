@@ -6,10 +6,16 @@
 package me.is103t4.corendonluggagesystem.account;
 
 import javafx.beans.property.*;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.ButtonType;
 import me.is103t4.corendonluggagesystem.scenes.Controller;
 import me.is103t4.corendonluggagesystem.scenes.Scenes;
 import me.is103t4.corendonluggagesystem.scenes.main.Tabs;
 import me.is103t4.corendonluggagesystem.scenes.main.tabs.ConfigurationsController;
+import me.is103t4.corendonluggagesystem.util.AlertBuilder;
+import me.is103t4.corendonluggagesystem.util.PreferencesManager;
+
+import java.io.IOException;
 
 /**
  * @author Finn Bon
