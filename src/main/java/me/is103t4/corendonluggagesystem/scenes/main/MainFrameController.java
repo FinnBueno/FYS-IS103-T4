@@ -58,7 +58,10 @@ public class MainFrameController extends Controller {
         langBox.getItems().addAll(options);
         langBox.setCellFactory(c -> new StringImageCell());
         langBox.setButtonCell(new StringImageCell());
-        langBox.getSelectionModel().select(PreferencesManager.get().get(PreferencesManager.LANGUAGE).equalsIgnoreCase("NL") ? 0 : 1);
+        if (PreferencesManager.get().get(PreferencesManager.LANGUAGE) == null)
+            PreferencesManager.get().set(PreferencesManager.LANGUAGE, "EN");
+        String lang = PreferencesManager.get().get(PreferencesManager.LANGUAGE);
+        langBox.getSelectionModel().select(lang != null && lang.equalsIgnoreCase("NL") ? 0 : 1);
         langBox.setOnAction(event -> {
             PreferencesManager.get().set(PreferencesManager.LANGUAGE, langBox.getSelectionModel().getSelectedIndex() == 0 ? "NL" : "EN");
             ButtonType btn = AlertBuilder.RESTART_PROMPT.showAndWait().orElse(null);

@@ -200,10 +200,9 @@ public class LuggageOverviewController extends Controller {
         task.setOnSucceeded(event -> {
             Object[] set = (Object[]) task.getValue();
             ((EditLuggageController) Tabs.OVERVIEW.getController(1)).initFields((int) set[14], (String) set[0],
-                    (String) set[1],
-                    (String) set[2], (String) set[3], (String) set[4], (int) set[5], (String) set[6], (String)
-                            set[7], (int) set[8], (String) set[9], (String) set[10], (String) set[11], (String)
-                            set[12], (String) set[13], (String) set[15]);
+                    (String) set[1], (String) set[2], (String) set[3], (String) set[4], (long) set[5], (String) set[6],
+                    (String) set[7], (int) set[8], (String) set[9], (String) set[10], (String) set[11],
+                    (String) set[12], (String) set[13], (String) set[15]);
             Tabs.OVERVIEW.setRoot(1);
         });
     }

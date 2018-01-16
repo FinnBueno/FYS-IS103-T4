@@ -119,7 +119,7 @@ public class EditLuggageController extends Controller {
         langBox.getItems().addAll(bundle.getString("english"), bundle.getString("dutch"));
     }
 
-    public void initFields(int id, String firstName, String lastName, String address, String city, String zip, int
+    public void initFields(int id, String firstName, String lastName, String address, String city, String zip, long
             phoneNumber, String email, String lang, int type, String luggageID, String brand, String color,
                            String characs, String flightNumber, String status) {
         this.id = id;
