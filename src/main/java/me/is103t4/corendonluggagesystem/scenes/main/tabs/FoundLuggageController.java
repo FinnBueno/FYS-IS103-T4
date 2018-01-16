@@ -9,6 +9,7 @@ import java.io.File;
 import java.util.*;
 
 import javafx.application.Platform;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -85,6 +86,16 @@ public class FoundLuggageController extends Controller {
                 brandField.getText(), colorPicker.getValue(), characsField
                 .getText(), photo, flightNumberBox.getSelectionModel().getSelectedItem(), Account.getLoggedInUser());
 
+        luggageIDField.textProperty().
+                addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+                    if (newValue.length() > 10)
+                        newValue = newValue.substring(0, 10);
+                    if (!newValue.matches("\\d*"))
+                        newValue = newValue.replaceAll("[^\\d]", "");
+                    luggageIDField.setText(newValue);
+                });
+
+
         registerButton.setDisable(true);
         registerLuggageTask.setOnFailed(v -> {
             System.out.println(registerLuggageTask.getException());
@@ -93,10 +104,7 @@ public class FoundLuggageController extends Controller {
         });
         registerLuggageTask.setOnSucceeded(v -> {
             registerButton.setDisable(false);
-
-            AlertBuilder.REGISTERED_LUGGAGE.showAndWait().orElse(null);
-            Platform.runLater(() -> Tabs.OVERVIEW.setRoot(0));
-        });
+            });
 
     }
 

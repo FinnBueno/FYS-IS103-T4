@@ -267,8 +267,35 @@ public class LuggageOverviewController extends Controller {
         luggageFilterStage.hide();
     }
 
-
     private void assertSelection() {
         AlertBuilder.NO_SELECTION.showAndWait();
+    }
+
+    public void select(int id) {
+        clearFilters();
+        FetchAllLuggageTask task = new FetchAllLuggageTask();
+        task.setOnSucceeded(event -> {
+            data = FXCollections.observableArrayList(Arrays.asList((Luggage[]) task.getValue()));
+            table.setItems(data);
+            boolean found = false;
+            int i = 0;
+            System.out.println(id);
+            for (Luggage lug : table.getItems()) {
+                if (lug.getId() == id) {
+                    System.out.println("FOUND");
+                    found = true;
+                    break;
+                }
+                i++;
+            }
+            if (!found)
+                return;
+            int finalI = i;
+            Platform.runLater(() -> {
+                table.requestFocus();
+                table.getSelectionModel().select(finalI);
+                table.getFocusModel().focus(finalI);
+            });
+        });
     }
 }

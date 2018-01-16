@@ -1,5 +1,6 @@
 package me.is103t4.corendonluggagesystem.database.tasks.luggage;
 
+import javafx.application.Platform;
 import javafx.scene.paint.Color;
 import me.is103t4.corendonluggagesystem.account.Account;
 import me.is103t4.corendonluggagesystem.database.DBHandler;
@@ -9,6 +10,7 @@ import me.is103t4.corendonluggagesystem.matching.Luggage;
 
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,6 +18,10 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 
 import javafx.scene.control.CheckBox;
+import me.is103t4.corendonluggagesystem.scenes.Scenes;
+import me.is103t4.corendonluggagesystem.scenes.main.Tabs;
+import me.is103t4.corendonluggagesystem.scenes.main.tabs.LuggageOverviewController;
+import me.is103t4.corendonluggagesystem.util.AlertBuilder;
 
 public class RegisterLuggageTask extends DBTask<Boolean> {
 
@@ -38,6 +44,7 @@ public class RegisterLuggageTask extends DBTask<Boolean> {
     private final String flight_id;
     private final Account employee;
     private final int costs;
+    private Object ID;
 
     public RegisterLuggageTask(String type, String firstName, String lastName, String address, String city,
                                String zip, String phone, String email, String lang, String lugType, String
@@ -107,7 +114,10 @@ public class RegisterLuggageTask extends DBTask<Boolean> {
             preparingStatement.setDate(19, Date.valueOf(LocalDate.now()));
             preparingStatement.setInt(20, costs);
 
-            return ps.executeUpdate() != -1;
+            boolean value = ps.executeUpdate() != -1;
+            if (type.equalsIgnoreCase("found"))
+                getID();
+            return value;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -129,5 +139,21 @@ public class RegisterLuggageTask extends DBTask<Boolean> {
 
     private String getLang(String lang) {
         return lang == null || lang.equalsIgnoreCase("english") ? "ENG" : "NL";
+    }
+
+    private void getID() {
+
+        String query = "SELECT LAST_INSERT_ID();";
+        try (PreparedStatement preparedStatement = DBHandler.INSTANCE.getConnection().prepareStatement(query)) {
+            ResultSet set = preparedStatement.executeQuery();
+            set.next();
+            int id = set.getInt(1);
+            Platform.runLater(() -> {
+                Scenes.switchPanes(Tabs.OVERVIEW);
+                Platform.runLater(() -> ((LuggageOverviewController) Tabs.OVERVIEW.getController(0)).select(id));
+            });
+        } catch (SQLException e) {
+            AlertBuilder.ERROR_OCCURRED.showAndWait();
+        }
     }
 }

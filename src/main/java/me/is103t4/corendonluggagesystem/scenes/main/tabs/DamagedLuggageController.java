@@ -79,15 +79,17 @@ public class DamagedLuggageController extends Controller {
 
         luggageIDField.textProperty().
                 addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+                    if (newValue.length() > 10)
+                        newValue = newValue.substring(0, 10);
                     if (!newValue.matches("\\d*"))
-                        luggageIDField.setText(newValue.
-                                replaceAll("[^\\d]", ""));
+                        newValue = newValue.replaceAll("[^\\d]", "");
+                    phoneNumberField.setText(newValue);
                 });
 
         phoneNumberField.textProperty().
                 addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
-                    if (newValue.length() > 11)
-                        newValue = newValue.substring(0, 11);
+                    if (newValue.length() > 10)
+                        newValue = newValue.substring(0, 10);
                     if (!newValue.matches("\\d*"))
                         newValue = newValue.replaceAll("[^\\d]", "");
                     phoneNumberField.setText(newValue);

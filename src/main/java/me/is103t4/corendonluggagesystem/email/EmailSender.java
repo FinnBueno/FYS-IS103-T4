@@ -79,10 +79,7 @@ public class EmailSender {
                 request.setMethod(Method.POST);
                 request.setEndpoint("mail/send");
                 request.setBody(mail.build());
-                Response response = SENDGRID.api(request);
-                System.out.println(response.getStatusCode());
-                System.out.println(response.getBody());
-                System.out.println(response.getHeaders());
+                SENDGRID.api(request);
             } catch (IOException ex) {
                 AlertBuilder.ERROR_OCCURRED.showAndWait();
             }
