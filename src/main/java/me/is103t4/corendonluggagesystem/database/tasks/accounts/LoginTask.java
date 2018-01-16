@@ -81,7 +81,6 @@ public class LoginTask extends DBTask<Account> {
             AccountRole role = AccountRole.fromId(result.getInt("role"));
             String email = result.getString("email");
             boolean activated = result.getBoolean("active");
-            System.out.println("Test");
 
             // return account instance
             return new Account(id, tag, username, firstName, lastName, phoneNumber, role, email, activated);

@@ -13,6 +13,8 @@ import me.is103t4.corendonluggagesystem.database.tasks.accounts.RecoverPasswordT
 import me.is103t4.corendonluggagesystem.scenes.Controller;
 import me.is103t4.corendonluggagesystem.scenes.Scenes;
 
+import java.util.ResourceBundle;
+
 /**
  * FXML Controller class
  *
@@ -43,7 +45,7 @@ public class RecoverPasswordController extends Controller {
             recoverButton.setDisable(false);
             errorLabel.setVisible(true);
             errorLabel.
-                    setText("That is not a valid email. A valid email contains at least one '@' and one '.'!");
+                    setText(bundle.getString("invalidEmail"));
             return;
         }
         RecoverPasswordTask task = new RecoverPasswordTask(address);
@@ -53,7 +55,7 @@ public class RecoverPasswordController extends Controller {
                 recoverButton.setDisable(false);
                 errorLabel.setVisible(true);
                 errorLabel.
-                        setText("That email could not be found in our database. Are you sure you've typed it correctly?");
+                        setText(bundle.getString("unknownEmail"));
             } else {
                 Scenes.RECOVERY_CONFIRMATION.setToScene();
                 ((PasswordResetController) Scenes.RECOVERY_CONFIRMATION.
@@ -64,13 +66,13 @@ public class RecoverPasswordController extends Controller {
             recoverButton.setDisable(false);
             errorLabel.setVisible(true);
             errorLabel.
-                    setText("Something went wrong. Please try again.");
+                    setText(bundle.getString("generalError"));
         });
         task.setOnFailed(value -> {
             recoverButton.setDisable(false);
             errorLabel.setVisible(true);
             errorLabel.
-                    setText("Something went wrong. Please try again.");
+                    setText(bundle.getString("generalError"));
         });
     }
 

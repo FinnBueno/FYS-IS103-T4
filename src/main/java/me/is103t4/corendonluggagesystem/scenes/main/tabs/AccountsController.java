@@ -79,6 +79,7 @@ public class AccountsController extends Controller {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("/fxml/filter/AccountFilter.fxml"));
+            fxmlLoader.setResources(bundle);
             Scene scene = new Scene(fxmlLoader.load(), 600, 400);
             filterController = fxmlLoader.getController();
             filterController.initializeParentValues(this);

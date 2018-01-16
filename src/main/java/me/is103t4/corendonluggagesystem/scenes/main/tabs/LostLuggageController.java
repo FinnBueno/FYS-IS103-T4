@@ -137,7 +137,7 @@ public class LostLuggageController extends Controller {
         FetchLuggageTypesTask task = new FetchLuggageTypesTask();
         task.setOnSucceeded(v -> typeBox.setItems(FXCollections.observableArrayList((List<String>) task.getValue())));
 
-        langBox.getItems().addAll("English", "Dutch");
+        langBox.getItems().addAll(bundle.getString("english"), bundle.getString("dutch"));
     }
 
     @FXML
@@ -181,7 +181,7 @@ public class LostLuggageController extends Controller {
                         txt = txt.replace("%%lugid%%", luggageIDField.getText());
                         txt = txt.replace("%%flight%%", flightNumberBox.getSelectionModel().getSelectedItem());
                         txt = txt.
-                                replace("%%type%%", (String) typeBox.
+                                replace("%%type%%", typeBox.
                                         getSelectionModel().
                                         getSelectedItem());
                         txt = txt.replace("%%brand%%", brandField.getText());
@@ -217,7 +217,7 @@ public class LostLuggageController extends Controller {
                     brandField.getText(),
                     colorUnknownCheckbox.isSelected() ? "Unknown" : toHex(colorPicker.getValue()),
                     characsField.getText(),
-                    langBox.getSelectionModel().getSelectedItem(), file);
+                    langBox.getSelectionModel().getSelectedIndex() == 0 ? "English" : "Dutch", file);
 
             AlertBuilder.REGISTERED_LUGGAGE.showAndWait();
             Tabs.OVERVIEW.setRoot(0);
@@ -233,44 +233,44 @@ public class LostLuggageController extends Controller {
 
     private boolean checkEmptyFields() {
         if (firstNameField.getText() == null || firstNameField.getText().length() == 0) {
-            alert("First name cannot be empty!");
+            alert(bundle.getString("firstEmpty"));
             return true;
         }
         if (lastNameField.getText() == null || lastNameField.getText().length() == 0) {
-            alert("Last name cannot be empty!");
+            alert(bundle.getString("lastEmpty"));
             return true;
         }
         if (addressField.getText() == null || addressField.getText().length() == 0) {
-            alert("Address cannot be empty!");
+            alert(bundle.getString("addressEmpty"));
             return true;
         }
         if (cityField.getText() == null || cityField.getText().length() == 0) {
-            alert("City cannot be empty!");
+            alert(bundle.getString("cityEmpty"));
             return true;
         }
         if (zipField.getText() == null || zipField.getText().length() == 0) {
-            alert("ZIP code cannot be empty!");
+            alert(bundle.getString("zipEmpty"));
             return true;
         }
         if (phoneNumberField.getText() == null || zipField.getText().length() == 0 || !phoneNumberField.getText()
                 .matches("\\d*")) {
-            alert("Phone number is invalid!");
+            alert(bundle.getString("phoneEmpty"));
             return true;
         }
         if (emailField.getText() == null || emailField.getText().length() == 0) {
-            alert("Email cannot be empty!");
+            alert(bundle.getString("emailEmpty"));
             return true;
         }
         if (langBox.getSelectionModel().getSelectedItem() == null) {
-            alert("A language must be selected!");
+            alert(bundle.getString("langEmpty"));
             return true;
         }
         if (typeBox.getSelectionModel().getSelectedItem() == null) {
-            alert("Luggage type must be selected!");
+            alert(bundle.getString("luggageTypeEmpty"));
             return true;
         }
         if (flightNumberBox.getSelectionModel().getSelectedItem() == null) {
-            alert("Flight ID cannot be empty!");
+            alert(bundle.getString("flightEmpty"));
             return true;
         }
         return false;

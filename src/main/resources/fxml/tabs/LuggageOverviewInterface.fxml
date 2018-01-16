@@ -34,22 +34,22 @@
                 <BorderPane.margin>
                     <Insets left="20.0" right="20.0" top="30.0" />
                 </BorderPane.margin>
-                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#findMatch" text="Find match" />
-                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#editEntry" text="Edit luggage entry" GridPane.rowIndex="1" />
-                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#setFilters" text="Filter" GridPane.rowIndex="2" />
-                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#clearFilters" text="Clear filters" GridPane.rowIndex="3" />
-                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#refresh" text="Refresh" GridPane.rowIndex="4" />
-            <MenuButton maxHeight="37.0" maxWidth="1.7976931348623157E308" minHeight="37.0" mnemonicParsing="false" prefHeight="37.0" text="Photo Options" GridPane.rowIndex="5">
+                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#findMatch" text="%findMatch" />
+                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#editEntry" text="%editLuggage" GridPane.rowIndex="1" />
+                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#setFilters" text="%filter" GridPane.rowIndex="2" />
+                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#clearFilters" text="%clearFilter" GridPane.rowIndex="3" />
+                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#refresh" text="%refresh" GridPane.rowIndex="4" />
+            <MenuButton maxHeight="37.0" maxWidth="1.7976931348623157E308" minHeight="37.0" mnemonicParsing="false" prefHeight="37.0" text="%photoOptions" GridPane.rowIndex="5">
               <items>
-                <MenuItem mnemonicParsing="false" onAction="#viewPhoto" text="View Photo" />
-                <MenuItem mnemonicParsing="false" onAction="#setPhoto" text="Set Photo" />
+                <MenuItem mnemonicParsing="false" onAction="#viewPhoto" text="%viewPhoto" />
+                <MenuItem mnemonicParsing="false" onAction="#setPhoto" text="%setPhoto" />
               </items>
             </MenuButton>
-            <MenuButton maxHeight="37.0" maxWidth="1.7976931348623157E308" minHeight="37.0" mnemonicParsing="false" prefHeight="37.0" text="Other Actions" GridPane.rowIndex="6">
+            <MenuButton maxHeight="37.0" maxWidth="1.7976931348623157E308" minHeight="37.0" mnemonicParsing="false" prefHeight="37.0" text="%otherActions" GridPane.rowIndex="6">
               <items>
-                <MenuItem mnemonicParsing="false" onAction="#createRegistrationCopy" text="Create Registration Copy" />
-                <MenuItem mnemonicParsing="false" onAction="#createInsuranceForm" text="Create Insurance Claim Form" />
-                <MenuItem mnemonicParsing="false" onAction="#createDHLForm" text="Create DHL Form" />
+                <MenuItem mnemonicParsing="false" onAction="#createRegistrationCopy" text="%registerCopy" />
+                <MenuItem mnemonicParsing="false" onAction="#createInsuranceForm" text="%insurancePDF" />
+                <MenuItem mnemonicParsing="false" onAction="#createDHLForm" text="%DHLForm" />
               </items>
             </MenuButton>
             </GridPane>
@@ -57,67 +57,67 @@
         <center>
             <TableView fx:id="table" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
                 <columns>
-                    <TableColumn fx:id="status" prefWidth="76.0" text="Status">
+                    <TableColumn fx:id="status" prefWidth="76.0" text="%ovStatus">
                         <cellValueFactory>
                             <PropertyValueFactory property="status" />
                         </cellValueFactory>
                     </TableColumn>
-                    <TableColumn fx:id="type" prefWidth="76.0" text="Type">
+                    <TableColumn fx:id="type" prefWidth="76.0" text="%ovType">
                         <cellValueFactory>
                             <PropertyValueFactory property="type" />
                         </cellValueFactory>
                     </TableColumn>
-                    <TableColumn fx:id="tag" prefWidth="76.0" text="Tag">
+                    <TableColumn fx:id="tag" prefWidth="76.0" text="%ovTag">
                         <cellValueFactory>
                             <PropertyValueFactory property="tag" />
                         </cellValueFactory>
                     </TableColumn>
-                    <TableColumn fx:id="brand" prefWidth="76.0" text="Brand">
+                    <TableColumn fx:id="brand" prefWidth="76.0" text="%ovBrand">
                         <cellValueFactory>
                             <PropertyValueFactory property="brand" />
                         </cellValueFactory>
                     </TableColumn>
-                    <TableColumn fx:id="colour" prefWidth="76.0" text="Colour">
+                    <TableColumn fx:id="colour" prefWidth="76.0" text="%ovColour">
                         <cellValueFactory>
                             <PropertyValueFactory property="colour" />
                         </cellValueFactory>
                     </TableColumn>
-                    <TableColumn fx:id="characteristics" prefWidth="76.0" text="Characteristics">
+                    <TableColumn fx:id="characteristics" prefWidth="76.0" text="%ovCharacteristics">
                         <cellValueFactory>
                             <PropertyValueFactory property="characteristics" />
                         </cellValueFactory>
                     </TableColumn>
-                    <TableColumn fx:id="firstName" prefWidth="76.0" text="First Name">
+                    <TableColumn fx:id="firstName" prefWidth="76.0" text="%ovFirst">
                         <cellValueFactory>
                             <PropertyValueFactory property="firstName" />
                         </cellValueFactory>
                     </TableColumn>
-                    <TableColumn fx:id="lastName" prefWidth="76.0" text="Last Name">
+                    <TableColumn fx:id="lastName" prefWidth="76.0" text="%ovLast">
                         <cellValueFactory>
                             <PropertyValueFactory property="lastName" />
                         </cellValueFactory>
                     </TableColumn>
-                    <TableColumn fx:id="city" prefWidth="76.0" text="City">
+                    <TableColumn fx:id="city" prefWidth="76.0" text="%ovCity">
                         <cellValueFactory>
                             <PropertyValueFactory property="city" />
                         </cellValueFactory>
                     </TableColumn>
-                    <TableColumn fx:id="address" prefWidth="76.0" text="Address">
+                    <TableColumn fx:id="address" prefWidth="76.0" text="%ovAddress">
                         <cellValueFactory>
                             <PropertyValueFactory property="address" />
                         </cellValueFactory>
                     </TableColumn>
-                    <TableColumn fx:id="flight" prefWidth="76.0" text="Flight">
+                    <TableColumn fx:id="flight" prefWidth="76.0" text="%ovFlight">
                         <cellValueFactory>
                             <PropertyValueFactory property="flight" />
                         </cellValueFactory>
                     </TableColumn>
-                    <TableColumn fx:id="date" prefWidth="76.0" text="Date">
+                    <TableColumn fx:id="date" prefWidth="76.0" text="%ovDate">
                         <cellValueFactory>
                             <PropertyValueFactory property="date" />
                         </cellValueFactory>
                     </TableColumn>
-               <TableColumn prefWidth="75.0" text="Costs">
+               <TableColumn fx:id="costs" prefWidth="76.0" text="%ovCosts">
                    <cellValueFactory>
                        <PropertyValueFactory property="costs" />
                    </cellValueFactory>
@@ -130,7 +130,7 @@
         </center>
         <bottom>
             <HBox alignment="TOP_RIGHT" BorderPane.alignment="CENTER">
-                <Label fx:id="noteLabel" contentDisplay="RIGHT" text="Note: Filters are active! Click 'Clear Filters' to see all entries again." visible="false">
+                <Label fx:id="noteLabel" contentDisplay="RIGHT" text="%activeFilters" visible="false">
                 <HBox.margin>
                     <Insets bottom="5.0" right="5.0" />
                 </HBox.margin>

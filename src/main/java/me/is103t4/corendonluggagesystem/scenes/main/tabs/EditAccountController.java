@@ -40,7 +40,7 @@ public class EditAccountController extends Controller {
 
     @Override
     public void postInit(ResourceBundle bundle) {
-        activeBox.setItems(FXCollections.observableList(Arrays.asList("Yes", "No")));
+        activeBox.setItems(FXCollections.observableList(Arrays.asList(bundle.getString("yes"), bundle.getString("no"))));
         roleBox.setItems(FXCollections.observableArrayList(AccountRole.values()));
     }
 
@@ -51,7 +51,7 @@ public class EditAccountController extends Controller {
         emailField.setText(acc.getEmail());
         roleBox.getSelectionModel().select(acc.getRole());
         phoneNumberField.setText(acc.getPhoneNumber());
-        activeBox.getSelectionModel().select(acc.isActivated() ? "Yes" : "No");
+        activeBox.getSelectionModel().select(acc.isActivated() ? bundle.getString("yes") : bundle.getString("no"));
     }
 
     @FXML

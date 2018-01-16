@@ -115,7 +115,7 @@ public class EditLuggageController extends Controller {
         });
 
         // fill lang box
-        langBox.getItems().addAll("English", "Dutch");
+        langBox.getItems().addAll(bundle.getString("english"), bundle.getString("dutch"));
     }
 
     public void initFields(int id, String firstName, String lastName, String address, String city, String zip, int
@@ -152,7 +152,7 @@ public class EditLuggageController extends Controller {
             this.statusBox.setItems(FXCollections.observableArrayList(statusData));
             this.statusBox.getSelectionModel().select(status);
         }
-        this.langBox.getSelectionModel().select(lang == null || lang.equalsIgnoreCase("eng") ? 0 : 1);
+        this.langBox.getSelectionModel().select(lang == null || lang.equalsIgnoreCase(bundle.getString("english")) ? 0 : 1);
     }
 
     private String toHex(Color color) {

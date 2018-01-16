@@ -35,13 +35,13 @@
                 <BorderPane.margin>
                     <Insets bottom="15.0" left="50.0" right="50.0" top="15.0" />
                 </BorderPane.margin>
-                <Label maxWidth="1.7976931348623157E308" text="Luggage ID :" />
-                <Label maxWidth="1.7976931348623157E308" text="Flight Number :" GridPane.rowIndex="1" />
-                <Label maxWidth="1.7976931348623157E308" text="Type* :" GridPane.rowIndex="2" />
-                <Label maxWidth="1.7976931348623157E308" text="Brand* :" GridPane.rowIndex="3" />
-                <Label maxWidth="1.7976931348623157E308" text="Colour* :" GridPane.columnIndex="3" />
-                <Label maxWidth="1.7976931348623157E308" text="Characteristics* :" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                <Label maxWidth="1.7976931348623157E308" text="Photo :" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                <Label maxWidth="1.7976931348623157E308" text="%tag" />
+                <Label maxWidth="1.7976931348623157E308" text="%flight" GridPane.rowIndex="1" />
+                <Label maxWidth="1.7976931348623157E308" text="%typeMust" GridPane.rowIndex="2" />
+                <Label maxWidth="1.7976931348623157E308" text="%brandMust" GridPane.rowIndex="3" />
+                <Label maxWidth="1.7976931348623157E308" text="%colourMust" GridPane.columnIndex="3" />
+                <Label maxWidth="1.7976931348623157E308" text="%characteristicsMust" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                <Label maxWidth="1.7976931348623157E308" text="%photo" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                 <TextField fx:id="luggageIDField" GridPane.columnIndex="1" />
                 <ComboBox fx:id="flightNumberBox" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                 <ComboBox fx:id="typeBox" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
@@ -50,7 +50,7 @@
                 <TextField fx:id="characsField" GridPane.columnIndex="4" GridPane.rowIndex="1" />
                 <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#selectPhoto" styleClass="secButton" text="Upload" GridPane.columnIndex="4" GridPane.rowIndex="2" />
                 <HBox alignment="TOP_CENTER" GridPane.columnSpan="2147483647" GridPane.rowIndex="5">
-                    <Button fx:id="registerButton" maxHeight="1.7976931348623157E308" maxWidth="350" mnemonicParsing="false" onAction="#registerFoundLuggage" text="Register" HBox.hgrow="ALWAYS">
+                    <Button fx:id="registerButton" maxHeight="1.7976931348623157E308" maxWidth="350" mnemonicParsing="false" onAction="#registerFoundLuggage" text="%register" HBox.hgrow="ALWAYS">
                         <HBox.margin>
                             <Insets right="10.0" />
                         </HBox.margin>

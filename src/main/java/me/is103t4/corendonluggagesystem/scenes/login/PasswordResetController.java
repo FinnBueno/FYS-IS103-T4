@@ -18,6 +18,7 @@ import me.is103t4.corendonluggagesystem.database.DBTask;
 import me.is103t4.corendonluggagesystem.database.tasks.accounts.ChangePasswordTask;
 import me.is103t4.corendonluggagesystem.scenes.Controller;
 import me.is103t4.corendonluggagesystem.scenes.Scenes;
+import me.is103t4.corendonluggagesystem.util.AlertBuilder;
 
 import java.util.ResourceBundle;
 
@@ -155,23 +156,14 @@ public class PasswordResetController extends Controller {
     private void resetPassword() {
         if (!passwordField.getText().
                 equals(repasswordField.getText())) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("Password error");
-            alert.setTitle("Error");
-            alert.setContentText("The passwords don't match.");
-            alert.showAndWait();
+            AlertBuilder.NO_MATCH_PASSWORDS.showAndWait();
         }
         spinner.setVisible(true);
         DBTask task = new ChangePasswordTask(emailField.getText(), passwordField.
                 getText());
         task.setOnSucceeded(value -> {
             spinner.setVisible(false);
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("Password changed");
-            alert.setTitle("Succeeded");
-            alert.setContentText("Your password has been changed.");
-            alert.showAndWait();
-
+            AlertBuilder.CHANGES_SAVED.showAndWait();
             backToLogin();
         });
         task.setOnFailed(value -> spinner.setVisible(false));

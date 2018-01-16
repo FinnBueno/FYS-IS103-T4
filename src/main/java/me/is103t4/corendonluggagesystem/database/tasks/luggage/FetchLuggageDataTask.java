@@ -17,9 +17,10 @@ public class FetchLuggageDataTask extends DBTask<Map<String, Map<MonthYear, Inte
 
     private final LocalDate startDate, endDate;
     private final boolean lost, found, damaged, handled, destroyed, depot;
+    private final String airport;
 
     public FetchLuggageDataTask(LocalDate startDate, Integer timeSpan, boolean lost, boolean found, boolean damaged,
-                                boolean handled, boolean destroyed, boolean depot) {
+                                boolean handled, boolean destroyed, boolean depot, String airport) {
         this.startDate = startDate;
         this.endDate = startDate.plusMonths(timeSpan);
         this.lost = lost;
@@ -28,6 +29,8 @@ public class FetchLuggageDataTask extends DBTask<Map<String, Map<MonthYear, Inte
         this.handled = handled;
         this.destroyed = destroyed;
         this.depot = depot;
+        this.airport = !airport.contains("-") ? "" :
+                airport.split(" - ")[0];
         start();
     }
 
@@ -40,6 +43,9 @@ public class FetchLuggageDataTask extends DBTask<Map<String, Map<MonthYear, Inte
                 "ON s.id = l.register_type " +
                 "WHERE l.date >= ? AND " +
                 "l.date <= ? AND " +
+                // ignoring preparedstatement convention here because otherwise we'd require a huge if statement, and
+                // one argument won't hurt.
+                (airport.length() == 0 ? "" : "l.flight_id = '" + airport + "' AND ") +
                 "((l.register_type = (SELECT id FROM statusses WHERE value = ?) AND ?) OR " +
                 "(l.register_type = (SELECT id FROM statusses WHERE value = ?) AND ?) OR " +
                 "(l.register_type = (SELECT id FROM statusses WHERE value = ?) AND ?) OR " +

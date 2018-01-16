@@ -36,33 +36,33 @@
                  <BorderPane.margin>
                      <Insets bottom="15.0" left="50.0" right="50.0" top="15.0" />
                  </BorderPane.margin>
-                 <Label text="First name*:" />
-                 <Label text="Last name*:" GridPane.rowIndex="1" />
-                 <Label text="Luggage ID* :" GridPane.rowIndex="3" />
-                 <Label text="Flight number* :" GridPane.rowIndex="4" />
-                 <Label text="Repair &amp; replace costs* :" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                 <Label text="Damage description* :" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                 <Label text="Photo :" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                 <Label text="E-mail* :" GridPane.columnIndex="3" />
+                 <Label text="%firstMust" />
+                 <Label text="%lastMust" GridPane.rowIndex="1" />
+                 <Label text="%tagMust" GridPane.rowIndex="3" />
+                 <Label text="%flightMust" GridPane.rowIndex="4" />
+                 <Label text="%costsMust" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                 <Label text="%damage" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                 <Label text="%photo" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                 <Label text="%emailMust" GridPane.columnIndex="3" />
                  <TextField fx:id="firstNameField" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" />
                  <TextField fx:id="lastNameField" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+               <TextField fx:id="phoneNumberField" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                  <TextField fx:id="luggageIDField" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+               <ComboBox fx:id="flightNumberBox" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                  <TextField fx:id="emailField" layoutX="160.0" layoutY="225.0" maxWidth="1.7976931348623157E308" GridPane.columnIndex="4" />
                  <TextField fx:id="repairCosts" maxWidth="1.7976931348623157E308" GridPane.columnIndex="4" GridPane.rowIndex="1" />
                  <TextField fx:id="descriptionField" maxWidth="1.7976931348623157E308" GridPane.columnIndex="4" GridPane.rowIndex="2" />
                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#selectPhoto" styleClass="secButton" text="Upload " GridPane.columnIndex="4" GridPane.rowIndex="3" />
+               <ComboBox fx:id="typeBox" maxWidth="1.7976931348623157E308" GridPane.columnIndex="4" GridPane.rowIndex="4" />
                  <HBox alignment="TOP_CENTER" GridPane.columnSpan="2147483647" GridPane.rowIndex="6">
-                     <Button fx:id="registerButton" maxHeight="1.7976931348623157E308" maxWidth="350" mnemonicParsing="false" onAction="#registerDamagedLuggage" text="Register" HBox.hgrow="ALWAYS">
+                     <Button fx:id="registerButton" maxHeight="1.7976931348623157E308" maxWidth="350" mnemonicParsing="false" onAction="#registerDamagedLuggage" text="%register" HBox.hgrow="ALWAYS">
                          <HBox.margin>
                              <Insets right="10.0" />
                          </HBox.margin>
                      </Button>
                  </HBox>
-               <Label text="Phone* :" GridPane.rowIndex="2" />
-               <TextField fx:id="phoneNumberField" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-               <Label text="Luggage type* :" GridPane.columnIndex="3" GridPane.rowIndex="4" />
-               <ComboBox fx:id="typeBox" maxWidth="1.7976931348623157E308" GridPane.columnIndex="4" GridPane.rowIndex="4" />
-               <ComboBox fx:id="flightNumberBox" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+               <Label text="%phoneMust" GridPane.rowIndex="2" />
+               <Label text="%typeMust" GridPane.columnIndex="3" GridPane.rowIndex="4" />
              </GridPane>
          </center>
       </BorderPane>

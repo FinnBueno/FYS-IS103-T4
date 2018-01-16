@@ -7,25 +7,18 @@ package me.is103t4.corendonluggagesystem.scenes.main.tabs;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.chart.*;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
 import me.is103t4.corendonluggagesystem.database.tasks.luggage.FetchLuggageDataTask;
-import me.is103t4.corendonluggagesystem.matching.Luggage;
+import me.is103t4.corendonluggagesystem.database.tasks.util.FetchAirlinesTask;
 import me.is103t4.corendonluggagesystem.scenes.Controller;
 import me.is103t4.corendonluggagesystem.scenes.main.Tabs;
 import me.is103t4.corendonluggagesystem.util.MonthYear;
 
-import javax.sound.sampled.Line;
 import java.time.LocalDate;
-import java.time.Month;
 import java.time.format.TextStyle;
-import java.time.temporal.TemporalAdjuster;
-import java.time.temporal.TemporalAdjusters;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -68,6 +61,9 @@ public class StatisticsController extends Controller {
     private Spinner<Integer> timespanSpinner;
 
     @FXML
+    private ComboBox<String> airportBox;
+
+    @FXML
     private Button generateButton;
 
     // chart
@@ -86,14 +82,21 @@ public class StatisticsController extends Controller {
 
         typeBox.setItems(FXCollections.observableArrayList(names()));
 
-        timespanSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 12, 1));
+        timespanSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 36, 1));
         datePicker.setValue(LocalDate.now());
+
+        FetchAirlinesTask task = new FetchAirlinesTask();
+        task.setOnSucceeded(event -> {
+            List<String> airlines = (List<String>) task.getValue();
+            airlines.add(0, bundle.getString("dontCheck"));
+            airportBox.setItems(FXCollections.observableList(airlines));
+        });
     }
 
     @FXML
     public void generateChart() {
         if (typeBox.getSelectionModel().getSelectedItem() == null) {
-            alert("Please select a graph type first!");
+            alert(bundle.getString("selectGraphType"));
             return;
         }
 
@@ -126,7 +129,7 @@ public class StatisticsController extends Controller {
         // run db task to fetch data from db sorted per status per month
         FetchLuggageDataTask task = new FetchLuggageDataTask(datePicker.getValue(), timespanSpinner.getValue(),
                 showLost.isSelected(), showFound.isSelected(), showDamaged.isSelected(), showHandled.isSelected(),
-                showDestroyed.isSelected(), showDepot.isSelected());
+                showDestroyed.isSelected(), showDepot.isSelected(), airportBox.getSelectionModel().getSelectedItem());
         task.setOnSucceeded(event -> {
             // chart data sorted per status, per month in amounts
             // key in first map is the status (each status is entered once) and has a Map<MonthYear, Integer>, which has
@@ -165,7 +168,7 @@ public class StatisticsController extends Controller {
         // run db task to fetch data from db sorted per status per month
         FetchLuggageDataTask task = new FetchLuggageDataTask(datePicker.getValue(), timespanSpinner.getValue(),
                 showLost.isSelected(), showFound.isSelected(), showDamaged.isSelected(), showHandled.isSelected(),
-                showDestroyed.isSelected(), showDepot.isSelected());
+                showDestroyed.isSelected(), showDepot.isSelected(), airportBox.getSelectionModel().getSelectedItem());
         task.setOnSucceeded(event -> {
             // chart data sorted per status, per month in amounts
             // key in first map is the status (each status is entered once) and has a Map<MonthYear, Integer>, which has
@@ -202,7 +205,7 @@ public class StatisticsController extends Controller {
         // run db task to fetch data from db sorted per status per month
         FetchLuggageDataTask task = new FetchLuggageDataTask(datePicker.getValue(), timespanSpinner.getValue(),
                 showLost.isSelected(), showFound.isSelected(), showDamaged.isSelected(), showHandled.isSelected(),
-                showDestroyed.isSelected(), showDepot.isSelected());
+                showDestroyed.isSelected(), showDepot.isSelected(), airportBox.getSelectionModel().getSelectedItem());
         task.setOnSucceeded(event -> {
             // chart data sorted per status, per month in amounts
             // key in first map is the status (each status is entered once) and has a Map<MonthYear, Integer>, which has

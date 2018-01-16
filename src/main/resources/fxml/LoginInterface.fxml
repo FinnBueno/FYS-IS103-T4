@@ -40,18 +40,18 @@
                                 <Font name="System Bold" size="28.0" />
                             </font>
                         </Label>
-                        <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Username:" textFill="#dadada" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="%username" textFill="#dadada" GridPane.columnIndex="1" GridPane.rowIndex="1">
                             <font>
                                 <Font name="System Bold" size="15.0" />
                             </font>
                         </Label>
-                        <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Password:" textFill="#dadada" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="%password" textFill="#dadada" GridPane.columnIndex="1" GridPane.rowIndex="2">
                             <font>
                                 <Font name="System Bold" size="15.0" />
                             </font>
                         </Label>
-                        <TextField fx:id="usernameField" promptText="Enter username" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                        <PasswordField fx:id="passwordField" promptText="Enter password" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                        <TextField fx:id="usernameField" promptText="%acUsername" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <PasswordField fx:id="passwordField" promptText="%passwordPrompt" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                         <Label fx:id="errorLabel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="error" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.rowSpan="2147483647" />
                         <HBox alignment="TOP_RIGHT" GridPane.columnIndex="2" GridPane.rowIndex="3">
                             <children>
@@ -60,7 +60,7 @@
                         </HBox>
                         <HBox alignment="TOP_RIGHT" GridPane.columnIndex="2" GridPane.rowIndex="4">
                             <children>
-                                <Button mnemonicParsing="false" onAction="#goToRecover" styleClass="linkButton" text="Forgot password?">
+                                <Button mnemonicParsing="false" onAction="#goToRecover" styleClass="linkButton" text="%forgotPass">
                                     <padding>
                                         <Insets right="-1.0" />
                                     </padding>

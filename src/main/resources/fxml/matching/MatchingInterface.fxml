@@ -9,78 +9,74 @@
 <?import javafx.scene.layout.HBox?>
 
 <?import javafx.scene.control.cell.PropertyValueFactory?>
-<AnchorPane prefHeight="550.0" prefWidth="850.0" stylesheets="@../../css/mainCss.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.is103t4.corendonluggagesystem.scenes.matching.MatchingController">
-   <children>
-      <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <center>
-            <TableView fx:id="table" prefHeight="200.0" prefWidth="200.0" tableMenuButtonVisible="true" BorderPane.alignment="CENTER">
+<AnchorPane prefHeight = "550.0" prefWidth = "850.0" stylesheets = "@../../css/mainCss.css" xmlns = "http://javafx.com/javafx/9.0.1" xmlns:fx = "http://javafx.com/fxml/1" fx:controller = "me.is103t4.corendonluggagesystem.scenes.matching.MatchingController">
+    <BorderPane maxHeight = "1.7976931348623157E308" maxWidth = "1.7976931348623157E308" AnchorPane.bottomAnchor = "0.0" AnchorPane.leftAnchor = "0.0" AnchorPane.rightAnchor = "0.0" AnchorPane.topAnchor = "0.0">
+        <center>
+          <TableView fx:id = "table" prefHeight = "200.0" prefWidth = "200.0" tableMenuButtonVisible = "true" BorderPane.alignment = "CENTER">
               <columns>
-                  <TableColumn fx:id="status" prefWidth="90.0" text="Status">
+                  <TableColumn fx:id = "status" prefWidth = "90.0" text = "%ovStatus">
                       <cellValueFactory>
-                          <PropertyValueFactory property="status" />
+                          <PropertyValueFactory property = "status"/>
                       </cellValueFactory>
                   </TableColumn>
-                  <TableColumn fx:id="type" prefWidth="90.0" text="Type">
+                  <TableColumn fx:id = "type" prefWidth = "90.0" text = "%ovType">
                       <cellValueFactory>
-                          <PropertyValueFactory property="type" />
+                          <PropertyValueFactory property = "type"/>
                       </cellValueFactory>
                   </TableColumn>
-                  <TableColumn fx:id="tag" prefWidth="90.0" text="Tag">
+                  <TableColumn fx:id = "tag" prefWidth = "90.0" text = "%ovTag">
                       <cellValueFactory>
-                          <PropertyValueFactory property="tag" />
+                          <PropertyValueFactory property = "tag"/>
                       </cellValueFactory>
                   </TableColumn>
-                  <TableColumn fx:id="brand" prefWidth="90.0" text="Brand">
+                  <TableColumn fx:id = "brand" prefWidth = "90.0" text = "%ovBrand">
                       <cellValueFactory>
-                          <PropertyValueFactory property="brand" />
+                          <PropertyValueFactory property = "brand"/>
                       </cellValueFactory>
                   </TableColumn>
-                  <TableColumn fx:id="colour" prefWidth="90.0" text="Colour">
+                  <TableColumn fx:id = "colour" prefWidth = "90.0" text = "%ovColour">
                       <cellValueFactory>
-                          <PropertyValueFactory property="colour" />
+                          <PropertyValueFactory property = "colour"/>
                       </cellValueFactory>
                   </TableColumn>
-                  <TableColumn fx:id="characteristics" prefWidth="90.0" text="Characteristics">
+                  <TableColumn fx:id = "characteristics" prefWidth = "90.0" text = "%ovCharacteristics">
                       <cellValueFactory>
-                          <PropertyValueFactory property="characteristics" />
+                          <PropertyValueFactory property = "characteristics"/>
                       </cellValueFactory>
                   </TableColumn>
-                  <TableColumn fx:id="firstName" prefWidth="90.0" text="First Name">
+                  <TableColumn fx:id = "firstName" prefWidth = "90.0" text = "%ovFirst">
                       <cellValueFactory>
-                          <PropertyValueFactory property="firstName" />
+                          <PropertyValueFactory property = "firstName"/>
                       </cellValueFactory>
                   </TableColumn>
-                  <TableColumn fx:id="lastName" prefWidth="90.0" text="Last Name">
+                  <TableColumn fx:id = "lastName" prefWidth = "90.0" text = "%ovLast">
                       <cellValueFactory>
-                          <PropertyValueFactory property="lastName" />
+                          <PropertyValueFactory property = "lastName"/>
                       </cellValueFactory>
                   </TableColumn>
-                  <TableColumn fx:id="city" prefWidth="90.0" text="City">
+                  <TableColumn fx:id = "city" prefWidth = "90.0" text = "%ovCity">
                       <cellValueFactory>
-                          <PropertyValueFactory property="city" />
+                          <PropertyValueFactory property = "city"/>
                       </cellValueFactory>
                   </TableColumn>
-                  <TableColumn fx:id="address" prefWidth="90.0" text="Address">
+                  <TableColumn fx:id = "address" prefWidth = "90.0" text = "%ovAddress">
                       <cellValueFactory>
-                          <PropertyValueFactory property="address" />
+                          <PropertyValueFactory property = "address"/>
                       </cellValueFactory>
                   </TableColumn>
               </columns>
-               <columnResizePolicy>
-                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-               </columnResizePolicy>
-            </TableView>
-         </center>
-         <bottom>
-            <HBox alignment="TOP_CENTER" BorderPane.alignment="CENTER">
-               <children>
-                  <Button mnemonicParsing="false" onAction="#createMatch" text="Create Match" />
-               </children>
-               <BorderPane.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </BorderPane.margin>
+              <columnResizePolicy>
+                  <TableView fx:constant = "CONSTRAINED_RESIZE_POLICY"/>
+              </columnResizePolicy>
+          </TableView>
+        </center>
+        <bottom>
+            <HBox alignment = "TOP_CENTER" BorderPane.alignment = "CENTER">
+                <BorderPane.margin>
+                    <Insets bottom = "10.0" left = "10.0" right = "10.0" top = "10.0"/>
+                </BorderPane.margin>
+                <Button mnemonicParsing = "false" onAction = "#createMatch" text = "%createMatch"/>
             </HBox>
-         </bottom>
-      </BorderPane>
-   </children>
+        </bottom>
+    </BorderPane>
 </AnchorPane>

@@ -13,86 +13,86 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane id = "AnchorPane" prefHeight = "465.0" prefWidth = "900.0" stylesheets = "@../../css/mainCss.css" xmlns = "http://javafx.com/javafx/9.0.1" xmlns:fx = "http://javafx.com/fxml/1" fx:controller = "me.is103t4.corendonluggagesystem.scenes.main.tabs.AccountsController">
-    <BorderPane layoutX = "-5.0" prefHeight = "200.0" prefWidth = "200.0" AnchorPane.bottomAnchor = "0.0" AnchorPane.leftAnchor = "0.0" AnchorPane.rightAnchor = "0.0" AnchorPane.topAnchor = "0.0">
+<AnchorPane id="AnchorPane" prefHeight="465.0" prefWidth="900.0" stylesheets="@../../css/mainCss.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.is103t4.corendonluggagesystem.scenes.main.tabs.AccountsController">
+    <BorderPane layoutX="-5.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <right>
-            <GridPane vgap = "10.0" BorderPane.alignment = "CENTER">
+            <GridPane vgap="10.0" BorderPane.alignment="CENTER">
                 <columnConstraints>
-                    <ColumnConstraints hgrow = "SOMETIMES" minWidth = "10.0" prefWidth = "150.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
                 </columnConstraints>
                 <rowConstraints>
-                    <RowConstraints minHeight = "-Infinity" prefHeight = "35.0" vgrow = "NEVER"/>
-                    <RowConstraints minHeight = "-Infinity" prefHeight = "35.0" vgrow = "NEVER"/>
-                    <RowConstraints minHeight = "-Infinity" prefHeight = "35.0" vgrow = "NEVER"/>
-                    <RowConstraints minHeight = "-Infinity" prefHeight = "35.0" vgrow = "NEVER"/>
-                    <RowConstraints minHeight = "-Infinity" prefHeight = "35.0" vgrow = "NEVER"/>
-                    <RowConstraints minHeight = "-Infinity" prefHeight = "35.0" vgrow = "NEVER"/>
+                    <RowConstraints minHeight="-Infinity" prefHeight="35.0" vgrow="NEVER" />
+                    <RowConstraints minHeight="-Infinity" prefHeight="35.0" vgrow="NEVER" />
+                    <RowConstraints minHeight="-Infinity" prefHeight="35.0" vgrow="NEVER" />
+                    <RowConstraints minHeight="-Infinity" prefHeight="35.0" vgrow="NEVER" />
+                    <RowConstraints minHeight="-Infinity" prefHeight="35.0" vgrow="NEVER" />
+                    <RowConstraints minHeight="-Infinity" prefHeight="35.0" vgrow="NEVER" />
                 </rowConstraints>
                 <BorderPane.margin>
-                    <Insets left = "20.0" right = "20.0" top = "30.0"/>
+                    <Insets left="20.0" right="20.0" top="30.0" />
                 </BorderPane.margin>
-                <Button maxWidth = "1.7976931348623157E308" mnemonicParsing = "false" onAction = "#addAccount" text = "Create account"/>
-                <Button maxWidth = "1.7976931348623157E308" mnemonicParsing = "false" onAction = "#editAccount" text = "Edit account" GridPane.rowIndex = "1"/>
-                <Button maxWidth = "1.7976931348623157E308" mnemonicParsing = "false" onAction = "#changeFilter" text = "Filter" GridPane.rowIndex = "2"/>
-                <Button maxWidth = "1.7976931348623157E308" mnemonicParsing = "false" onAction = "#clearFilter" text = "Clear filters" GridPane.rowIndex = "3"/>
-                <Button maxWidth = "1.7976931348623157E308" mnemonicParsing = "false" onAction = "#refresh" text = "Refresh" GridPane.rowIndex = "4"/>
-                <Button maxWidth = "1.7976931348623157E308" mnemonicParsing = "false" onAction = "#toggleActivation" text = "Toggle Activation" GridPane.rowIndex = "5"/>
+                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addAccount" text="%createAccount" />
+                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#editAccount" text="%editAccount" GridPane.rowIndex="1" />
+                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#changeFilter" text="%filter" GridPane.rowIndex="2" />
+                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#clearFilter" text="%clearFilter" GridPane.rowIndex="3" />
+                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#refresh" text="%refresh" GridPane.rowIndex="4" />
+                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#toggleActivation" text="%toggleActivation" GridPane.rowIndex="5" />
             </GridPane>
         </right>
         <center>
-            <TableView fx:id = "table" prefHeight = "465.0" prefWidth = "704.0" BorderPane.alignment = "CENTER">
+            <TableView fx:id="table" prefHeight="465.0" prefWidth="704.0" BorderPane.alignment="CENTER">
                 <columns>
-                    <TableColumn fx:id = "usernameColumn" minWidth = "-1.0" prefWidth = "87.0" text = "Username">
+                    <TableColumn fx:id="usernameColumn" minWidth="-1.0" prefWidth="87.0" text="%acUsername">
                         <cellValueFactory>
-                            <PropertyValueFactory property = "username"/>
+                            <PropertyValueFactory property="username" />
                         </cellValueFactory>
                     </TableColumn>
-                    <TableColumn fx:id = "idColumn" minWidth = "-1.0" prefWidth = "87.0" text = "Tag">
+                    <TableColumn fx:id="idColumn" minWidth="-1.0" prefWidth="87.0" text="%acTag">
                         <cellValueFactory>
-                            <PropertyValueFactory property = "code"/>
+                            <PropertyValueFactory property="code" />
                         </cellValueFactory>
                     </TableColumn>
-                    <TableColumn fx:id = "firstNameColumn" minWidth = "-1.0" prefWidth = "87.0" text = "First name">
+                    <TableColumn fx:id="firstNameColumn" minWidth="-1.0" prefWidth="87.0" text="%acFirst">
                         <cellValueFactory>
-                            <PropertyValueFactory property = "firstName"/>
+                            <PropertyValueFactory property="firstName" />
                         </cellValueFactory>
                     </TableColumn>
-                    <TableColumn fx:id = "lastNameColumn" minWidth = "-1.0" prefWidth = "87.0" text = "Last name">
+                    <TableColumn fx:id="lastNameColumn" minWidth="-1.0" prefWidth="87.0" text="%acLast">
                         <cellValueFactory>
-                            <PropertyValueFactory property = "lastName"/>
+                            <PropertyValueFactory property="lastName" />
                         </cellValueFactory>
                     </TableColumn>
-                    <TableColumn fx:id = "phoneColumn" minWidth = "-1.0" prefWidth = "87.0" text = "Phone Nr">
+                    <TableColumn fx:id="phoneColumn" minWidth="-1.0" prefWidth="87.0" text="%acPhone">
                         <cellValueFactory>
-                            <PropertyValueFactory property = "phoneNumber"/>
+                            <PropertyValueFactory property="phoneNumber" />
                         </cellValueFactory>
                     </TableColumn>
-                    <TableColumn fx:id = "mailColumn" minWidth = "-1.0" prefWidth = "87.0" text = "E-mail">
+                    <TableColumn fx:id="mailColumn" minWidth="-1.0" prefWidth="87.0" text="%acEmail">
                         <cellValueFactory>
-                            <PropertyValueFactory property = "email"/>
+                            <PropertyValueFactory property="email" />
                         </cellValueFactory>
                     </TableColumn>
-                    <TableColumn fx:id = "roleColumn" minWidth = "-1.0" prefWidth = "87.0" text = "Role">
+                    <TableColumn fx:id="roleColumn" minWidth="-1.0" prefWidth="87.0" text="%acRole">
                         <cellValueFactory>
-                            <PropertyValueFactory property = "role"/>
+                            <PropertyValueFactory property="role" />
                         </cellValueFactory>
                     </TableColumn>
-                    <TableColumn fx:id = "activatedColumn" minWidth = "-1.0" prefWidth = "87.0" text = "Activated">
+                    <TableColumn fx:id="activatedColumn" minWidth="-1.0" prefWidth="87.0" text="%acActivated">
                         <cellValueFactory>
-                            <PropertyValueFactory property = "activated"/>
+                            <PropertyValueFactory property="activated" />
                         </cellValueFactory>
                     </TableColumn>
                 </columns>
                 <columnResizePolicy>
-                    <TableView fx:constant = "CONSTRAINED_RESIZE_POLICY"/>
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                 </columnResizePolicy>
             </TableView>
         </center>
         <bottom>
-            <HBox alignment = "TOP_RIGHT" BorderPane.alignment = "CENTER">
-                <Label fx:id = "noteLabel" contentDisplay = "RIGHT" text = "Note: Filters are active! Click 'Clear Filters' to see all entries again." visible = "false">
+            <HBox alignment="TOP_RIGHT" BorderPane.alignment="CENTER">
+                <Label fx:id="noteLabel" contentDisplay="RIGHT" text="Note: Filters are active! Click 'Clear Filters' to see all entries again." visible="false">
                     <HBox.margin>
-                        <Insets bottom = "5.0" right = "5.0"/>
+                        <Insets bottom="5.0" right="5.0" />
                     </HBox.margin>
                 </Label>
             </HBox>

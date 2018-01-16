@@ -36,39 +36,39 @@
                 <BorderPane.margin>
                     <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                 </BorderPane.margin>
-                <Label text="First Name :" />
-                <Label text="Last Name :" GridPane.rowIndex="1" />
-                <Label text="City :" GridPane.rowIndex="2" />
-                <Label text="Address :" GridPane.rowIndex="3" />
-                <Label text="Flight :" GridPane.rowIndex="4" />
-                <Label text="Status :" GridPane.columnIndex="3" />
-                <Label text="Type :" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                <Label text="Tag :" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                <Label text="Brand :" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                <Label text="Colour :" GridPane.columnIndex="3" GridPane.rowIndex="4" />
-                <Label text="Characteristics :" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-                <TextField fx:id="firstNameField" promptText="First Name" GridPane.columnIndex="1" />
-                <TextField fx:id="lastNameField" promptText="Last Name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                <TextField fx:id="cityField" promptText="City" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                <TextField fx:id="addressField" promptText="Address" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <Label text="%first" />
+                <Label text="%last" GridPane.rowIndex="1" />
+                <Label text="%city" GridPane.rowIndex="2" />
+                <Label text="%address" GridPane.rowIndex="3" />
+                <Label text="%flight" GridPane.rowIndex="4" />
+                <Label text="%status" GridPane.columnIndex="3" />
+                <Label text="%type" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                <Label text="%tag" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                <Label text="%brand" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                <Label text="%colour" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                <Label text="%characteristics" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+                <TextField fx:id="firstNameField" promptText="%ovFirst" GridPane.columnIndex="1" />
+                <TextField fx:id="lastNameField" promptText="%last" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <TextField fx:id="cityField" promptText="%ovCity" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <TextField fx:id="addressField" promptText="%ovAddress" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                 <ComboBox fx:id="flightBox" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                 <ComboBox fx:id="statusBox" maxWidth="1.7976931348623157E308" GridPane.columnIndex="4" />
                 <ComboBox fx:id="typeBox" maxWidth="1.7976931348623157E308" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-                <TextField fx:id="tagField" promptText="Luggage Tag" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-                <TextField fx:id="brandField" promptText="Brand" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+                <TextField fx:id="tagField" promptText="%acTag" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                <TextField fx:id="brandField" promptText="%ovBrand" GridPane.columnIndex="4" GridPane.rowIndex="3" />
                 <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="4">
                     <ColorPicker fx:id="colorPicker"/>
-                    <CheckBox fx:id="noColor" mnemonicParsing="false" text="None">
+                    <CheckBox fx:id="noColor" mnemonicParsing="false" text="%unknown">
                         <HBox.margin>
                             <Insets left="10.0" />
                         </HBox.margin>
                     </CheckBox>
                 </HBox>
-                <TextField promptText="Characteristics" fx:id="characteristics" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+                <TextField promptText="%ovCharacteristics" fx:id="characteristics" GridPane.columnIndex="4" GridPane.rowIndex="5" />
             </GridPane>
         </center>
         <bottom>
-          <Button fx:id="applyButton" onAction="#applyFilters" mnemonicParsing="false" text="Apply Filters" BorderPane.alignment="CENTER">
+          <Button fx:id="applyButton" onAction="#applyFilters" mnemonicParsing="false" text="%filter" BorderPane.alignment="CENTER">
               <BorderPane.margin>
                   <Insets bottom="15.0" />
               </BorderPane.margin>
