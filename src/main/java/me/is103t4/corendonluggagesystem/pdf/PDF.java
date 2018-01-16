@@ -187,6 +187,7 @@ public class PDF {
     }
 
     public File exportDHLPDF(Luggage select) {
+        System.out.println("1 : " + Thread.currentThread());
         try (PDDocument document = PDDocument.load(getClass().getResourceAsStream("/pdf/DHL_Template.pdf"));
              InputStream is = getClass().getResourceAsStream("/font/arial.ttf")) {
 
@@ -236,12 +237,13 @@ public class PDF {
      * @return The selected directory
      */
     private File openDirectorySelector() {
+        System.out.println("2 : " + Thread.currentThread());
         DirectoryChooser dirChooser = new DirectoryChooser();
         dirChooser.setTitle("Select Directory to Create PDF in");
         dirChooser.setInitialDirectory(
                 new File(System.getProperty("user.home"))
         );
-        return dirChooser.showDialog(stage);
+        return dirChooser.showDialog(null);
     }
 
     /**

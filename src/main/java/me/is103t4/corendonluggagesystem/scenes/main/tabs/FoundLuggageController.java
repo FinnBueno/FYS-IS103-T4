@@ -68,6 +68,15 @@ public class FoundLuggageController extends Controller {
         if (typeBox == null)
             return;
 
+        luggageIDField.textProperty().
+                addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+                    if (newValue.length() > 10)
+                        newValue = newValue.substring(0, 10);
+                    if (!newValue.matches("\\d*"))
+                        newValue = newValue.replaceAll("[^\\d]", "");
+                    luggageIDField.setText(newValue);
+                });
+
         FetchAirlinesTask airlinesTask = new FetchAirlinesTask();
         airlinesTask.setOnSucceeded(v -> flightNumberBox.setItems(FXCollections.observableArrayList((List<String>)
                 airlinesTask.getValue())));
@@ -86,25 +95,13 @@ public class FoundLuggageController extends Controller {
                 brandField.getText(), colorPicker.getValue(), characsField
                 .getText(), photo, flightNumberBox.getSelectionModel().getSelectedItem(), Account.getLoggedInUser());
 
-        luggageIDField.textProperty().
-                addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
-                    if (newValue.length() > 10)
-                        newValue = newValue.substring(0, 10);
-                    if (!newValue.matches("\\d*"))
-                        newValue = newValue.replaceAll("[^\\d]", "");
-                    luggageIDField.setText(newValue);
-                });
-
 
         registerButton.setDisable(true);
         registerLuggageTask.setOnFailed(v -> {
-            System.out.println(registerLuggageTask.getException());
             registerButton.setDisable(false);
             AlertBuilder.ERROR_OCCURRED.showAndWait();
         });
-        registerLuggageTask.setOnSucceeded(v -> {
-            registerButton.setDisable(false);
-            });
+        registerLuggageTask.setOnSucceeded(v -> registerButton.setDisable(false));
 
     }
 

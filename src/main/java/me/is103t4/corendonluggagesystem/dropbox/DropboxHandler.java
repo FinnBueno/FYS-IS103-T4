@@ -7,6 +7,7 @@ import com.dropbox.core.v2.DbxClientV2;
 import com.dropbox.core.v2.files.FileMetadata;
 import com.dropbox.core.v2.files.ListFolderResult;
 import com.dropbox.core.v2.files.UploadErrorException;
+import javafx.application.Platform;
 import me.is103t4.corendonluggagesystem.util.AlertBuilder;
 import me.is103t4.corendonluggagesystem.util.PreferencesManager;
 
@@ -38,16 +39,21 @@ public class DropboxHandler {
      * @return The name used to upload the file
      */
     public String uploadPhoto(File file) {
+        if (file == null)
+            return null;
         DbxClientV2 client = new DbxClientV2(config, PreferencesManager.get().get(PreferencesManager.DROPBOXKEY));
 
         String name = UUID.randomUUID().toString().replace("-", "") + "-" + LocalDate.now()
                 .format(DateTimeFormatter.ISO_DATE);
         String extension = file.getName().substring(file.getName().length() - 4);
+        if (!extension.equalsIgnoreCase(".jpeg") && !extension.equalsIgnoreCase(".jpg") && !extension
+                .equalsIgnoreCase(".png"))
+            return null;
         new Thread(() -> {
             try (InputStream in = new FileInputStream(file)) {
                 client.files().uploadBuilder("/" + name + "." + extension).uploadAndFinish(in);
             } catch (IOException | DbxException e) {
-                AlertBuilder.INVALID_DROPBOX.showAndWait();
+                Platform.runLater(AlertBuilder.INVALID_DROPBOX::showAndWait);
             }
         }).start();
         return name + "." + extension;
@@ -71,7 +77,6 @@ public class DropboxHandler {
                 callback.accept(null, null);
                 return;
             }
-            System.out.println("/" + name);
             try (FileOutputStream os = new FileOutputStream(tempFile)) {
                 DbxDownloader<FileMetadata> download = client.files().download("/" + name);
                 download.download(os);

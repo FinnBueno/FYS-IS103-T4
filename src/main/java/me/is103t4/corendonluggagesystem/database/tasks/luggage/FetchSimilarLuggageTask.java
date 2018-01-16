@@ -138,11 +138,9 @@ public class FetchSimilarLuggageTask extends DBTask<Luggage[]> {
             preparedStatement.setString(9, wildcard ? baseLuggage.getAddress() : wildcard(baseLuggage.getAddress()));
             preparedStatement.setString(10, wildcard ? baseLuggage.getFlight() : wildcard(baseLuggage.getFlight()));
 
-            System.out.println(searchingFor);
             ResultSet set = preparedStatement.executeQuery();
             List<Luggage> result = new ArrayList<>();
             while (set.next()) {
-                System.out.println("   - Result!!");
                 String status = set.getString(2);
                 if (!status.equalsIgnoreCase(searchingFor))
                     continue;

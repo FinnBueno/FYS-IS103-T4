@@ -68,12 +68,6 @@ public class DBHandler {
             host = PreferencesManager.get().get(PreferencesManager.DB_HOST);
             port = PreferencesManager.get().get(PreferencesManager.DB_PORT);
         }
-        System.out.println(configured);
-        System.out.println(user);
-        System.out.println(pass);
-        System.out.println(db);
-        System.out.println(host);
-        System.out.println(port);
 
         Class.forName("com.mysql.jdbc.Driver");
 

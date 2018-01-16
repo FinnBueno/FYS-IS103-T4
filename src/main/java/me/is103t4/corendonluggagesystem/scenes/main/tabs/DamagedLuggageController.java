@@ -83,7 +83,7 @@ public class DamagedLuggageController extends Controller {
                         newValue = newValue.substring(0, 10);
                     if (!newValue.matches("\\d*"))
                         newValue = newValue.replaceAll("[^\\d]", "");
-                    phoneNumberField.setText(newValue);
+                    luggageIDField.setText(newValue);
                 });
 
         phoneNumberField.textProperty().

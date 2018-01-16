@@ -279,10 +279,8 @@ public class LuggageOverviewController extends Controller {
             table.setItems(data);
             boolean found = false;
             int i = 0;
-            System.out.println(id);
             for (Luggage lug : table.getItems()) {
                 if (lug.getId() == id) {
-                    System.out.println("FOUND");
                     found = true;
                     break;
                 }

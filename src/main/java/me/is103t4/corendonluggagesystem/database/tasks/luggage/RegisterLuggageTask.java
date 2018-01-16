@@ -25,7 +25,6 @@ import me.is103t4.corendonluggagesystem.util.AlertBuilder;
 
 public class RegisterLuggageTask extends DBTask<Boolean> {
 
-
     private final String type;
     private final String firstName;
     private final String lastName;
@@ -44,7 +43,6 @@ public class RegisterLuggageTask extends DBTask<Boolean> {
     private final String flight_id;
     private final Account employee;
     private final int costs;
-    private Object ID;
 
     public RegisterLuggageTask(String type, String firstName, String lastName, String address, String city,
                                String zip, String phone, String email, String lang, String lugType, String
