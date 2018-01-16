@@ -43,12 +43,15 @@ public abstract class Controller implements Initializable {
         init(true, bundle);
     }
 
+    protected ResourceBundle bundle;
+
     public void init(boolean postInit, ResourceBundle bundle) {
         scene.addEventFilter(KeyEvent.KEY_PRESSED,
                 event -> {
                     if (event.getCode() == KeyCode.ENTER && clickButton != null && isOpen())
                         clickButton.fire();
                 });
+        this.bundle = bundle;
         if (postInit)
             postInit(bundle);
     }
@@ -64,18 +67,10 @@ public abstract class Controller implements Initializable {
         clickButton = button;
     }
 
-    protected void notify(String s) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Notification");
-        alert.setHeaderText("Beep!");
-        alert.setContentText(s);
-        alert.showAndWait();
-    }
-
     protected void alert(String s) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Input error");
-        alert.setHeaderText("Something went wrong!");
+        alert.setHeaderText(bundle.getString("somethingWrong"));
         alert.setContentText(s);
         alert.showAndWait();
     }
@@ -91,4 +86,7 @@ public abstract class Controller implements Initializable {
         return fileChooser.showOpenDialog(main.getStage());
     }
 
+    public ResourceBundle getBundle() {
+        return bundle;
+    }
 }

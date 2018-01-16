@@ -71,6 +71,7 @@ public class LuggageOverviewController extends Controller {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("/fxml/filter/LuggageFilter.fxml"));
+            fxmlLoader.setResources(bundle);
             Scene scene = new Scene(fxmlLoader.load(), 600, 400);
             controller = fxmlLoader.getController();
             controller.initializeParentValues(this);
@@ -220,11 +221,11 @@ public class LuggageOverviewController extends Controller {
         if (result == null)
             return;
         int severity;
-        if (result.getText().equalsIgnoreCase("strict")) severity = 0;
-        else if (result.getText().equalsIgnoreCase("loose")) severity = 2;
+        if (result.getText().equalsIgnoreCase(bundle.getString("strict"))) severity = 0;
+        else if (result.getText().equalsIgnoreCase(bundle.getString("loose"))) severity = 2;
         else severity = 1;
 
-        Matcher matcher = new Matcher(main.getStage(), luggage, severity);
+        Matcher matcher = new Matcher(bundle, main.getStage(), luggage, severity);
         matcher.showMatcher();
     }
 

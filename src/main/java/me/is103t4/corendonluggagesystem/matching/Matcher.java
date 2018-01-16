@@ -6,6 +6,7 @@ import javafx.stage.Stage;
 import me.is103t4.corendonluggagesystem.scenes.matching.MatchingController;
 
 import java.io.IOException;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -13,8 +14,10 @@ public class Matcher {
 
     private final int severity;
     private final Luggage luggage;
+    private final ResourceBundle bundle;
 
-    public Matcher(Stage stage, Luggage luggage, int severity) {
+    public Matcher(ResourceBundle bundle, Stage stage, Luggage luggage, int severity) {
+        this.bundle = bundle;
         this.luggage = luggage;
         this.severity = severity;
     }
@@ -26,6 +29,7 @@ public class Matcher {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("/fxml/matching/MatchingInterface.fxml"));
+            fxmlLoader.setResources(bundle);
             Scene scene = new Scene(fxmlLoader.load(), 600, 400);
             MatchingController controller = fxmlLoader.getController();
             controller.fill(luggage, severity);

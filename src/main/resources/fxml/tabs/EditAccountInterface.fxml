@@ -37,15 +37,15 @@
                 <ComboBox fx:id="roleBox" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                 <TextField fx:id="phoneNumberField" maxWidth="1.7976931348623157E308" prefHeight="24.0" prefWidth="151.0" GridPane.columnIndex="4" />
                 <TextField fx:id="emailField" maxWidth="1.7976931348623157E308" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#save" text="Apply Changes" GridPane.columnIndex="3" GridPane.columnSpan="2147483647" GridPane.rowIndex="4" />
-                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#back" text="Back" GridPane.columnSpan="2" GridPane.rowIndex="4" />
+                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#back" text="%back" GridPane.columnSpan="2" GridPane.rowIndex="4" />
+                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#save" text="%save" GridPane.columnIndex="3" GridPane.columnSpan="2147483647" GridPane.rowIndex="4" />
 
-                <Label text="First Name:" />
-                <Label text="Last Name:" GridPane.rowIndex="1" />
-                <Label text="Role:" GridPane.rowIndex="2" />
-                <Label text="Phone number" GridPane.columnIndex="3" />
-                <Label text="E-mail:" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-            <Label text="Active :" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                <Label text="%first" />
+                <Label text="%acRole" GridPane.rowIndex="2" />
+                <Label text="%last" GridPane.rowIndex="1" />
+                <Label text="%%phone" GridPane.columnIndex="3" />
+                <Label text="%%email" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <Label text="%acActivated" GridPane.columnIndex="3" GridPane.rowIndex="2" />
             <ComboBox fx:id="activeBox" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
             </GridPane>
         </center>

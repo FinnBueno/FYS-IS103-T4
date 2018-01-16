@@ -11,6 +11,7 @@ import me.is103t4.corendonluggagesystem.account.AccountRole;
 import me.is103t4.corendonluggagesystem.database.tasks.accounts.CreateAccountTask;
 import me.is103t4.corendonluggagesystem.scenes.Controller;
 import me.is103t4.corendonluggagesystem.scenes.main.Tabs;
+import me.is103t4.corendonluggagesystem.util.AlertBuilder;
 
 import java.util.ResourceBundle;
 
@@ -65,62 +66,61 @@ public class NewAccountController extends Controller {
     @FXML
     private void createAccount() {
         if (!phoneNumberField.getText().matches("\\d{10}|(?:\\d{3}-){2}\\d{4}|\\(\\d{3}\\)\\d{3}-?\\d{4}\"")) {
-            alert("The phone number is invalid!");
+            alert(bundle.getString("phoneInvalid"));
             return;
         }
 
         if (firstNameField.getText().length() < 1) {
-            alert("The first name can't be empty!");
+            alert(bundle.getString("firstEmpty"));
             return;
         }
 
         if (lastNameField.getText().length() < 1) {
-            alert("The last name can't be empty!");
+            alert(bundle.getString("lastEmpty"));
         }
 
         if (tagField.getText().length() != 4) {
-            alert("The tag must be a 4 digit numeric code!");
+            alert(bundle.getString("invalidTag"));
             return;
         }
 
         if (emailField.getText().length() < 2 || !emailField.getText().contains("@") || !emailField.getText()
                 .contains(".")) {
-            alert("The email is invalid!");
+            alert(bundle.getString("invalidEmail"));
             return;
         }
 
         if (passwordField.getText().length() < 8 || (passwordField.getText().matches("[0-9]+") && passwordField.getText
                 ().matches("[a-z]+") && passwordField.getText().matches("[A-Z]+"))) {
-            alert("A password must be at least 8 characters long, contain a number, one uppercase and one lowercase " +
-                    "letter.");
+            alert(bundle.getString("passRequirements"));
         }
 
         if (!passwordField.getText().equals(repasswordField.getText())) {
-            alert("The passwords don't match!");
+            alert(bundle.getString("noMatchPassC"));
             return;
         }
 
         if (!passwordField.getText().equals(repasswordField.getText())) {
-            alert("The passwords don't match!");
+            alert(bundle.getString("noMatchPassC"));
             return;
         }
 
         if (phoneNumberField.getLength() < 10 || !phoneNumberField.getText().matches("[0-9 +]+")) {
-            alert("The phone number is invalid!");
+            alert(bundle.getString("invalidPhone"));
             return;
         }
 
         CreateAccountTask createAccountTask = new CreateAccountTask(firstNameField.getText(), lastNameField.getText()
                 , emailField.getText(), phoneNumberField.getText(), passwordField.getText(), tagField.getText(),
                 AccountRole.fromId(roleBox.getSelectionModel().getSelectedIndex()));
-        createAccountTask.setOnFailed(event -> alert("The account could not be created due to an error."));
+        createAccountTask.setOnFailed(event -> AlertBuilder.ERROR_OCCURRED.showAndWait());
         createAccountTask.setOnSucceeded(event -> {
             boolean acc = (boolean) createAccountTask.getValue();
             if (acc) {
-                notify("The account has been created!");
+                AlertBuilder.CHANGES_SAVED.showAndWait();
                 back();
             } else
-                alert("The tag and username combination or email already exists!");
+                alert(bundle.getString("userAlreadyExists"));
         });
     }
 

@@ -107,8 +107,6 @@ public class RegisterLuggageTask extends DBTask<Boolean> {
             preparingStatement.setDate(19, Date.valueOf(LocalDate.now()));
             preparingStatement.setInt(20, costs);
 
-            System.out.println("Found register called 3");
-
             return ps.executeUpdate() != -1;
         } catch (SQLException e) {
             e.printStackTrace();

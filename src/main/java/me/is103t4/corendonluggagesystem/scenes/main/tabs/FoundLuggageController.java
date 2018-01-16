@@ -77,18 +77,13 @@ public class FoundLuggageController extends Controller {
 
     @FXML
     private void registerFoundLuggage() {
-        if (checkEmptyFields()) {
+        if (checkEmptyFields())
             return;
-        }
-
-        System.out.println("Found register called");
 
         RegisterLuggageTask registerLuggageTask = new RegisterLuggageTask("Found", null, null, null, null,
                 null, null, null, null, typeBox.getSelectionModel().getSelectedItem(), luggageIDField.getText(),
                 brandField.getText(), colorPicker.getValue(), characsField
                 .getText(), photo, flightNumberBox.getSelectionModel().getSelectedItem(), Account.getLoggedInUser());
-
-        System.out.println("Found register called 2");
 
         registerButton.setDisable(true);
         registerLuggageTask.setOnFailed(v -> {
@@ -107,11 +102,11 @@ public class FoundLuggageController extends Controller {
 
     private boolean checkEmptyFields() {
         if (characsField.getText() == null || characsField.getText().length() == 0) {
-            alert("Characteristics cannot be empty!");
+            alert(bundle.getString("characteristicsEmpty"));
             return true;
         }
         if (typeBox.getSelectionModel().getSelectedItem() == null) {
-            alert("Luggage type must be selected!");
+            alert(bundle.getString("luggageTypeEmpty"));
             return true;
         }
         return false;

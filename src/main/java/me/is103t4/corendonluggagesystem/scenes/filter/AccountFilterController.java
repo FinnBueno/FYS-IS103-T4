@@ -72,9 +72,9 @@ public class AccountFilterController extends Controller {
         );
 
         List<String> list = new ArrayList<>(AccountRole.getNames());
-        list.add("Do not check");
+        list.add(accounts.getBundle().getString("dontCheck"));
         roleBox.setItems(FXCollections.observableList(list));
-        activatedBox.setItems(FXCollections.observableList(Arrays.asList("Yes", "No", "Either")));
+        activatedBox.setItems(FXCollections.observableList(Arrays.asList("yes", "no", "either")));
     }
 
     public void setEditingAccount(Account acc) {
@@ -82,7 +82,7 @@ public class AccountFilterController extends Controller {
         tagField.setText(acc == null ? "" : acc.getCode());
         firstNameField.setText(acc == null ? "" : acc.getFirstName());
         lastNameField.setText(acc == null ? "" : acc.getLastName());
-        roleBox.getSelectionModel().select((acc == null ? "Do not check" : acc.getRole().toString()));
+        roleBox.getSelectionModel().select((acc == null ? bundle.getString("dontCheck") : acc.getRole().toString()));
         activatedBox.getSelectionModel().select(acc == null ? 2 : acc.isActivated() ? 0 : 1);
         emailField.setText(acc == null ? "" : acc.getEmail());
         phoneNumberField.setText(acc == null ? "" : acc.getPhoneNumber());

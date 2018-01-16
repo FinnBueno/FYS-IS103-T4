@@ -13,48 +13,48 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id = "AnchorPane" prefHeight = "465.0" prefWidth = "900.0" stylesheets = "@../../css/mainCss.css" xmlns = "http://javafx.com/javafx/9.0.1" xmlns:fx = "http://javafx.com/fxml/1" fx:controller = "me.is103t4.corendonluggagesystem.scenes.main.tabs.ConfigurationsController">
-    <BorderPane prefHeight = "465.0" prefWidth = "900.0" AnchorPane.bottomAnchor = "0.0" AnchorPane.leftAnchor = "0.0" AnchorPane.rightAnchor = "0.0" AnchorPane.topAnchor = "0.0">
+<AnchorPane id="AnchorPane" prefHeight="465.0" prefWidth="900.0" stylesheets="@../../css/mainCss.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.is103t4.corendonluggagesystem.scenes.main.tabs.ConfigurationsController">
+    <BorderPane prefHeight="465.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <center>
-            <GridPane alignment = "CENTER" hgap = "10.0" vgap = "10.0" BorderPane.alignment = "CENTER">
+            <GridPane alignment="CENTER" hgap="10.0" vgap="10.0" BorderPane.alignment="CENTER">
                 <columnConstraints>
-                    <ColumnConstraints hgrow = "SOMETIMES" maxWidth = "-Infinity" minWidth = "-Infinity" prefWidth = "150.0"/>
-                    <ColumnConstraints hgrow = "SOMETIMES" maxWidth = "-Infinity" minWidth = "10.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" />
                 </columnConstraints>
                 <rowConstraints>
-                    <RowConstraints minHeight = "10.0" prefHeight = "30.0" vgrow = "SOMETIMES"/>
-                    <RowConstraints minHeight = "10.0" prefHeight = "30.0" vgrow = "SOMETIMES"/>
-                    <RowConstraints minHeight = "10.0" prefHeight = "30.0" vgrow = "SOMETIMES"/>
-                    <RowConstraints minHeight = "10.0" prefHeight = "30.0" vgrow = "SOMETIMES"/>
-                    <RowConstraints minHeight = "10.0" prefHeight = "30.0" vgrow = "SOMETIMES"/>
-                    <RowConstraints minHeight = "10.0" prefHeight = "30.0" vgrow = "SOMETIMES"/>
-                    <RowConstraints minHeight = "10.0" prefHeight = "30.0" vgrow = "SOMETIMES"/>
-                    <RowConstraints maxHeight = "-Infinity" minHeight = "5.0" prefHeight = "5.0" vgrow = "SOMETIMES"/>
-                    <RowConstraints maxHeight = "45.0" minHeight = "10.0" prefHeight = "45.0" vgrow = "SOMETIMES"/>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="-Infinity" minHeight="5.0" prefHeight="5.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="45.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
                 </rowConstraints>
                 <BorderPane.margin>
-                    <Insets bottom = "15.0" left = "50.0" right = "50.0" top = "15.0"/>
+                    <Insets bottom="15.0" left="50.0" right="50.0" top="15.0" />
                 </BorderPane.margin>
-                <VBox alignment = "TOP_CENTER" maxHeight = "1.7976931348623157E308" maxWidth = "1.7976931348623157E308" GridPane.columnSpan = "2147483647" GridPane.hgrow = "NEVER" GridPane.rowIndex = "8">
-                    <Button maxHeight = "1.7976931348623157E308" maxWidth = "-Infinity" mnemonicParsing = "false" onAction = "#saveChanges" prefWidth = "300.0" stylesheets = "@../../../FYS-IS103-T4/src/main/resources/css/dark.css" text = "Save changes" VBox.vgrow = "ALWAYS"/>
+                <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnSpan="2147483647" GridPane.hgrow="NEVER" GridPane.rowIndex="8">
+                    <Button maxHeight="1.7976931348623157E308" maxWidth="-Infinity" mnemonicParsing="false" onAction="#saveChanges" prefWidth="300.0" stylesheets="@../../../FYS-IS103-T4/src/main/resources/css/dark.css" text="%save" VBox.vgrow="ALWAYS" />
                 </VBox>
-                <Label text = "First name" GridPane.rowIndex = "1"/>
-                <TextField fx:id = "firstNameField" prefHeight = "25.0" prefWidth = "225.0" GridPane.columnIndex = "1" GridPane.rowIndex = "1"/>
-                <Label text = "Last name" GridPane.rowIndex = "2"/>
-                <TextField fx:id = "lastNameField" prefHeight = "25.0" prefWidth = "245.0" GridPane.columnIndex = "1" GridPane.rowIndex = "2"/>
-                <Label text = "Phone number" GridPane.rowIndex = "3"/>
-                <TextField fx:id = "phoneNumberField" GridPane.columnIndex = "1" GridPane.rowIndex = "3"/>
-                <Label text = "E-mail" GridPane.rowIndex = "4"/>
-                <Label prefHeight = "25.0" prefWidth = "165.0" styleClass = "header" text = "Personal information" GridPane.columnSpan = "2147483647">
+                <Label text="%coFirst" GridPane.rowIndex="1" />
+                <TextField fx:id="firstNameField" prefHeight="25.0" prefWidth="225.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label text="%coLast" GridPane.rowIndex="2" />
+                <TextField fx:id="lastNameField" prefHeight="25.0" prefWidth="245.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <Label text="%coPhone" GridPane.rowIndex="3" />
+                <TextField fx:id="phoneNumberField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <Label text="%coEmail" GridPane.rowIndex="4" />
+                <Label prefHeight="25.0" prefWidth="165.0" styleClass="header" text="%personalInfo" GridPane.columnSpan="2147483647">
                     <font>
-                        <Font name = "System Bold" size = "12.0"/>
+                        <Font name="System Bold" size="12.0" />
                     </font>
                 </Label>
-                <TextField fx:id = "emailField" GridPane.columnIndex = "1" GridPane.rowIndex = "4"/>
-                <Label text = "SendGrid key" GridPane.rowIndex = "5"/>
-                <PasswordField fx:id = "sendgridKeyField" GridPane.columnIndex = "1" GridPane.rowIndex = "5"/>
-                <Label text = "Dropbox Key" GridPane.rowIndex = "6"/>
-                <PasswordField fx:id = "dropboxKeyField" maxWidth = "1.7976931348623157E308" GridPane.columnIndex = "1" GridPane.rowIndex = "6"/>
+                <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                <Label text="%sendgrid" GridPane.rowIndex="5" />
+                <PasswordField fx:id="sendgridKeyField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                <Label text="%dropbox" GridPane.rowIndex="6" />
+                <PasswordField fx:id="dropboxKeyField" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             </GridPane>
         </center>
     </BorderPane>

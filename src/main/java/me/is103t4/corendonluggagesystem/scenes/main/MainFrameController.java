@@ -15,6 +15,8 @@ import javafx.scene.image.ImageView;
 import me.is103t4.corendonluggagesystem.account.Account;
 import me.is103t4.corendonluggagesystem.scenes.Controller;
 import me.is103t4.corendonluggagesystem.scenes.Scenes;
+import me.is103t4.corendonluggagesystem.util.AlertBuilder;
+import me.is103t4.corendonluggagesystem.util.PreferencesManager;
 
 import java.util.ResourceBundle;
 
@@ -56,9 +58,12 @@ public class MainFrameController extends Controller {
         langBox.getItems().addAll(options);
         langBox.setCellFactory(c -> new StringImageCell());
         langBox.setButtonCell(new StringImageCell());
-        langBox.getSelectionModel().select(1);
+        langBox.getSelectionModel().select(PreferencesManager.get().get(PreferencesManager.LANGUAGE).equalsIgnoreCase("NL") ? 0 : 1);
         langBox.setOnAction(event -> {
-            System.out.println("ACTION");
+            PreferencesManager.get().set(PreferencesManager.LANGUAGE, langBox.getSelectionModel().getSelectedIndex() == 0 ? "NL" : "EN");
+            ButtonType btn = AlertBuilder.RESTART_PROMPT.showAndWait().orElse(null);
+            if (btn != null && btn.getText().equalsIgnoreCase("Yes"))
+                main.restart();
         });
 
         Tabs.initAll(main, bundle);

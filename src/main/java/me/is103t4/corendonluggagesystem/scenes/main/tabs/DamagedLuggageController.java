@@ -146,7 +146,7 @@ public class DamagedLuggageController extends Controller {
     @FXML
     private void selectPhoto() {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Select Photo File");
+        fileChooser.setTitle(bundle.getString("selectPhoto"));
         fileChooser.setInitialDirectory(
                 new File(System.getProperty("user.home"))
         );

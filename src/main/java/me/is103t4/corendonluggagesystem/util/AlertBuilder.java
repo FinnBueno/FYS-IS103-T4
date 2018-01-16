@@ -6,73 +6,120 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextInputDialog;
 import javafx.stage.Modality;
 
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.util.*;
 
 import static javafx.scene.control.ButtonBar.*;
 
 public class AlertBuilder {
 
-    public static final AlertBuilder REGISTERED_LUGGAGE = new AlertBuilder(Alert.AlertType.CONFIRMATION, "Luggage " +
-            "registered", "Successfully registered luggage!", "You've successfully registered the luggage. Use the " +
-            "buttons below to take further action. A PDF will be created. Click the button below to directly search " +
-            "for matches.").addButton(new ButtonType("Search for matches", ButtonData.FINISH));
-    public static final AlertBuilder ERROR_OCCURRED = new AlertBuilder(Alert.AlertType.ERROR, "Error", "An error has " +
-            "occurred", "An error has occurred while attempting to perform this action. Please try again later!")
+    private static final ResourceBundle bundle;
+
+    static {
+        String lang = PreferencesManager.get().get(PreferencesManager.LANGUAGE);
+        Locale locale = lang == null || !lang.equalsIgnoreCase("NL") ? new Locale("en", "US")
+                : new Locale("nl", "NL");
+        URL url = AlertBuilder.class.getResource("/language/");
+        ClassLoader loader = new URLClassLoader(new URL[]{url});
+        bundle = ResourceBundle.getBundle("bundle", locale, loader);
+    }
+
+    public static final AlertBuilder REGISTERED_LUGGAGE = new AlertBuilder(Alert.AlertType.CONFIRMATION,
+            bundle.getString("luggageRegistered"),
+            bundle.getString("luggageRegisteredH"),
+            bundle.getString("luggageRegisteredC"))
+            .addButton(new ButtonType(bundle.getString("findMatch"), ButtonData.FINISH));
+
+    public static final AlertBuilder ERROR_OCCURRED = new AlertBuilder(Alert.AlertType.ERROR,
+            bundle.getString("error"),
+            bundle.getString("errorH"),
+            bundle.getString("errorC"))
             .addButton(new ButtonType("OK", ButtonData.FINISH));
-    public static final AlertBuilder CHANGES_SAVED = new AlertBuilder(Alert.AlertType.CONFIRMATION, "Saved", "Changes" +
-            " saved",
-            "Your changes have been saved!")
+
+    public static final AlertBuilder CHANGES_SAVED = new AlertBuilder(Alert.AlertType.CONFIRMATION,
+            bundle.getString("saved"),
+            bundle.getString("savedH"),
+            bundle.getString("savedC"))
             .addButton(new ButtonType("OK", ButtonData.FINISH));
-    public static final AlertBuilder SEARCH_LOOSENESS = new AlertBuilder(Alert.AlertType.INFORMATION, "Matching",
-            "Select Matching Level", "Please select how loose the matching should be.")
-            .addButton(new ButtonType("Strict", ButtonData.CANCEL_CLOSE))
-            .addButton(new ButtonType("Normal", ButtonData.OTHER))
-            .addButton(new ButtonType("Loose", ButtonData.FINISH));
-    public static final AlertBuilder NO_SELECTION = new AlertBuilder(Alert.AlertType.WARNING, "Alert!", "No " +
-            "Selection!", "You must make a " +
-            "selection first!").addButton(new ButtonType("OK", ButtonData.OK_DONE));
-    public static final AlertBuilder MATCH_CREATED = new AlertBuilder(Alert.AlertType.INFORMATION, "Success!", "Match" +
-            " created",
-            "A match has been created. The owner will be notified their luggage has been found. Please enter the " +
-                    "e-mail address of the lost-and-found service so they can be asked to ship the luggage.")
+
+    public static final AlertBuilder SEARCH_LOOSENESS = new AlertBuilder(Alert.AlertType.INFORMATION,
+            bundle.getString("matching"),
+            bundle.getString("matchingH"),
+            bundle.getString("matchingC"))
+            .addButton(new ButtonType(bundle.getString("strict"), ButtonData.CANCEL_CLOSE))
+            .addButton(new ButtonType(bundle.getString("normal"), ButtonData.OTHER))
+            .addButton(new ButtonType(bundle.getString("loose"), ButtonData.FINISH));
+
+    public static final AlertBuilder NO_SELECTION = new AlertBuilder(Alert.AlertType.WARNING,
+            bundle.getString("select"),
+            bundle.getString("selectH"),
+            bundle.getString("selectC"))
+            .addButton(new ButtonType("OK", ButtonData.OK_DONE));
+
+    public static final AlertBuilder MATCH_CREATED = new AlertBuilder(Alert.AlertType.INFORMATION,
+            bundle.getString("match"),
+            bundle.getString("matchH"),
+            bundle.getString("matchC"))
             .addTextField();
+
     public static final AlertBuilder PASSENGER_EMAIL_PROMPT = new AlertBuilder(Alert.AlertType.INFORMATION,
-            "Passenger email", "Passenger email", "Please enter the passenger's email.").addTextField().addButton(new
+            bundle.getString("passEmail"),
+            bundle.getString("passEmailH"),
+            bundle.getString("passEmailC")).addTextField().addButton(new
             ButtonType("Done", ButtonData.OK_DONE));
+
     public static final AlertBuilder NO_PERMISSION = new AlertBuilder(Alert.AlertType.ERROR,
-            "No permission", "No permission", "You do not have the right role to perform this action").addButton(new
-            ButtonType("OK", ButtonData.OK_DONE));
-    public static final AlertBuilder NO_IMAGE = new AlertBuilder(Alert.AlertType.ERROR,"Error", "No Image", "No image was submitted for " +
-            "this entry").addButton(new ButtonType("OK", ButtonData.OK_DONE));
-    public static final AlertBuilder NOT_ALL_REQUIRED_FILLED = new AlertBuilder(Alert.AlertType.ERROR, "Error", "Empty fields",
-            "Not all required fields have been filled in!").addButton(new ButtonType("OK", ButtonData.OK_DONE));
+            bundle.getString("noPerm"),
+            bundle.getString("noPermH"),
+            bundle.getString("noPermC"))
+            .addButton(new ButtonType("OK", ButtonData.OK_DONE));
+
+    public static final AlertBuilder NO_IMAGE = new AlertBuilder(Alert.AlertType.ERROR,
+            bundle.getString("noImage"),
+            bundle.getString("noImageH"),
+            bundle.getString("noImageC"))
+            .addButton(new ButtonType("OK", ButtonData.OK_DONE));
+
+    public static final AlertBuilder NOT_ALL_REQUIRED_FILLED = new AlertBuilder(Alert.AlertType.ERROR,
+            bundle.getString("notAllRequiredFields"),
+            bundle.getString("notAllRequiredFieldsH"),
+            bundle.getString("notAllRequiredFieldsC"))
+            .addButton(new ButtonType("OK", ButtonData.OK_DONE));
+
+    public static final AlertBuilder RESTART_PROMPT = new AlertBuilder(Alert.AlertType.INFORMATION,
+            bundle.getString("restart"),
+            bundle.getString("restartH"),
+            bundle.getString("restartC"))
+            .addButton(new ButtonType("Yes", ButtonData.YES))
+            .addButton(new ButtonType("No", ButtonData.NO));
+
+    public static final AlertBuilder NO_MATCH_PASSWORDS = new AlertBuilder(Alert.AlertType.ERROR,
+            bundle.getString("noPassMatch"),
+            bundle.getString("noPassMatchH"),
+            bundle.getString("noPassMatchC"))
+            .addButton(new ButtonType("OK", ButtonData.OK_DONE));
 
     private final String content;
     private final String header;
     private final String title;
     private final Alert.AlertType type;
     private Set<ButtonType> types;
-    private boolean text;
 
     public AlertBuilder(Alert.AlertType type, String title, String header, String content) {
         this.type = type;
         this.title = title;
         this.header = header;
         this.content = content;
-        this.text = false;
         this.types = new HashSet<>();
     }
 
-    private AlertBuilder addButton(ButtonType buttonType) {
+    public AlertBuilder addButton(ButtonType buttonType) {
         types.add(buttonType);
         return this;
     }
 
     private AlertBuilder addTextField() {
-        text = true;
         return this;
     }
 
