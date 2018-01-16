@@ -76,7 +76,7 @@
             <ComboBox fx:id="langBox" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="4" GridPane.rowIndex="6" />
             <HBox alignment="TOP_CENTER" GridPane.columnSpan="2147483647" GridPane.rowIndex="9">
                <children>
-                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefWidth="350.0" text="%back">
+                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefWidth="350.0" onAction="#back" text="%back">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>

@@ -1,6 +1,7 @@
 package me.is103t4.corendonluggagesystem.scenes.main.tabs;
 
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
@@ -176,5 +177,9 @@ public class EditLuggageController extends Controller {
     @Override
     public boolean isOpen() {
         return Tabs.OVERVIEW.isOpen(1);
+    }
+
+    public void back() {
+        Tabs.OVERVIEW.setRoot(0);
     }
 }
