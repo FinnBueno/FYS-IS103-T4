@@ -120,9 +120,11 @@ public class LostLuggageController extends Controller {
                 });
         luggageIDField.textProperty().
                 addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+                    if (newValue.length() > 10)
+                        newValue = newValue.substring(0, 10);
                     if (!newValue.matches("\\d*"))
-                        luggageIDField.setText(newValue.
-                                replaceAll("[^\\d]", ""));
+                        newValue = newValue.replaceAll("[^\\d]", "");
+                    luggageIDField.setText(newValue);
                 });
 
         // fill combo boxes
@@ -142,7 +144,7 @@ public class LostLuggageController extends Controller {
 
     @FXML
     private void registerLostLuggage() {
-
+        System.out.println("3 : " + Thread.currentThread());
         if (checkEmptyFields())
             return;
 
@@ -154,7 +156,7 @@ public class LostLuggageController extends Controller {
                 flightNumberBox.getSelectionModel().getSelectedItem(), Account.getLoggedInUser());
 
         registerButton.setDisable(true);
-        registerLuggageTask.setOnSucceeded((Event v) -> {
+        registerLuggageTask.setOnSucceeded(v -> {
             boolean inserted = (boolean) registerLuggageTask.getValue();
             if (!inserted) {
                 AlertBuilder.ERROR_OCCURRED.showAndWait();
@@ -195,8 +197,11 @@ public class LostLuggageController extends Controller {
                     });
             email.setAttachments(photo);
 
-            EmailSender.getInstance().
-                    send(email);
+            try {
+                EmailSender.getInstance().
+                        send(email);
+            } catch (Exception ignored) {
+            }
 
             // insurance claim
             File file = promptForInsuranceClaim();
@@ -220,11 +225,7 @@ public class LostLuggageController extends Controller {
                     langBox.getSelectionModel().getSelectedIndex() == 0 ? "English" : "Dutch", file);
 
             AlertBuilder.REGISTERED_LUGGAGE.showAndWait();
-            Tabs.OVERVIEW.setRoot(0);
         });
-    }
-
-    public static void main(String[] args) {
     }
 
     private File promptForInsuranceClaim() {

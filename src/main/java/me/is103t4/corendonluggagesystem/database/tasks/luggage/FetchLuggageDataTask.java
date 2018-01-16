@@ -78,31 +78,12 @@ public class FetchLuggageDataTask extends DBTask<Map<String, Map<MonthYear, Inte
                 new DateRange(startDate, endDate).toList().forEach(date -> innerMap.put(new MonthYear(date), 0));
             }
 
-            result.forEach((String status, Map<MonthYear, Integer> map) -> {
-                System.out.println("Status: " + status);
-                map.forEach((MonthYear my, Integer amount) -> {
-                    System.out.println("\tMonthYear: " + my.getMonth() + " - " + my.getYear() + " - Amount: " + amount);
-                });
-            });
-
-            System.out.println("\n ----- FILLING -----\n");
-
             while (set.next()) {
                 String status = set.getString(1);
                 LocalDate date = set.getDate(2).toLocalDate();
-                System.out.println("ENTRY: " + status + " - " + date.format(DateTimeFormatter.BASIC_ISO_DATE));
                 Map<MonthYear, Integer> innerMap = result.get(status);
                 increaseValue(innerMap, date);
             }
-
-            System.out.println("\n ----- FILLED -----");
-
-            result.forEach((String status, Map<MonthYear, Integer> map) -> {
-                System.out.println("Status: " + status);
-                map.forEach((MonthYear my, Integer amount) -> {
-                    System.out.println("\tMonthYear: " + my.getMonth() + " - " + my.getYear() + " - Amount: " + amount);
-                });
-            });
 
             return result;
         } catch (SQLException e) {

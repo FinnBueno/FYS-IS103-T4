@@ -92,6 +92,10 @@ public class MainFrameController extends Controller {
         return tabPane.getSelectionModel().getSelectedItem();
     }
 
+    public void switchPanes(Tabs tab) {
+        tabPane.getSelectionModel().select(tab.getTab());
+    }
+
     // A custom ListCell that displays an image and string
     static class StringImageCell extends ListCell<String> {
 

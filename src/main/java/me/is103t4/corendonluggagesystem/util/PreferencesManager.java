@@ -17,6 +17,12 @@ public class PreferencesManager {
     public static final String LANGUAGE = "LANGUAGE";
 
     private final static PreferencesManager INSTANCE = new PreferencesManager();
+    public static final String DB_CONFIGURED = "DB.configured";
+    public static final String DB_USER = "DB.user";
+    public static final String DB_PASS = "DB.pass";
+    public static final String DB_DB = "DB.db";
+    public static final String DB_HOST = "DB.host";
+    public static final String DB_PORT = "DB.port";
 
     public static PreferencesManager get() {
         return INSTANCE;
@@ -25,7 +31,7 @@ public class PreferencesManager {
     private final Preferences prefs;
 
     private PreferencesManager() {
-        prefs = Preferences.userNodeForPackage(PreferencesManager.class);
+        prefs = Preferences.userRoot().node("CorendonLuggageDetectiveSystem");
     }
 
     public void set(String path, String value) {

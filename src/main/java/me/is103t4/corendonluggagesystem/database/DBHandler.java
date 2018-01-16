@@ -1,6 +1,7 @@
 package me.is103t4.corendonluggagesystem.database;
 
 import me.is103t4.corendonluggagesystem.email.IEmail;
+import me.is103t4.corendonluggagesystem.util.PreferencesManager;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,6 +10,7 @@ import java.net.URL;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.prefs.Preferences;
 
 /**
  * This class handles any interaction with the database. Any database
@@ -45,52 +47,32 @@ public class DBHandler {
     }
 
     /**
-     * Used to create the table structure in the database
-     */
-    private void create() throws SQLException {
-        // read createTables.sql
-        URL urlToFile = getClass().getResource("/sql/createTables.sql");
-        // read contents into StringBuilder with BufferedReader
-        StringBuilder sb = null;
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(urlToFile.
-                openStream()))) {
-            String line;
-            sb = new StringBuilder();
-            while ((line = br.readLine()) != null) {
-                sb.append(line);
-                sb.append("\n");
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(IEmail.class.getName()).
-                    log(Level.SEVERE, null, ex);
-        }
-
-        if (sb == null) {
-            throw new SQLException("Could not create databases! Application will not work properly!");
-        }
-
-        // execute query to create all tables if they don't exist already
-        try (PreparedStatement preparedStatement = connection.
-                prepareStatement(sb.toString().replaceAll("mydb", db))) {
-
-            preparedStatement.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(DBHandler.class.getName()).
-                    log(Level.SEVERE, null, ex);
-        }
-
-    }
-
-    /**
      * Starts the connection to the database
      * @throws ClassNotFoundException If the {@link com.mysql.jdbc.Driver} could not be found
      * @throws SQLException If the connection could not be started
      */
     public void open() throws ClassNotFoundException, SQLException {
+
+        String configured = PreferencesManager.get().get(PreferencesManager.DB_CONFIGURED);
+        String user, pass, port, host, db;
+        if (configured == null || !configured.equalsIgnoreCase("true")) {
+            user = "corendon";
+            pass = "Corendon1";
+            db = "corendon";
+            host = "54.37.228.40";
+            port = "3306";
+        } else {
+            user = PreferencesManager.get().get(PreferencesManager.DB_USER);
+            pass = PreferencesManager.get().get(PreferencesManager.DB_PASS);
+            db = PreferencesManager.get().get(PreferencesManager.DB_DB);
+            host = PreferencesManager.get().get(PreferencesManager.DB_HOST);
+            port = PreferencesManager.get().get(PreferencesManager.DB_PORT);
+        }
+
         Class.forName("com.mysql.jdbc.Driver");
 
         String url = "jdbc:mysql://" + host + ":" + port + "/" + db;
-        connection = DriverManager.getConnection(url, username, password);
+        connection = DriverManager.getConnection(url, user, pass);
     }
 
     /**

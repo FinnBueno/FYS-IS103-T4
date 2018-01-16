@@ -86,7 +86,6 @@ public class EditLuggageController extends Controller {
                 .getSelectedIndex(), luggageIDField.getText(), brandField.getText(), toHex(colorPicker.getValue()),
                 characsField.getText(), flightNumberBox.getSelectionModel().getSelectedItem(), statusBox
                 .getSelectionModel().getSelectedItem(), id);
-        System.out.println(id);
         task.setOnSucceeded(event -> {
             if ((boolean) task.getValue()) {
                 AlertBuilder.CHANGES_SAVED.showAndWait();

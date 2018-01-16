@@ -68,7 +68,6 @@ public enum Tabs {
      */
     public void initialize(LugSysMain main, ResourceBundle bundle) {
         // generate a tab
-        System.out.println(name());
         tab = generateTab();
 
         for (int i = 0; i < fxmlURL.length; i++) {

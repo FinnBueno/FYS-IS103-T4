@@ -1,5 +1,6 @@
 package me.is103t4.corendonluggagesystem.database.tasks.luggage;
 
+import javafx.application.Platform;
 import javafx.scene.paint.Color;
 import me.is103t4.corendonluggagesystem.account.Account;
 import me.is103t4.corendonluggagesystem.database.DBHandler;
@@ -9,6 +10,7 @@ import me.is103t4.corendonluggagesystem.matching.Luggage;
 
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,9 +18,12 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 
 import javafx.scene.control.CheckBox;
+import me.is103t4.corendonluggagesystem.scenes.Scenes;
+import me.is103t4.corendonluggagesystem.scenes.main.Tabs;
+import me.is103t4.corendonluggagesystem.scenes.main.tabs.LuggageOverviewController;
+import me.is103t4.corendonluggagesystem.util.AlertBuilder;
 
 public class RegisterLuggageTask extends DBTask<Boolean> {
-
 
     private final String type;
     private final String firstName;
@@ -96,7 +101,12 @@ public class RegisterLuggageTask extends DBTask<Boolean> {
             preparingStatement.setString(8, email);
             preparingStatement.setString(9, lang);
             preparingStatement.setString(10, lugType);
-            preparingStatement.setString(11, lugTag);
+            int lugTag;
+            if (this.lugTag == null || this.lugTag.length() == 0)
+                lugTag = 0;
+            else
+                lugTag = Integer.parseInt(this.lugTag);
+            preparingStatement.setInt(11, lugTag);
             preparingStatement.setString(12, brand);
             preparingStatement.setString(13, toHex(colour));
             preparingStatement.setString(14, characteristics);
@@ -107,7 +117,10 @@ public class RegisterLuggageTask extends DBTask<Boolean> {
             preparingStatement.setDate(19, Date.valueOf(LocalDate.now()));
             preparingStatement.setInt(20, costs);
 
-            return ps.executeUpdate() != -1;
+            boolean value = ps.executeUpdate() != -1;
+            if (type.equalsIgnoreCase("found") || type.equalsIgnoreCase("lost"))
+                getID();
+            return value;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -129,5 +142,22 @@ public class RegisterLuggageTask extends DBTask<Boolean> {
 
     private String getLang(String lang) {
         return lang == null || lang.equalsIgnoreCase("english") ? "ENG" : "NL";
+    }
+
+    private void getID() {
+        String query = "SELECT LAST_INSERT_ID();";
+        try (PreparedStatement preparedStatement = DBHandler.INSTANCE.getConnection().prepareStatement(query)) {
+            ResultSet set = preparedStatement.executeQuery();
+            set.next();
+            int id = set.getInt(1);
+            try {
+                Platform.runLater(() -> {
+                    Scenes.switchPanes(Tabs.OVERVIEW);
+                    ((LuggageOverviewController) Tabs.OVERVIEW.getController(0)).select(id);
+                });
+            } catch (Exception ignored) {}
+        } catch (SQLException e) {
+            AlertBuilder.ERROR_OCCURRED.showAndWait();
+        }
     }
 }

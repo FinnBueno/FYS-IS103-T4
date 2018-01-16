@@ -5,13 +5,13 @@
  */
 package me.is103t4.corendonluggagesystem.scenes.main.tabs;
 
-import java.io.File;
-import java.util.*;
-
-import javafx.application.Platform;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ColorPicker;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import me.is103t4.corendonluggagesystem.account.Account;
 import me.is103t4.corendonluggagesystem.database.tasks.luggage.FetchLuggageTypesTask;
@@ -20,6 +20,10 @@ import me.is103t4.corendonluggagesystem.database.tasks.util.FetchAirlinesTask;
 import me.is103t4.corendonluggagesystem.scenes.Controller;
 import me.is103t4.corendonluggagesystem.scenes.main.Tabs;
 import me.is103t4.corendonluggagesystem.util.AlertBuilder;
+
+import java.io.File;
+import java.util.List;
+import java.util.ResourceBundle;
 
 /**
  * FXML Controller class
@@ -67,6 +71,15 @@ public class FoundLuggageController extends Controller {
         if (typeBox == null)
             return;
 
+        luggageIDField.textProperty().
+                addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+                    if (newValue.length() > 10)
+                        newValue = newValue.substring(0, 10);
+                    if (!newValue.matches("\\d*"))
+                        newValue = newValue.replaceAll("[^\\d]", "");
+                    luggageIDField.setText(newValue);
+                });
+
         FetchAirlinesTask airlinesTask = new FetchAirlinesTask();
         airlinesTask.setOnSucceeded(v -> flightNumberBox.setItems(FXCollections.observableArrayList((List<String>)
                 airlinesTask.getValue())));
@@ -85,18 +98,13 @@ public class FoundLuggageController extends Controller {
                 brandField.getText(), colorPicker.getValue(), characsField
                 .getText(), photo, flightNumberBox.getSelectionModel().getSelectedItem(), Account.getLoggedInUser());
 
+
         registerButton.setDisable(true);
         registerLuggageTask.setOnFailed(v -> {
-            System.out.println(registerLuggageTask.getException());
             registerButton.setDisable(false);
             AlertBuilder.ERROR_OCCURRED.showAndWait();
         });
-        registerLuggageTask.setOnSucceeded(v -> {
-            registerButton.setDisable(false);
-
-            AlertBuilder.REGISTERED_LUGGAGE.showAndWait().orElse(null);
-            Platform.runLater(() -> Tabs.OVERVIEW.setRoot(0));
-        });
+        registerLuggageTask.setOnSucceeded(v -> registerButton.setDisable(false));
 
     }
 

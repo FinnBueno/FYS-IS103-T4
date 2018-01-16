@@ -32,6 +32,8 @@ public class LugSysMain extends Application {
 
     @Override
     public void start(Stage st) {
+        Platform.setImplicitExit(false);
+
         DBHandler.INSTANCE.start();
         stage = st;
 

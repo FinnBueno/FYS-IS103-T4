@@ -16,6 +16,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import me.is103t4.corendonluggagesystem.LugSysMain;
 import me.is103t4.corendonluggagesystem.scenes.login.LoginController;
+import me.is103t4.corendonluggagesystem.scenes.main.MainFrameController;
+import me.is103t4.corendonluggagesystem.scenes.main.Tabs;
 import me.is103t4.corendonluggagesystem.util.PreferencesManager;
 
 /**
@@ -79,6 +81,10 @@ public enum Scenes {
     public static void initAll(LugSysMain lugSysMain, ResourceBundle bundle) {
         for (Scenes scene : values())
             scene.initialize(lugSysMain, bundle);
+    }
+
+    public static void switchPanes(Tabs tab) {
+        ((MainFrameController) Scenes.MAIN.getController()).switchPanes(tab);
     }
 
     public boolean isOpen() {

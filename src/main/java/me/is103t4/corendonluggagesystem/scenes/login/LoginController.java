@@ -7,19 +7,26 @@ package me.is103t4.corendonluggagesystem.scenes.login;
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import me.is103t4.corendonluggagesystem.account.Account;
 import me.is103t4.corendonluggagesystem.database.tasks.accounts.LoginTask;
 import me.is103t4.corendonluggagesystem.scenes.Controller;
 import me.is103t4.corendonluggagesystem.scenes.Scenes;
+import me.is103t4.corendonluggagesystem.scenes.main.KeyInputController;
 import me.is103t4.corendonluggagesystem.scenes.main.MainFrameController;
 import me.is103t4.corendonluggagesystem.util.AlertBuilder;
+import me.is103t4.corendonluggagesystem.util.PreferencesManager;
 
+import java.io.IOException;
 import java.util.ResourceBundle;
 
 /**
@@ -81,12 +88,8 @@ public class LoginController extends Controller {
 
         LoginTask task = new LoginTask(code, name, passwordField.getText());
         loginButton.setDisable(true);
-        task.setOnCancelled(event -> {
-            displayErrorAlert();
-        });
-        task.setOnFailed(event -> {
-            displayErrorAlert();
-        });
+        task.setOnCancelled(event -> displayErrorAlert());
+        task.setOnFailed(event -> displayErrorAlert());
         task.setOnSucceeded((Event event) -> {
 
             Account account = (Account) task.getValue();
@@ -101,8 +104,14 @@ public class LoginController extends Controller {
             } else {
                 account.login();
                 errorLabel.setText("");
-                MainFrameController mc = (MainFrameController) Scenes.MAIN.
-                        getController();
+                String sendgrid = PreferencesManager.get().get(PreferencesManager.SENDGRIDKEY);
+                String dropbox = PreferencesManager.get().get(PreferencesManager.DROPBOXKEY);
+                if (sendgrid == null || dropbox == null || sendgrid.length() == 0 || dropbox.length() == 0) {
+                    // invalid keys
+                    AlertBuilder.INVALID_KEY.showAndWait();
+                    openKeyInputDialog();
+                }
+                MainFrameController mc = (MainFrameController) Scenes.MAIN.getController();
                 mc.fillTabPane();
                 Scenes.MAIN.setToScene();
             }
@@ -111,6 +120,25 @@ public class LoginController extends Controller {
 
             loginButton.setDisable(false);
         });      
+    }
+
+    private void openKeyInputDialog() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/fxml/KeyInputInterface.fxml"));
+            KeyInputController controller;
+            loader.setResources(bundle);
+            AnchorPane pane = loader.load();
+            controller = loader.getController();
+            Scene scene = new Scene(pane, 300, 150);
+            Stage stage = new Stage();
+            stage.setTitle("Keys");
+            stage.setScene(scene);
+            controller.setStage(stage);
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void displayErrorAlert() {
