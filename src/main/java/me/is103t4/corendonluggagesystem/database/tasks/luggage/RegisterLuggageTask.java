@@ -101,7 +101,12 @@ public class RegisterLuggageTask extends DBTask<Boolean> {
             preparingStatement.setString(8, email);
             preparingStatement.setString(9, lang);
             preparingStatement.setString(10, lugType);
-            preparingStatement.setString(11, lugTag);
+            int lugTag;
+            if (this.lugTag == null || this.lugTag.length() == 0)
+                lugTag = 0;
+            else
+                lugTag = Integer.parseInt(this.lugTag);
+            preparingStatement.setInt(11, lugTag);
             preparingStatement.setString(12, brand);
             preparingStatement.setString(13, toHex(colour));
             preparingStatement.setString(14, characteristics);
@@ -113,7 +118,7 @@ public class RegisterLuggageTask extends DBTask<Boolean> {
             preparingStatement.setInt(20, costs);
 
             boolean value = ps.executeUpdate() != -1;
-            if (type.equalsIgnoreCase("found"))
+            if (type.equalsIgnoreCase("found") || type.equalsIgnoreCase("lost"))
                 getID();
             return value;
         } catch (SQLException e) {
@@ -140,16 +145,17 @@ public class RegisterLuggageTask extends DBTask<Boolean> {
     }
 
     private void getID() {
-
         String query = "SELECT LAST_INSERT_ID();";
         try (PreparedStatement preparedStatement = DBHandler.INSTANCE.getConnection().prepareStatement(query)) {
             ResultSet set = preparedStatement.executeQuery();
             set.next();
             int id = set.getInt(1);
-            Platform.runLater(() -> {
-                Scenes.switchPanes(Tabs.OVERVIEW);
-                Platform.runLater(() -> ((LuggageOverviewController) Tabs.OVERVIEW.getController(0)).select(id));
-            });
+            try {
+                Platform.runLater(() -> {
+                    Scenes.switchPanes(Tabs.OVERVIEW);
+                    ((LuggageOverviewController) Tabs.OVERVIEW.getController(0)).select(id);
+                });
+            } catch (Exception ignored) {}
         } catch (SQLException e) {
             AlertBuilder.ERROR_OCCURRED.showAndWait();
         }

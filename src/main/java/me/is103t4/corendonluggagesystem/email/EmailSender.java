@@ -83,10 +83,13 @@ public class EmailSender {
                     request.setBody(mail.build());
                     SENDGRID.api(request);
                 } catch (IOException ex) {
-                    Platform.runLater(AlertBuilder.ERROR_OCCURRED::showAndWait);
+                    AlertBuilder.ERROR_OCCURRED.showAndWait();
                 }
             } catch (Exception e) {
-                Platform.runLater(AlertBuilder.INVALID_SENDGRID::showAndWait);
+                try {
+                    AlertBuilder.INVALID_SENDGRID.showAndWait();
+                } catch (IllegalStateException ignored) {
+                }
             }
         }).start();
 

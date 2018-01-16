@@ -139,8 +139,7 @@ public class CreateRegistrationCopyTask extends DBTask {
     }
 
     private void promptForPDF() {
-        Platform.runLater(() ->
-        {
+        Platform.runLater(() -> {
             File file = new PDF("PDF_Registration_Copy_" + LocalDate.now().format(DateTimeFormatter.ISO_DATE) + "_" + UUID
                     .randomUUID().toString(), "Registration Copy", false, stage).createRegistrationCopy(firstName,
                     lastName, address, city, zip, country, phoneNumber, email, luggageId, flight, type, brand,

@@ -197,8 +197,11 @@ public class LostLuggageController extends Controller {
                     });
             email.setAttachments(photo);
 
-            EmailSender.getInstance().
-                    send(email);
+            try {
+                EmailSender.getInstance().
+                        send(email);
+            } catch (Exception ignored) {
+            }
 
             // insurance claim
             File file = promptForInsuranceClaim();

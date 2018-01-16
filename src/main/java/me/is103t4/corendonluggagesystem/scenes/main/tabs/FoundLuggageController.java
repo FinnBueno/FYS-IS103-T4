@@ -5,14 +5,13 @@
  */
 package me.is103t4.corendonluggagesystem.scenes.main.tabs;
 
-import java.io.File;
-import java.util.*;
-
-import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ColorPicker;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import me.is103t4.corendonluggagesystem.account.Account;
 import me.is103t4.corendonluggagesystem.database.tasks.luggage.FetchLuggageTypesTask;
@@ -21,6 +20,10 @@ import me.is103t4.corendonluggagesystem.database.tasks.util.FetchAirlinesTask;
 import me.is103t4.corendonluggagesystem.scenes.Controller;
 import me.is103t4.corendonluggagesystem.scenes.main.Tabs;
 import me.is103t4.corendonluggagesystem.util.AlertBuilder;
+
+import java.io.File;
+import java.util.List;
+import java.util.ResourceBundle;
 
 /**
  * FXML Controller class

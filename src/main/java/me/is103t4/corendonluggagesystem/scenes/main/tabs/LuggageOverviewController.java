@@ -104,51 +104,49 @@ public class LuggageOverviewController extends Controller {
         }
         ViewPhotoTask task = new ViewPhotoTask(select);
         task.setOnSucceeded(event -> {
-            DropboxHandler.HANDLER.getImage((String) task.getValue(), (img, extension) -> {
-                Platform.runLater(() -> {
-                    if (img == null) {
-                        AlertBuilder.NO_IMAGE.showAndWait();
-                        return;
-                    }
-                    InputStream is = null;
-                    try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+            DropboxHandler.HANDLER.getImage((String) task.getValue(), (img, extension) -> Platform.runLater(() -> {
+                if (img == null) {
+                    AlertBuilder.NO_IMAGE.showAndWait();
+                    return;
+                }
+                InputStream is = null;
+                try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
 
-                        ImageIO.write(img, extension, baos);
-                        baos.flush();
-                        byte[] bytes = baos.toByteArray();
-                        baos.close();
-                        is = new ByteArrayInputStream(bytes);
+                    ImageIO.write(img, extension, baos);
+                    baos.flush();
+                    byte[] bytes = baos.toByteArray();
+                    baos.close();
+                    is = new ByteArrayInputStream(bytes);
 
-                        AnchorPane root = new AnchorPane();
-                        ImageView imgView = new ImageView(new Image(is));
-                        ScrollPane scrollPane = new ScrollPane(imgView);
-                        AnchorPane.setTopAnchor(scrollPane, 0D);
-                        AnchorPane.setBottomAnchor(scrollPane, 0D);
-                        AnchorPane.setLeftAnchor(scrollPane, 0D);
-                        AnchorPane.setRightAnchor(scrollPane, 0D);
-                        root.getChildren().add(scrollPane);
+                    AnchorPane root = new AnchorPane();
+                    ImageView imgView = new ImageView(new Image(is));
+                    ScrollPane scrollPane = new ScrollPane(imgView);
+                    AnchorPane.setTopAnchor(scrollPane, 0D);
+                    AnchorPane.setBottomAnchor(scrollPane, 0D);
+                    AnchorPane.setLeftAnchor(scrollPane, 0D);
+                    AnchorPane.setRightAnchor(scrollPane, 0D);
+                    root.getChildren().add(scrollPane);
 
-                        Scene scene = new Scene(root, 700, 550);
+                    Scene scene = new Scene(root, 700, 550);
 
-                        Stage stage = new Stage();
-                        stage.setTitle("Image Viewer");
-                        stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/Square Logo.png")));
-                        stage.setScene(scene);
-                        stage.show();
+                    Stage stage = new Stage();
+                    stage.setTitle("Image Viewer");
+                    stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/Square Logo.png")));
+                    stage.setScene(scene);
+                    stage.show();
 
-                    } catch (IOException e) {
-                        Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Failed to create new Window.", e);
-                    } finally {
-                        if (is != null) {
-                            try {
-                                is.close();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
+                } catch (IOException e) {
+                    Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Failed to create new Window.", e);
+                } finally {
+                    if (is != null) {
+                        try {
+                            is.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
                     }
-                });
-            });
+                }
+            }));
         });
     }
 
