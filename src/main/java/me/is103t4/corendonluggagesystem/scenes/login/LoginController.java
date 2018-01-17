@@ -5,16 +5,15 @@
  */
 package me.is103t4.corendonluggagesystem.scenes.login;
 
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import me.is103t4.corendonluggagesystem.account.Account;
@@ -48,6 +47,9 @@ public class LoginController extends Controller {
     @FXML
     private Label errorLabel;
 
+    @FXML
+    private ComboBox<String> langBox;
+
     @Override
     public boolean isOpen() {
         return Scenes.LOGIN.isOpen();
@@ -55,6 +57,30 @@ public class LoginController extends Controller {
 
     @Override
     public void postInit(ResourceBundle bundle) {
+        // set language combobox
+        String notOnLine = "dutch";
+        String onLine = "british";
+        ObservableList<String> options = FXCollections.observableArrayList();
+        options.addAll(notOnLine, onLine);
+        langBox.getItems().clear();
+        langBox.getItems().addAll(options);
+        langBox.setCellFactory(c -> new MainFrameController.StringImageCell());
+        langBox.setButtonCell(new MainFrameController.StringImageCell());
+        if (PreferencesManager.get().get(PreferencesManager.LANGUAGE) == null)
+            PreferencesManager.get().set(PreferencesManager.LANGUAGE, "EN");
+        String lang = PreferencesManager.get().get(PreferencesManager.LANGUAGE);
+        langBox.getSelectionModel().select(lang != null && lang.equalsIgnoreCase("NL") ? 0 : 1);
+        langBox.setOnAction(event -> {
+            Alert alert = AlertBuilder.LOADING.show();
+            PreferencesManager.get().set(PreferencesManager.LANGUAGE, langBox.getSelectionModel().getSelectedIndex() == 0 ? "NL" : "EN");
+            double width = main.getStage().getWidth();
+            double height = main.getStage().getHeight();
+            main.restart(() -> {
+                main.getStage().setWidth(width);
+                main.getStage().setHeight(height);
+                alert.hide();
+            });
+        });
         setEnterButton(loginButton);
     }
 
@@ -102,18 +128,7 @@ public class LoginController extends Controller {
                 alert.setContentText(bundle.getString("invalidLogin"));
                 alert.showAndWait();
             } else {
-                account.login();
-                errorLabel.setText("");
-                String sendgrid = PreferencesManager.get().get(PreferencesManager.SENDGRIDKEY);
-                String dropbox = PreferencesManager.get().get(PreferencesManager.DROPBOXKEY);
-                if (sendgrid == null || dropbox == null || sendgrid.length() == 0 || dropbox.length() == 0) {
-                    // invalid keys
-                    AlertBuilder.INVALID_KEY.showAndWait();
-                    openKeyInputDialog();
-                }
-                MainFrameController mc = (MainFrameController) Scenes.MAIN.getController();
-                mc.fillTabPane();
-                Scenes.MAIN.setToScene();
+                loginUser(account);
             }
             usernameField.setText("");
             passwordField.setText("");
@@ -145,4 +160,26 @@ public class LoginController extends Controller {
         AlertBuilder.ERROR_OCCURRED.showAndWait();
     }
 
+    public void loginUserWithoutNotify(Account account) {
+        account.login();
+        errorLabel.setText("");
+        MainFrameController mc = (MainFrameController) Scenes.MAIN.getController();
+        mc.fillTabPane();
+        Scenes.MAIN.setToScene();
+    }
+
+    private void loginUser(Account account) {
+        account.login();
+        errorLabel.setText("");
+        String sendgrid = PreferencesManager.get().get(PreferencesManager.SENDGRIDKEY);
+        String dropbox = PreferencesManager.get().get(PreferencesManager.DROPBOXKEY);
+        if (sendgrid == null || dropbox == null || sendgrid.length() == 0 || dropbox.length() == 0) {
+            // invalid keys
+            AlertBuilder.INVALID_KEY.showAndWait();
+            openKeyInputDialog();
+        }
+        MainFrameController mc = (MainFrameController) Scenes.MAIN.getController();
+        mc.fillTabPane();
+        Scenes.MAIN.setToScene();
+    }
 }

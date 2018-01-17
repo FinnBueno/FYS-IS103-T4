@@ -76,6 +76,11 @@ public class LugSysMain extends Application {
         launch(args);
     }
 
+    public void restart(Runnable runnable) {
+        start(stage);
+        runnable.run();
+    }
+
     public void restart() {
         start(stage);
     }

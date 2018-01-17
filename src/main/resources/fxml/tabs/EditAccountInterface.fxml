@@ -43,8 +43,8 @@
                 <Label text="%first" />
                 <Label text="%acRole" GridPane.rowIndex="2" />
                 <Label text="%last" GridPane.rowIndex="1" />
-                <Label text="%%phone" GridPane.columnIndex="3" />
-                <Label text="%%email" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                <Label text="%phone" GridPane.columnIndex="3" />
+                <Label text="%email" GridPane.columnIndex="3" GridPane.rowIndex="1" />
             <Label text="%acActivated" GridPane.columnIndex="3" GridPane.rowIndex="2" />
             <ComboBox fx:id="activeBox" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
             </GridPane>
