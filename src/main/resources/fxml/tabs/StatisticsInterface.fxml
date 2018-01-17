@@ -74,9 +74,9 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         </rowConstraints>
                         <CheckBox fx:id="showLost" mnemonicParsing="false" selected="true" text="%lost" />
-                        <CheckBox fx:id="showDamaged" mnemonicParsing="false" selected="true" text="%damage" GridPane.rowIndex="2" />
+                        <CheckBox fx:id="showDamaged" mnemonicParsing="false" selected="true" text="%damaged" GridPane.rowIndex="2" />
                         <CheckBox fx:id="showFound" mnemonicParsing="false" selected="true" text="%found" GridPane.rowIndex="1" />
-                        <CheckBox fx:id="showDestroyed" mnemonicParsing="false" selected="true" text="%depot" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <CheckBox fx:id="showDestroyed" mnemonicParsing="false" selected="true" text="%destroyed" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <CheckBox fx:id="showHandled" mnemonicParsing="false" selected="true" text="%handled" GridPane.columnIndex="1" />
                         <CheckBox fx:id="showDepot" mnemonicParsing="false" selected="true" text="%depot" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                     </GridPane>

@@ -147,7 +147,7 @@ public class StatisticsController extends Controller {
                 if (amount == 0)
                     continue;
                 // add to data list
-                list.add(new PieChart.Data(status, amount));
+                list.add(new PieChart.Data(bundle.getString(status.toLowerCase()), amount));
             }
         });
 
@@ -178,7 +178,7 @@ public class StatisticsController extends Controller {
             for (String status : map.keySet()) {
                 // create and set series name
                 XYChart.Series series = new XYChart.Series();
-                series.setName(status);
+                series.setName(bundle.getString(status.toLowerCase()));
                 // sort
                 Map<MonthYear, Integer> innerMap = map.get(status);
                 List<MonthYear> months = new ArrayList<>(innerMap.keySet());
@@ -215,7 +215,7 @@ public class StatisticsController extends Controller {
             for (String status : map.keySet()) {
                 // create and set series name
                 XYChart.Series series = new XYChart.Series();
-                series.setName(status);
+                series.setName(bundle.getString(status.toLowerCase()));
                 // sort
                 Map<MonthYear, Integer> innerMap = map.get(status);
                 List<MonthYear> months = new ArrayList<>(innerMap.keySet());

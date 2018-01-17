@@ -29,7 +29,7 @@ public class FetchLuggageDataTask extends DBTask<Map<String, Map<MonthYear, Inte
         this.handled = handled;
         this.destroyed = destroyed;
         this.depot = depot;
-        this.airport = !airport.contains("-") ? "" :
+        this.airport = airport == null || !airport.contains("-") ? "" :
                 airport.split(" - ")[0];
         start();
     }
