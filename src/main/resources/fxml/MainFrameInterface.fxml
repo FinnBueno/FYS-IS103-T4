@@ -10,34 +10,34 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id = "AnchorPane" prefHeight = "600.0" prefWidth = "900.0" styleClass = "mainFxmlClass" stylesheets = "@../css/mainCss.css" xmlns = "http://javafx.com/javafx/9.0.1" xmlns:fx = "http://javafx.com/fxml/1" fx:controller = "me.is103t4.corendonluggagesystem.scenes.main.MainFrameController">
-   <BorderPane layoutX = "350.0" layoutY = "258.0" maxHeight = "1.7976931348623157E308" maxWidth = "1.7976931348623157E308" AnchorPane.bottomAnchor = "0.0" AnchorPane.leftAnchor = "0.0" AnchorPane.rightAnchor = "0.0" AnchorPane.topAnchor = "0.0">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="900.0" styleClass="mainFxmlClass" stylesheets="@../css/mainCss.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.is103t4.corendonluggagesystem.scenes.main.MainFrameController">
+   <BorderPane layoutX="350.0" layoutY="258.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <top>
-         <BorderPane maxHeight = "-Infinity" minHeight = "-Infinity" prefHeight = "118.0" prefWidth = "900.0" BorderPane.alignment = "TOP_LEFT">
+         <BorderPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="118.0" prefWidth="900.0" BorderPane.alignment="TOP_LEFT">
             <left>
-               <ImageView fitHeight = "104.0" fitWidth = "282.0" pickOnBounds = "true" preserveRatio = "true" BorderPane.alignment = "CENTER">
-                  <Image url = "@../images/CorendonLogo.png"/>
+               <ImageView fitHeight="104.0" fitWidth="282.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+                  <Image url="@../images/CorendonLogo.png" />
                </ImageView>
             </left>
             <right>
-               <VBox alignment = "CENTER_RIGHT" prefHeight = "200.0" prefWidth = "100.0" BorderPane.alignment = "CENTER">
+               <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                   <children>
-                     <ComboBox fx:id = "langBox" prefHeight = "37.6" prefWidth = "77.6"/>
-                     <Button alignment = "CENTER" mnemonicParsing = "false" onAction = "#logout" text = "%logout">
+                     <ComboBox fx:id="langBox" prefHeight="38.0" prefWidth="83.0" />
+                     <Button alignment="CENTER" mnemonicParsing="false" onAction="#logout" text="%logout">
                         <VBox.margin>
-                           <Insets top = "10.0"/>
+                           <Insets top="10.0" />
                         </VBox.margin>
                      </Button>
                   </children>
                   <BorderPane.margin>
-                     <Insets right = "20.0"/>
+                     <Insets right="20.0" />
                   </BorderPane.margin>
                </VBox>
             </right>
          </BorderPane>
       </top>
       <center>
-         <TabPane fx:id = "tabPane" prefHeight = "200.0" prefWidth = "200.0" tabClosingPolicy = "UNAVAILABLE" BorderPane.alignment = "CENTER"/>
+         <TabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER" />
       </center>
    </BorderPane>
 </AnchorPane>

@@ -16,12 +16,11 @@
    <children>
       <BorderPane prefHeight="465.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
-             <GridPane BorderPane.alignment="CENTER">
+             <GridPane hgap="10.0" vgap="10.0" BorderPane.alignment="CENTER">
                  <columnConstraints>
-                     <ColumnConstraints hgrow="SOMETIMES" minWidth="-Infinity" prefWidth="150.0" />
+                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
-                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="50.0" />
-                     <ColumnConstraints hgrow="SOMETIMES" minWidth="-Infinity" prefWidth="150.0" />
+                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
                  </columnConstraints>
                  <rowConstraints>
@@ -40,20 +39,20 @@
                  <Label text="%lastMust" GridPane.rowIndex="1" />
                  <Label text="%tagMust" GridPane.rowIndex="3" />
                  <Label text="%flightMust" GridPane.rowIndex="4" />
-                 <Label text="%costsMust" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                 <Label text="%damage" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                 <Label text="%photo" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                 <Label text="%emailMust" GridPane.columnIndex="3" />
+                 <Label text="%costsMust" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                 <Label text="%damage" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                 <Label text="%photo" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                 <Label text="%emailMust" GridPane.columnIndex="2" />
                  <TextField fx:id="firstNameField" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" />
                  <TextField fx:id="lastNameField" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                <TextField fx:id="phoneNumberField" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                  <TextField fx:id="luggageIDField" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                <ComboBox fx:id="flightNumberBox" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                 <TextField fx:id="emailField" layoutX="160.0" layoutY="225.0" maxWidth="1.7976931348623157E308" GridPane.columnIndex="4" />
-                 <TextField fx:id="repairCosts" maxWidth="1.7976931348623157E308" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-                 <TextField fx:id="descriptionField" maxWidth="1.7976931348623157E308" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-                 <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#selectPhoto" styleClass="secButton" text="Upload " GridPane.columnIndex="4" GridPane.rowIndex="3" />
-               <ComboBox fx:id="typeBox" maxWidth="1.7976931348623157E308" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+                 <TextField fx:id="emailField" layoutX="160.0" layoutY="225.0" maxWidth="1.7976931348623157E308" GridPane.columnIndex="3" />
+                 <TextField fx:id="repairCosts" maxWidth="1.7976931348623157E308" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                 <TextField fx:id="descriptionField" maxWidth="1.7976931348623157E308" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                 <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#selectPhoto" styleClass="secButton" text="Upload " GridPane.columnIndex="3" GridPane.rowIndex="3" />
+               <ComboBox fx:id="typeBox" maxWidth="1.7976931348623157E308" GridPane.columnIndex="3" GridPane.rowIndex="4" />
                  <HBox alignment="TOP_CENTER" GridPane.columnSpan="2147483647" GridPane.rowIndex="6">
                      <Button fx:id="registerButton" maxHeight="1.7976931348623157E308" maxWidth="350" mnemonicParsing="false" onAction="#registerDamagedLuggage" text="%register" HBox.hgrow="ALWAYS">
                          <HBox.margin>
@@ -62,7 +61,7 @@
                      </Button>
                  </HBox>
                <Label text="%phoneMust" GridPane.rowIndex="2" />
-               <Label text="%typeMust" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+               <Label text="%typeMust" GridPane.columnIndex="2" GridPane.rowIndex="4" />
              </GridPane>
          </center>
       </BorderPane>

@@ -30,7 +30,7 @@ public enum Tabs {
     FOUND_LUGGAGE(AccountRole.EMPLOYEE, "FoundLuggage"),
     DAMAGED_LUGGAGE(AccountRole.EMPLOYEE, "DamagedLuggage"),
     OVERVIEW(AccountRole.EMPLOYEE, "LuggageOverview", "EditLuggage"),
-    STATISTICS(new AccountRole[] {AccountRole.ADMIN, AccountRole.MANAGERS }, "Statistics"),
+    STATISTICS(new AccountRole[]{AccountRole.ADMIN, AccountRole.MANAGERS}, "Statistics"),
     ACCOUNTS(AccountRole.ADMIN, "Accounts", "NewAccount", "EditAccount"),
     CONFIGURATIONS("Configurations");
 
@@ -47,7 +47,7 @@ public enum Tabs {
     }
 
     Tabs(AccountRole r, String... names) {
-        this(new AccountRole[] {r}, names);
+        this(new AccountRole[]{r}, names);
     }
 
     Tabs(AccountRole[] r, String... names) {
@@ -68,7 +68,7 @@ public enum Tabs {
      */
     public void initialize(LugSysMain main, ResourceBundle bundle) {
         // generate a tab
-        tab = generateTab();
+        tab = generateTab(bundle);
 
         for (int i = 0; i < fxmlURL.length; i++) {
             String url = fxmlURL[i];
@@ -116,8 +116,8 @@ public enum Tabs {
         return tab;
     }
 
-    public Tab generateTab() {
-        tab = new Tab(splitCamelCase(name));
+    public Tab generateTab(ResourceBundle bundle) {
+        tab = new Tab(bundle.getString(name));
         tab.setId(UUID.randomUUID().toString());
         return tab;
     }
@@ -150,12 +150,9 @@ public enum Tabs {
     public static Tabs getTabById(String id) {
         if (id == null)
             return null;
-        for (Tabs tab : values()) {
-            if (id.equals(tab.getTab().
-                    getId())) {
+        for (Tabs tab : values())
+            if (id.equals(tab.getTab().getId()))
                 return tab;
-            }
-        }
         return null;
     }
 
@@ -164,7 +161,4 @@ public enum Tabs {
         return Scenes.MAIN.isOpen() && main.getActiveTab().getId().equals(getTab().getId()) && activeRoot == rootId;
     }
 
-    public int getRootAmount() {
-        return root.length;
-    }
 }

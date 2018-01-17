@@ -57,6 +57,11 @@
         <center>
             <TableView fx:id="table" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
                 <columns>
+                    <TableColumn prefWidth="76.0" text="ID">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="id" />
+                        </cellValueFactory>
+                    </TableColumn>
                     <TableColumn fx:id="status" prefWidth="76.0" text="%ovStatus">
                         <cellValueFactory>
                             <PropertyValueFactory property="status" />

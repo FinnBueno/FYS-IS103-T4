@@ -40,13 +40,6 @@ import java.util.logging.Logger;
 public class LuggageOverviewController extends Controller {
 
     @FXML
-    private TableColumn<Luggage, String> status, type, tag, brand, colour, characteristics, firstName, lastName,
-            city, address, flight, costs;
-
-    @FXML
-    private TableColumn<Luggage, LocalDate> date;
-
-    @FXML
     private TableView<Luggage> table;
 
     @FXML

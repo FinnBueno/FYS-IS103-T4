@@ -24,6 +24,11 @@ public class AlertBuilder {
         bundle = ResourceBundle.getBundle("bundle", locale, loader);
     }
 
+    public static final AlertBuilder LOADING = new AlertBuilder(Alert.AlertType.INFORMATION,
+            bundle.getString("waiting"),
+            bundle.getString("waitingH"),
+            bundle.getString("waitingC"));
+
     public static final AlertBuilder INVALID_DROPBOX = new AlertBuilder(Alert.AlertType.ERROR,
             bundle.getString("error"),
             bundle.getString("error"),
@@ -158,4 +163,13 @@ public class AlertBuilder {
         return dialog.showAndWait();
     }
 
+    public Alert show() {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.initModality(Modality.NONE);
+        alert.show();
+        return alert;
+    }
 }

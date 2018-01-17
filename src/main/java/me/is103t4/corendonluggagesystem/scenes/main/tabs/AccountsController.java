@@ -40,30 +40,6 @@ public class AccountsController extends Controller {
     private TableView<Account> table;
 
     @FXML
-    private TableColumn<Account, String> usernameColumn;
-
-    @FXML
-    private TableColumn<Account, String> idColumn;
-
-    @FXML
-    private TableColumn<Account, String> firstNameColumn;
-
-    @FXML
-    private TableColumn<Account, String> lastNameColumn;
-
-    @FXML
-    private TableColumn<Account, String> phoneColumn;
-
-    @FXML
-    private TableColumn<Account, String> mailColumn;
-
-    @FXML
-    private TableColumn<Account, AccountRole> roleColumn;
-
-    @FXML
-    private TableColumn<Account, Boolean> activatedColumn;
-
-    @FXML
     private Label noteLabel;
 
     private AccountFilterController filterController;
@@ -107,7 +83,7 @@ public class AccountsController extends Controller {
 
     @FXML
     public void addAccount() {
-        if (Account.getLoggedInUser().getRole() != AccountRole.ADMIN) {
+        if (Account.getLoggedInUser().getRole() != AccountRole.ADMIN && Account.getLoggedInUser().getRole() != AccountRole.DEVELOPER) {
             AlertBuilder.NO_PERMISSION.showAndWait();
             return;
         }
@@ -116,7 +92,7 @@ public class AccountsController extends Controller {
 
     @FXML
     public void editAccount() {
-        if (Account.getLoggedInUser().getRole() != AccountRole.ADMIN) {
+        if (Account.getLoggedInUser().getRole() != AccountRole.ADMIN && Account.getLoggedInUser().getRole() != AccountRole.DEVELOPER) {
             AlertBuilder.NO_PERMISSION.showAndWait();
             return;
         }

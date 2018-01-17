@@ -20,10 +20,9 @@
             <center>
                 <GridPane alignment="CENTER" hgap="10.0" vgap="10.0" BorderPane.alignment="CENTER">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="50.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
                     </columnConstraints>
                     <rowConstraints>
@@ -49,28 +48,28 @@
                     <Label maxWidth="1.7976931348623157E308" text="%countryMust" GridPane.rowIndex="5" />
                     <Label maxWidth="1.7976931348623157E308" text="%phoneMust" GridPane.rowIndex="6" />
                     <Label maxWidth="1.7976931348623157E308" text="%emailMust" GridPane.rowIndex="7" />
-                    <Label maxWidth="1.7976931348623157E308" text="%tag" GridPane.columnIndex="3" />
-                    <Label maxWidth="1.7976931348623157E308" text="%flightMust" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                    <Label maxWidth="1.7976931348623157E308" text="%typeMust" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                    <Label maxWidth="1.7976931348623157E308" text="%brand" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                    <Label maxWidth="1.7976931348623157E308" text="%colourMust" GridPane.columnIndex="3" GridPane.rowIndex="4" />
-                    <Label maxWidth="1.7976931348623157E308" text="%characteristics" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-                    <Label maxWidth="1.7976931348623157E308" text="%photo" GridPane.columnIndex="3" GridPane.rowIndex="6" />
-                    <Label maxWidth="1.7976931348623157E308" text="%languageMust" GridPane.columnIndex="3" GridPane.rowIndex="7" />
+                    <Label maxWidth="1.7976931348623157E308" text="%tag" GridPane.columnIndex="2" />
+                    <Label maxWidth="1.7976931348623157E308" text="%flightMust" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                    <Label maxWidth="1.7976931348623157E308" text="%typeMust" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                    <Label maxWidth="1.7976931348623157E308" text="%brand" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                    <Label maxWidth="1.7976931348623157E308" text="%colourMust" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                    <Label maxWidth="1.7976931348623157E308" text="%characteristics" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                    <Label maxWidth="1.7976931348623157E308" text="%photo" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                    <Label maxWidth="1.7976931348623157E308" text="%languageMust" GridPane.columnIndex="2" GridPane.rowIndex="7" />
 
-                    <TextField fx:id="firstNameField" GridPane.columnIndex="1" />
-                    <TextField fx:id="lastNameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                    <TextField fx:id="addressField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                    <TextField fx:id="cityField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                    <TextField fx:id="zipField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                    <ComboBox fx:id="countryBox" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                    <TextField fx:id="phoneNumberField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                    <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                    <TextField fx:id="luggageIDField" GridPane.columnIndex="4" />
-                    <ComboBox fx:id="flightNumberBox" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-                    <ComboBox fx:id="typeBox" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-                    <TextField fx:id="brandField" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-                    <HBox alignment="CENTER_LEFT" GridPane.columnIndex="4" GridPane.rowIndex="4">
+                    <TextField fx:id="firstNameField" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" />
+                    <TextField fx:id="lastNameField" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                    <TextField fx:id="addressField" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                    <TextField fx:id="cityField" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                    <TextField fx:id="zipField" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                    <ComboBox fx:id="countryBox" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                    <TextField fx:id="phoneNumberField" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                    <TextField fx:id="emailField" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                    <TextField fx:id="luggageIDField" maxWidth="1.7976931348623157E308" GridPane.columnIndex="3" />
+                    <ComboBox fx:id="flightNumberBox" maxWidth="1.7976931348623157E308" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                    <ComboBox fx:id="typeBox" maxWidth="1.7976931348623157E308" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                    <TextField fx:id="brandField" maxWidth="1.7976931348623157E308" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                    <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" GridPane.columnIndex="3" GridPane.rowIndex="4">
                         <ColorPicker fx:id="colorPicker" />
                         <CheckBox fx:id="colorUnknownCheckbox" mnemonicParsing="false" text="%unknown">
                             <HBox.margin>
@@ -78,9 +77,9 @@
                             </HBox.margin>
                         </CheckBox>
                     </HBox>
-                    <TextField fx:id="characsField" GridPane.columnIndex="4" GridPane.rowIndex="5" />
-                    <Button fx:id="photoButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#selectPhoto" styleClass="secButton" text="Upload" GridPane.columnIndex="4" GridPane.rowIndex="6" />
-                    <ComboBox fx:id="langBox" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="4" GridPane.rowIndex="7" />
+                    <TextField fx:id="characsField" maxWidth="1.7976931348623157E308" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+                    <Button fx:id="photoButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#selectPhoto" styleClass="secButton" text="Upload" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+                    <ComboBox fx:id="langBox" maxWidth="1.7976931348623157E308" GridPane.columnIndex="3" GridPane.rowIndex="7" />
                     <HBox alignment="TOP_CENTER" GridPane.columnIndex="0" GridPane.columnSpan="2147483647" GridPane.rowIndex="9">
                         <Button fx:id="registerButton" maxHeight="1.7976931348623157E308" maxWidth="350" mnemonicParsing="false" onAction="#registerLostLuggage" text="%register" HBox.hgrow="ALWAYS">
                             <HBox.margin>

@@ -54,6 +54,14 @@ public class NewAccountController extends Controller {
                         newValue = newValue.replaceAll("[^\\d]", "");
                     tagField.setText(newValue);
                 });
+        phoneNumberField.textProperty().
+                addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+                    if (newValue.length() > 10)
+                        newValue = newValue.substring(0, 10);
+                    if (!newValue.matches("^\\d"))
+                        newValue = newValue.replaceAll("[^\\d]", "");
+                    phoneNumberField.setText(newValue);
+                });
 
         roleBox.getItems().addAll(AccountRole.ADMIN.name(), AccountRole.MANAGERS.name(), AccountRole.EMPLOYEE.name());
     }

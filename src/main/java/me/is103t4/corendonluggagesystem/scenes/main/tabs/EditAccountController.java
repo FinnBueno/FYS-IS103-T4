@@ -42,6 +42,14 @@ public class EditAccountController extends Controller {
     public void postInit(ResourceBundle bundle) {
         activeBox.setItems(FXCollections.observableList(Arrays.asList(bundle.getString("yes"), bundle.getString("no"))));
         roleBox.setItems(FXCollections.observableArrayList(AccountRole.values()));
+        phoneNumberField.textProperty().
+                addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+                    if (newValue.length() > 10)
+                        newValue = newValue.substring(0, 10);
+                    if (!newValue.matches("^\\d"))
+                        newValue = newValue.replaceAll("[^\\d]", "");
+                    phoneNumberField.setText(newValue);
+                });
     }
 
     public void setEditingAccount(Account acc) {
