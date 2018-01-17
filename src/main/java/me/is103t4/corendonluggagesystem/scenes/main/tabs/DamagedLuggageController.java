@@ -23,9 +23,9 @@ import me.is103t4.corendonluggagesystem.scenes.main.Tabs;
 import me.is103t4.corendonluggagesystem.util.AlertBuilder;
 
 /**
- * DamagedLuggage
+ * Controller for the damaged luggage tab
  *
- * @author imranmohmand
+ * @author Bas Wezenberg
  */
 public class DamagedLuggageController extends Controller {
 

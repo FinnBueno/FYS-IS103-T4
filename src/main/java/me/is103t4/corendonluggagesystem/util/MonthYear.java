@@ -3,6 +3,11 @@ package me.is103t4.corendonluggagesystem.util;
 import java.time.LocalDate;
 import java.time.Month;
 
+/**
+ * Class to hold a month along with a year
+ *
+ * @author Finn Bon
+ */
 public class MonthYear implements Comparable<MonthYear> {
 
     private final Month month;

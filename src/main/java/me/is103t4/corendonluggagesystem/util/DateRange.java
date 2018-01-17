@@ -7,7 +7,11 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Stream;
-
+/**
+ * Class to get dates in between 2 specified dates
+ *
+ * @author Finn Bon
+ */
 public class DateRange implements Iterable<LocalDate> {
 
     private final LocalDate startDate;

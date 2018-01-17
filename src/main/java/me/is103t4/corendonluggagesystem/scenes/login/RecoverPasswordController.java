@@ -16,7 +16,7 @@ import me.is103t4.corendonluggagesystem.scenes.Scenes;
 import java.util.ResourceBundle;
 
 /**
- * FXML Controller class
+ * Controller for the recovery password interface
  *
  * @author Finn Bon
  */

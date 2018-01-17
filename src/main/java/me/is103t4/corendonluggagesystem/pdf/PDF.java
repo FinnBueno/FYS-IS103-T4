@@ -26,7 +26,7 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.util.Matrix;
 
 /**
- * @author Tim van Ekert & Finn Bon
+ * @author Bas Wezenberg
  */
 public class PDF {
 
@@ -187,7 +187,6 @@ public class PDF {
     }
 
     public File exportDHLPDF(Luggage select) {
-        System.out.println("1 : " + Thread.currentThread());
         try (PDDocument document = PDDocument.load(getClass().getResourceAsStream("/pdf/DHL_Template.pdf"));
              InputStream is = getClass().getResourceAsStream("/font/arial.ttf")) {
 

@@ -16,6 +16,8 @@ import me.is103t4.corendonluggagesystem.util.AlertBuilder;
 import java.util.ResourceBundle;
 
 /**
+ * Controller for the new account (sub)tab
+ *
  * @author Roy Klein
  */
 public class NewAccountController extends Controller {

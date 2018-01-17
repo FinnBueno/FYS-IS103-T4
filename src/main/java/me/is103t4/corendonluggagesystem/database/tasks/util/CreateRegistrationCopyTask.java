@@ -121,6 +121,7 @@ public class CreateRegistrationCopyTask extends DBTask {
                 e.printStackTrace();
             }
         }
+        // get the latest inserted id, along with the name of the employee
         String query = "SELECT LAST_INSERT_ID(), CONCAT(ac.first_name, ' ', ac.last_name) AS full_name FROM accounts " +
                 "ac WHERE ac.account_id = ?;";
         try (PreparedStatement preparedStatement = DBHandler.INSTANCE.getConnection().prepareStatement(query)) {
@@ -138,6 +139,9 @@ public class CreateRegistrationCopyTask extends DBTask {
         return null;
     }
 
+    /**
+     * Creates Registration Copy
+     */
     private void promptForPDF() {
         Platform.runLater(() -> {
             File file = new PDF("PDF_Registration_Copy_" + LocalDate.now().format(DateTimeFormatter.ISO_DATE) + "_" + UUID

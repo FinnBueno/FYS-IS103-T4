@@ -30,7 +30,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -213,7 +212,7 @@ public class LuggageOverviewController extends Controller {
         else if (result.getText().equalsIgnoreCase(bundle.getString("loose"))) severity = 2;
         else severity = 1;
 
-        Matcher matcher = new Matcher(bundle, main.getStage(), luggage, severity);
+        Matcher matcher = new Matcher(bundle, luggage, severity);
         matcher.showMatcher();
     }
 

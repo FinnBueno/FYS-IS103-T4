@@ -26,9 +26,9 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 /**
- * FXML Controller class
+ * Controller class for the found luggage tab
  *
- * @author timvanekert
+ * @author Tim van Ekert
  */
 public class FoundLuggageController extends Controller {
 

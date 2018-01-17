@@ -23,9 +23,9 @@ import me.is103t4.corendonluggagesystem.util.AlertBuilder;
 import java.util.ResourceBundle;
 
 /**
- * FXML Controller class
+ * Controller for the password reset interface
  *
- * @author finnb
+ * @author Finn Bon
  */
 public class PasswordResetController extends Controller {
 

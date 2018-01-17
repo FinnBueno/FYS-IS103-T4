@@ -7,6 +7,11 @@ import me.is103t4.corendonluggagesystem.scenes.Controller;
 import me.is103t4.corendonluggagesystem.util.AlertBuilder;
 import me.is103t4.corendonluggagesystem.util.PreferencesManager;
 
+/**
+ * Controller for the key input popup
+ *
+ * @author Juan Tombal
+ */
 public class KeyInputController extends Controller {
 
     @FXML

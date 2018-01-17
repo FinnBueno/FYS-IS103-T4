@@ -16,6 +16,11 @@ import me.is103t4.corendonluggagesystem.util.AlertBuilder;
 import java.time.LocalDate;
 import java.util.*;
 
+/**
+ * Controller for the edit luggage (sub)tab
+ *
+ * @author Finn Bon
+ */
 public class EditLuggageController extends Controller {
 
     @FXML

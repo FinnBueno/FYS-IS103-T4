@@ -17,6 +17,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Controller for the Luggage filter popup
+ *
+ * @author Tim van Ekert
+ */
 public class LuggageFilterController extends Controller {
 
     private static final double COLOR_THRESHOLD = 150;
@@ -61,6 +66,10 @@ public class LuggageFilterController extends Controller {
 
     private LuggageOverviewController overview;
 
+    /**
+     * Custom version of postInit()
+     * @param overview The LuggageOverviewController this popup originated from
+     */
     public void initializeParentValues(LuggageOverviewController overview) {
         setEnterButton(applyButton);
 
