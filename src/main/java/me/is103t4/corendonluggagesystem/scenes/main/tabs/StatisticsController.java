@@ -24,6 +24,11 @@ import java.util.stream.Collectors;
 
 import static me.is103t4.corendonluggagesystem.scenes.main.tabs.StatisticsController.ChartType.*;
 
+/**
+ * Controller class for the statistics tab
+ *
+ * @author Juan Tombal
+ */
 public class StatisticsController extends Controller {
 
     @FXML

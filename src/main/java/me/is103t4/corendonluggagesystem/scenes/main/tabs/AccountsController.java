@@ -32,6 +32,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 /**
+ * Controller for the account tab
+ *
  * @author Roy Klein
  */
 public class AccountsController extends Controller {

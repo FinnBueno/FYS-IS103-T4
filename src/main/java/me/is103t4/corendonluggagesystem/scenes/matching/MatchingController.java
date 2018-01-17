@@ -15,10 +15,12 @@ import me.is103t4.corendonluggagesystem.util.AlertBuilder;
 
 import java.util.Arrays;
 
+/**
+ * Controller for the matching popup
+ *
+ * @author Finn Bon
+ */
 public class MatchingController extends Controller {
-
-    @FXML
-    private TableColumn<Luggage, String> type, tag, brand, colour, characteristics, firstName, lastName, city, address;
 
     @FXML
     private TableView<Luggage> table;

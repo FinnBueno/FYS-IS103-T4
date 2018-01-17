@@ -12,6 +12,11 @@ import java.util.*;
 
 import static javafx.scene.control.ButtonBar.*;
 
+/**
+ * Builder class for Alert popups.
+ *
+ * @author Roy Klein
+ */
 public class AlertBuilder {
 
     private static final ResourceBundle bundle;

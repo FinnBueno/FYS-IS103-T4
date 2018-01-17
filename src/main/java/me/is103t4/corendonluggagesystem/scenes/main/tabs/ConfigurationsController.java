@@ -21,6 +21,8 @@ import me.is103t4.corendonluggagesystem.util.AlertBuilder;
 import me.is103t4.corendonluggagesystem.util.PreferencesManager;
 
 /**
+ * Controller for the configurations tab
+ *
  * @author Sebastiaan Wezenberg
  */
 public class ConfigurationsController extends Controller {

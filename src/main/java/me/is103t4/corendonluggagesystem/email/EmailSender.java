@@ -17,7 +17,7 @@ import java.sql.PreparedStatement;
 import java.util.Base64;
 
 /**
- * @author Finn Bon
+ * @author Tim van Ekert
  */
 public class EmailSender {
 
@@ -76,6 +76,7 @@ public class EmailSender {
                     mail.addAttachments(attachments);
                 }
 
+                // do the sending stuff, set method, body, etc etc
                 Request request = new Request();
                 try {
                     request.setMethod(Method.POST);

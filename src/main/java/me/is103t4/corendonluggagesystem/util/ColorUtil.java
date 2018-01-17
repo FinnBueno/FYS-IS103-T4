@@ -2,6 +2,11 @@ package me.is103t4.corendonluggagesystem.util;
 
 import javafx.scene.paint.Color;
 
+/**
+ * Class to calculate 'distance' between colours
+ *
+ * @author Finn Bon
+ */
 public class ColorUtil {
 
     /**

@@ -34,13 +34,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 /**
+ * Controller class for the lost luggage tab
+ *
  * @author Finn Bon
  */
 public class LostLuggageController extends Controller {
-
-    private static final long HOUR_PERIOD_6 = 6 * 60 * 60 * 1000;
-    private static final long HOUR_PERIOD_24 = 24 * 60 * 60 * 1000;
-    private static final long HOUR_PERIOD_72 = 72 * 60 * 60 * 1000;
 
     @FXML
     private TextField firstNameField;

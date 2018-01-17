@@ -5,6 +5,11 @@ import javafx.beans.property.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+/**
+ * A class that represents a luggage item
+ *
+ * @author Juan Tombal
+ */
 public class Luggage implements Serializable {
 
     private StringProperty status = new SimpleStringProperty();

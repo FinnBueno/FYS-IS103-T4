@@ -22,6 +22,7 @@ public class RegisterMatchTask extends DBTask<Boolean> {
 
     @Override
     protected Boolean call() {
+        // create match in db
         String query = "INSERT INTO `matches` (lost_id, found_id, employee) VALUES (?, ?, ?)";
         boolean returnValue = false;
         try (PreparedStatement preparedStatement = DBHandler.INSTANCE.getConnection().prepareStatement(query)) {
@@ -35,6 +36,7 @@ public class RegisterMatchTask extends DBTask<Boolean> {
         }
         if (!returnValue)
             return false;
+        // update status in luggage table
         query = "UPDATE `luggage` " +
                 "SET register_type = 3 " +
                 "WHERE luggage_id = ? OR luggage_id = ?";
@@ -42,7 +44,7 @@ public class RegisterMatchTask extends DBTask<Boolean> {
             preparedStatement.setInt(1, lost.getId());
             preparedStatement.setInt(2, found.getId());
 
-            return preparedStatement.executeUpdate() != -1 && returnValue;
+            return preparedStatement.executeUpdate() != -1;
         } catch (SQLException e) {
             e.printStackTrace();
         }

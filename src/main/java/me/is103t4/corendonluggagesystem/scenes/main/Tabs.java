@@ -19,7 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * TAB SIZE: WIDTH: 900 Height: 465
+ * enum for all tabs in the app
  *
  * @author Finn Bon
  */

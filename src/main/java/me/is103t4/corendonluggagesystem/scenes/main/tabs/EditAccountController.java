@@ -16,6 +16,11 @@ import me.is103t4.corendonluggagesystem.util.AlertBuilder;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
+/**
+ * Controller for the edit account (sub)tab
+ *
+ * @author Roy Klein
+ */
 public class EditAccountController extends Controller {
 
     @FXML

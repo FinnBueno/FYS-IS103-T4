@@ -36,6 +36,7 @@ public class FetchLuggageDataTask extends DBTask<Map<String, Map<MonthYear, Inte
 
     @Override
     protected Map<String, Map<MonthYear, Integer>> call() {
+        // fetches data for statistics
         String[] statusses = getAllStatusses();
         String query = "SELECT s.value, l.date " +
                 "FROM luggage l " +
@@ -71,6 +72,8 @@ public class FetchLuggageDataTask extends DBTask<Map<String, Map<MonthYear, Inte
 
             ResultSet set = preparedStatement.executeQuery();
 
+            // create map holding every status along with a map that holds every month within the allowed timespan
+            // with occurrences int int as the value
             Map<String, Map<MonthYear, Integer>> result = new HashMap<>();
             for (String statusName : statusses) {
                 Map<MonthYear, Integer> innerMap = new HashMap<>();
@@ -78,6 +81,7 @@ public class FetchLuggageDataTask extends DBTask<Map<String, Map<MonthYear, Inte
                 new DateRange(startDate, endDate).toList().forEach(date -> innerMap.put(new MonthYear(date), 0));
             }
 
+            // fill map
             while (set.next()) {
                 String status = set.getString(1);
                 LocalDate date = set.getDate(2).toLocalDate();
@@ -92,6 +96,13 @@ public class FetchLuggageDataTask extends DBTask<Map<String, Map<MonthYear, Inte
         return new HashMap<>();
     }
 
+    /**
+     * Since the MonthYear object does not hold the same reference every time, a custom check must be made to see if
+     * objects are .equals(), and if so increase
+     *
+     * @param innerMap the map to check in
+     * @param date The date to use
+     */
     private void increaseValue(Map<MonthYear, Integer> innerMap, LocalDate date) {
         MonthYear replaceable = null;
         int amount = 0;
@@ -108,6 +119,10 @@ public class FetchLuggageDataTask extends DBTask<Map<String, Map<MonthYear, Inte
         innerMap.put(replaceable, amount + 1);
     }
 
+    /**
+     * Query all allowed statusses from the database
+     * @return All allowed statusses
+     */
     private String[] getAllStatusses() {
         String query = "SELECT value FROM statusses WHERE " +
                 "(value = ? AND ?) OR " +

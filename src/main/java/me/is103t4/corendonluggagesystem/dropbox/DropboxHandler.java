@@ -43,12 +43,14 @@ public class DropboxHandler {
             return null;
         DbxClientV2 client = new DbxClientV2(config, PreferencesManager.get().get(PreferencesManager.DROPBOXKEY));
 
+        // create new file name for photo on dropbox
         String name = UUID.randomUUID().toString().replace("-", "") + "-" + LocalDate.now()
                 .format(DateTimeFormatter.ISO_DATE);
         String extension = file.getName().substring(file.getName().length() - 4);
         if (!extension.equalsIgnoreCase(".jpeg") && !extension.equalsIgnoreCase(".jpg") && !extension
                 .equalsIgnoreCase(".png"))
             return null;
+        // start new thread to not block the JavaFX one
         new Thread(() -> {
             try (InputStream in = new FileInputStream(file)) {
                 client.files().uploadBuilder("/" + name + "." + extension).uploadAndFinish(in);
@@ -59,6 +61,11 @@ public class DropboxHandler {
         return name + "." + extension;
     }
 
+    /**
+     * Gets image from dropbox. It returns void because the fetching is done in a seperate thread to not slow the application.
+     * @param name The name of the file to fetch
+     * @param callback The code to be executed after the file has been fetched. Will not execute if file was not found.
+     */
     public void getImage(String name, BiConsumer<BufferedImage, String> callback) {
         DbxClientV2 client = new DbxClientV2(config, PreferencesManager.get().get(PreferencesManager.DROPBOXKEY));
         new Thread(() -> {

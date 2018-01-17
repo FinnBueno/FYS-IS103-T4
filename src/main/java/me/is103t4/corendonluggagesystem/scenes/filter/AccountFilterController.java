@@ -13,6 +13,11 @@ import me.is103t4.corendonluggagesystem.scenes.main.tabs.AccountsController;
 
 import java.util.*;
 
+/**
+ * Controller for the account filter popup
+ *
+ * @author Roy Klein
+ */
 public class AccountFilterController extends Controller {
 
     @FXML
@@ -44,6 +49,10 @@ public class AccountFilterController extends Controller {
 
     private AccountsController overview;
 
+    /**
+     * custom version of postInit()
+     * @param accounts AccountController this popup originated from
+     */
     public void initializeParentValues(AccountsController accounts) {
         setEnterButton(applyButton);
 

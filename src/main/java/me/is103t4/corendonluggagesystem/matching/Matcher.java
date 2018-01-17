@@ -10,13 +10,18 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * A class used to start the matching process
+ *
+ * @author Juan Tombal
+ */
 public class Matcher {
 
     private final int severity;
     private final Luggage luggage;
     private final ResourceBundle bundle;
 
-    public Matcher(ResourceBundle bundle, Stage stage, Luggage luggage, int severity) {
+    public Matcher(ResourceBundle bundle, Luggage luggage, int severity) {
         this.bundle = bundle;
         this.luggage = luggage;
         this.severity = severity;

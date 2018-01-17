@@ -8,6 +8,7 @@ package me.is103t4.corendonluggagesystem.util;
 import java.util.prefs.Preferences;
 
 /**
+ * Class that manages preferences options
  *
  * @author Sebastiaan Wezenberg
  */

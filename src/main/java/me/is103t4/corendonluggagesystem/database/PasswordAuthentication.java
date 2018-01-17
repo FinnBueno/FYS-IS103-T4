@@ -5,6 +5,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
+/**
+ * Class used to check and authenticate users
+ */
 public class PasswordAuthentication {
 
     private PasswordAuthentication() throws InstantiationException {
@@ -83,6 +86,13 @@ public class PasswordAuthentication {
         return hash(password, salt);
     }
 
+    /**
+     * Compare 2 passwords using hash
+     * @param enteredPassword The password entered
+     * @param salt The salt of the stored password
+     * @param hashedPassword The stored password
+     * @return Whether the passwords match
+     */
     public static boolean compare(char[] enteredPassword, byte[] salt, byte[] hashedPassword) {
         byte[][] hashResult = hash(enteredPassword, salt);
         if (hashResult == null)

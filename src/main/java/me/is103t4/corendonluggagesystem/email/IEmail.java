@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 /**
  * A class used to build an email
  *
- * @author Finn Bon
+ * @author Tim van Ekert
  */
 public class IEmail {
 

@@ -22,12 +22,6 @@ public class DBHandler {
 
     public static final DBHandler INSTANCE = new DBHandler();
 
-    private final String host = "54.37.228.40";
-    private final int port = 3306;
-    private final String username = "corendon";
-    private final String password = "Corendon1";
-    private final String db = "corendon";
-
     private Connection connection;
     static final Logger LOGGER = Logger.getLogger(DBHandler.class.
             getName());
@@ -53,6 +47,7 @@ public class DBHandler {
      */
     public void open() throws ClassNotFoundException, SQLException {
 
+        // check if db has been configured using configuration tool
         String configured = PreferencesManager.get().get(PreferencesManager.DB_CONFIGURED);
         String user, pass, port, host, db;
         if (configured == null || !configured.equalsIgnoreCase("true")) {
@@ -88,6 +83,7 @@ public class DBHandler {
 
     /**
      * Wrapper class used to set the parameters used in {@link PreparedStatement}
+     * Kinda redundant seeing as we barely use it properly, but oh well
      */
     public static class PreparingStatement {
 
@@ -115,27 +111,9 @@ public class DBHandler {
             return this;
         }
 
-        public PreparingStatement setFloat(int i, float f) {
-            try {
-                ps.setFloat(i, f);
-            } catch (SQLException ex) {
-                LOGGER.log(Level.SEVERE, null, ex);
-            }
-            return this;
-        }
-
         public PreparingStatement setInt(int i, int j) {
             try {
                 ps.setInt(i, j);
-            } catch (SQLException ex) {
-                LOGGER.log(Level.SEVERE, null, ex);
-            }
-            return this;
-        }
-
-        public PreparingStatement setLong(int i, long l) {
-            try {
-                ps.setLong(i, l);
             } catch (SQLException ex) {
                 LOGGER.log(Level.SEVERE, null, ex);
             }
