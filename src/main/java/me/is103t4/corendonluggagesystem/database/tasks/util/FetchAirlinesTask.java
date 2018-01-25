@@ -23,7 +23,7 @@ public class FetchAirlinesTask extends DBTask<List<String>> {
     }
 
     @Override
-    protected Object call() throws Exception {
+    protected Object call() {
         String query = "SELECT * FROM flight_lines ORDER BY flight_id";
         try (PreparedStatement ps = conn.prepareStatement(query)) {
             ResultSet set = ps.executeQuery();
