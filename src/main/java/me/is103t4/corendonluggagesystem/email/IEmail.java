@@ -61,8 +61,8 @@ public class IEmail {
         return this;
     }
 
-    public IEmail setRecipients(String... recipients) {
-        this.recipients = Arrays.asList(recipients);
+    public IEmail setRecipients(String... addresses) {
+        this.recipients = Arrays.asList(addresses);
         return this;
     }
 
@@ -85,15 +85,8 @@ public class IEmail {
         return this;
     }
 
-    /**
-     * Sets the email's content to that of a HTML file
-     * @param url The URL to the file
-     * @param clear Whether to clear the previous content or not
-     * @return The email instance
-     */
-    public IEmail setContentFromURL(URL url, boolean clear) {
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(url.
-                openStream()))) {
+    public IEmail setContentFromURL(URL url) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()))) {
             String line;
             content = "";
             while ((line = br.readLine()) != null) {
@@ -103,6 +96,18 @@ public class IEmail {
             Logger.getLogger(IEmail.class.getName()).
                     log(Level.SEVERE, null, ex);
         }
+        return this;
+    }
+
+    /**
+     * Sets the email's content to that of a HTML file
+     * @param url The URL to the file
+     * @param clear Whether to clear the previous content or not
+     * @return The email instance
+     */
+    @Deprecated
+    public IEmail setContentFromURL(URL url, boolean clear) {
+        setContentFromURL(url);
         return this;
     }
 
