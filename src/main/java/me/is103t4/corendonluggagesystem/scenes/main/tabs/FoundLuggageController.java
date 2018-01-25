@@ -68,10 +68,6 @@ public class FoundLuggageController extends Controller {
         // set enter button
         setEnterButton(registerButton);
 
-        // I honestly have no clue what the hell is going on here, this check is the only way I found to possible fix it
-        if (typeBox == null)
-            return;
-
         luggageIDField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.length() > 10)
                 newValue = newValue.substring(0, 10);
