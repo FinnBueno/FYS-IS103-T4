@@ -112,7 +112,7 @@ public class IEmail {
     }
 
     public IEmail addLine(String line) {
-        content += "\nline";
+        content += "\n" + line;
         return this;
     }
 
