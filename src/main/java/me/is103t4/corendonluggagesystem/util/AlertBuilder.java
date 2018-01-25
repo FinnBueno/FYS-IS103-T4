@@ -39,7 +39,7 @@ public class AlertBuilder {
             bundle.getString("error"),
             bundle.getString("invalidDropbox"));
 
-    public static final AlertBuilder INVALID_SENDGRID= new AlertBuilder(Alert.AlertType.ERROR,
+    public static final AlertBuilder INVALID_SENDGRID = new AlertBuilder(Alert.AlertType.ERROR,
             bundle.getString("error"),
             bundle.getString("error"),
             bundle.getString("invalidSendgrid"));

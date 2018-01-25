@@ -5,6 +5,7 @@
  */
 package me.is103t4.corendonluggagesystem.scenes.main.tabs;
 
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -71,14 +72,13 @@ public class FoundLuggageController extends Controller {
         if (typeBox == null)
             return;
 
-        luggageIDField.textProperty().
-                addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
-                    if (newValue.length() > 10)
-                        newValue = newValue.substring(0, 10);
-                    if (!newValue.matches("\\d*"))
-                        newValue = newValue.replaceAll("[^\\d]", "");
-                    luggageIDField.setText(newValue);
-                });
+        luggageIDField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.length() > 10)
+                newValue = newValue.substring(0, 10);
+            if (!newValue.matches("\\d*"))
+                newValue = newValue.replaceAll("[^\\d]", "");
+            luggageIDField.setText(newValue);
+        });
 
         FetchAirlinesTask airlinesTask = new FetchAirlinesTask();
         airlinesTask.setOnSucceeded(v -> flightNumberBox.setItems(FXCollections.observableArrayList((List<String>)
@@ -97,7 +97,6 @@ public class FoundLuggageController extends Controller {
                 null, null, null, null, typeBox.getSelectionModel().getSelectedItem(), luggageIDField.getText(),
                 brandField.getText(), colorPicker.getValue(), characsField
                 .getText(), photo, flightNumberBox.getSelectionModel().getSelectedItem(), Account.getLoggedInUser());
-
 
         registerButton.setDisable(true);
         registerLuggageTask.setOnFailed(v -> {

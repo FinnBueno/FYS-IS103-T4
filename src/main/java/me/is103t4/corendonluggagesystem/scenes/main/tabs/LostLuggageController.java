@@ -8,6 +8,7 @@ package me.is103t4.corendonluggagesystem.scenes.main.tabs;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
@@ -142,7 +143,6 @@ public class LostLuggageController extends Controller {
 
     @FXML
     private void registerLostLuggage() {
-        System.out.println("3 : " + Thread.currentThread());
         if (checkEmptyFields())
             return;
 
@@ -165,7 +165,7 @@ public class LostLuggageController extends Controller {
             registerButton.setDisable(false);
             IEmail email = new IEmail("Lost Luggage Confirmation", true, emailField.
                     getText());
-            email.setContentFromURL(getClass().
+            email.setContentFromURL(LostLuggageController.this.getClass().
                     getResource("/email/lostRegisteredEmail.html"), true).
                     setParameters(txt -> {
                         txt = txt.replace("%%first%%", firstNameField.getText());
@@ -180,15 +180,14 @@ public class LostLuggageController extends Controller {
                         txt = txt.replace("%%email%%", emailField.getText());
                         txt = txt.replace("%%lugid%%", luggageIDField.getText());
                         txt = txt.replace("%%flight%%", flightNumberBox.getSelectionModel().getSelectedItem());
-                        txt = txt.
-                                replace("%%type%%", typeBox.
+                        txt = txt.replace("%%type%%", typeBox.
                                         getSelectionModel().
                                         getSelectedItem());
                         txt = txt.replace("%%brand%%", brandField.getText());
-                        txt = txt.
-                                replace("%%colour%%", colorUnknownCheckbox.
-                                        isSelected() ? "Unknown" : "<span style=\"color: " + toHex(colorPicker.
-                                        getValue()) + "; background-color: " + toHex(colorPicker.
+                        txt = txt.replace("%%colour%%", colorUnknownCheckbox.isSelected() ? "Unknown" : "<span style=\"color: " +
+                                        LostLuggageController.this.toHex(colorPicker.
+                                        getValue()) + "; background-color: " + LostLuggageController.this.toHex
+                                        (colorPicker.
                                         getValue()) + "\">|______________|</span>");
                         txt = txt.replace("%%characs%%", characsField.getText());
                         return txt;
@@ -196,8 +195,7 @@ public class LostLuggageController extends Controller {
             email.setAttachments(photo);
 
             try {
-                EmailSender.getInstance().
-                        send(email);
+                EmailSender.getInstance().send(email);
             } catch (Exception ignored) {
             }
 
@@ -218,7 +216,7 @@ public class LostLuggageController extends Controller {
                     flightNumberBox.getSelectionModel().getSelectedItem(),
                     typeBox.getSelectionModel().getSelectedItem(),
                     brandField.getText(),
-                    colorUnknownCheckbox.isSelected() ? "Unknown" : toHex(colorPicker.getValue()),
+                    colorUnknownCheckbox.isSelected() ? "Unknown" : LostLuggageController.this.toHex(colorPicker.getValue()),
                     characsField.getText(),
                     langBox.getSelectionModel().getSelectedIndex() == 0 ? "English" : "Dutch", file);
 

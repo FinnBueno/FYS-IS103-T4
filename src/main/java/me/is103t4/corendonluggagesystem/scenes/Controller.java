@@ -46,8 +46,7 @@ public abstract class Controller implements Initializable {
     protected ResourceBundle bundle;
 
     public void init(boolean postInit, ResourceBundle bundle) {
-        scene.addEventFilter(KeyEvent.KEY_PRESSED,
-                event -> {
+        scene.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
                     if (event.getCode() == KeyCode.ENTER && clickButton != null && isOpen())
                         clickButton.fire();
                 });

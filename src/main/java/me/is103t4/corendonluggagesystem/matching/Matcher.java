@@ -42,7 +42,6 @@ public class Matcher {
             stage.setTitle("Matching");
             stage.setScene(scene);
             stage.show();
-
         } catch (IOException e) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Failed to create new Window.", e);
         }
